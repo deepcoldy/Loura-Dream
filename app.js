@@ -2,15 +2,18 @@
 * @Author: hanjiyun
 * @Date:   2018-07-21 13:36:22
 * @Last Modified by:   hanjiyun
-* @Last Modified time: 2018-07-21 14:44:47
+* @Last Modified time: 2018-07-21 16:34:13
 */
 
 
 var express = require('express');
-var path = require('path');
 var app = express();
+var path = require('path');
+var timeout = require('connect-timeout');
+var bodyParser = require('body-parser');
+var compression = require('compression')
 var swig = require('swig')
-
+var cors = require('cors')
 var sassMiddleware = require('node-sass-middleware');
 var postcssMiddleware = require('postcss-middleware');
 var autoprefixer = require('autoprefixer');
@@ -18,22 +21,39 @@ var autoprefixer = require('autoprefixer');
 app.disable('x-powered-by');
 app.use(express.static('sites'));
 
+// Enable CORS with various options
+// https://github.com/expressjs/cors
+app.use(cors())
+
+// 设置默认超时时间
+app.use(timeout('15s'));
+
+// gzip
+app.use(compression())
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // 设置模板引擎
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 
 // 静态文件目录
-app.use(express.static('huana'));
+app.use(express.static('public'));
 
-// 不用缓存
+// 开发时不用缓存
 app.set('view cache', false);
 swig.setDefaults({ cache: false });
 
+// 后端 API
+var CommentAPI = require('./api/comment');
+// 可以将一类的路由单独保存在一个文件中
+app.use('/api/comment', CommentAPI);
 
+
+// 样式
 var srcPath = path.join(__dirname, 'huana/scss');
-var destPath = path.join(__dirname, 'huana/dist/css');
-
+var destPath = path.join(__dirname, 'public/dist/css');
 app.use('/stylesheets', sassMiddleware({
     /* Options */
     src: srcPath,
@@ -42,7 +62,6 @@ app.use('/stylesheets', sassMiddleware({
     outputStyle: 'compressed',
     // prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
 }));
-
 app.use('/stylesheets', postcssMiddleware({
   plugins: [
     // Plugins
@@ -60,8 +79,8 @@ app.use('/stylesheets', postcssMiddleware({
 }));
 
 
-
-app.get('/huana', function(req, res) {
+// 首页
+app.get('/', function(req, res) {
   var viewdata = {
     currentTime: new Date() + '',
 

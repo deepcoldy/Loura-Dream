@@ -2,7 +2,7 @@
 * @Author: hanjiyun
 * @Date:   2018-07-21 13:54:44
 * @Last Modified by:   hanjiyun
-* @Last Modified time: 2018-07-21 14:40:38
+* @Last Modified time: 2018-07-21 16:30:49
 */
 
 var clientWidth;
@@ -31,5 +31,7 @@ var clientHeight;
   win.addEventListener(resizeEvt, refreshRem, false);
   doc.addEventListener('DOMContentLoaded', refreshRem, false);
   refreshRem();
+
+  console.log('rem!!!')
 
 })(document, window);

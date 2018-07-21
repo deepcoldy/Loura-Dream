@@ -9,31 +9,18 @@
   <meta name="format-detection" content="address=no">
   <meta name="format-detection" content="email=no">
   <title>页面标题</title>
-  <link rel="shortcut icon" href="https://img3.doubanio.com/favicon.ico" type="image/x-icon">
+  <!-- <link rel="shortcut icon" href="" type="image/x-icon"> -->
   <meta property="og:title" content="页面标题">
   <meta property="og:description" content="页面简介">
   <meta property="og:site_name" content="站点名称">
   <meta property="og:url" content="">
   <meta property="og:image" content="">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/huana.css">
+  <link rel="stylesheet" type="text/css" href="./dist/css/huana.css">
 </head>
 <body>
 
-  {% if currentTime %}
-    <h1>{{ currentTime }}</h1>
-  {% endif %}
+  <h1>Hello world!</h1>
 
-  <ul>
-    {% for item in comments %}
-    <li>{{ item.user_name }}: {{ item.comment }}</li>
-    {% endfor %}
-  </ul>
-  
-  <script>
-    var currentTime = '{{ currentTime }}'
-    console.log(currentTime)
-  </script>
-  <script src="/js/huana.js"></script>
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 * @Author: hanjiyun
 * @Date:   2018-07-21 13:52:10
 * @Last Modified by:   hanjiyun
-* @Last Modified time: 2018-07-21 13:58:39
+* @Last Modified time: 2018-07-21 16:32:43
 */
 
 
@@ -28,11 +28,15 @@ $gray: #d6d6d6;
 $red: #f22435;
 
 
-
 body {
   font-family: system, -apple-system, ".SFNSDisplay-Regular", "PingfangSC", Roboto, Helvetica, Arial, sans-serif;
 }
 
 h1 {
-  color: #c00;
+  color: $red;
+}
+
+ul {
+  background: $gray;
+  color: #fff;
 }
