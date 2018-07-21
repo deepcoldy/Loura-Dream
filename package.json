@@ -1,0 +1,21 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "autoprefixer": "^8.5.1",
+    "express": "4.12.3",
+    "node-sass-middleware": "^0.11.0",
+    "postcss-middleware": "^1.1.4",
+    "swig": "^1.4.2"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "10.x"
+  }
+}
