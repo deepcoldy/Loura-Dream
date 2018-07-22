@@ -2,7 +2,7 @@
 * @Author: hanjiyun
 * @Date:   2018-07-21 20:14:12
 * @Last Modified by:   hanjiyun
-* @Last Modified time: 2018-07-22 13:21:05
+* @Last Modified time: 2018-07-22 14:15:15
 */
 
 
@@ -13,7 +13,7 @@ const getAllComments = () => {
     db.query("Select * from comments", (error, results, fields) => {
       if (error) {
         reject({
-          success: false,
+          error: 1,
           message: error
         })
       }
@@ -28,7 +28,7 @@ const getComments = (limit, page) => {
     db.query("Select * from comments LIMIT ? OFFSET ?", [limit, page * limit], (error, results, fields) => {
       if (error) {
         reject({
-          success: false,
+          error: 1,
           message: error
         })
       }
@@ -43,7 +43,7 @@ const getCommentById = (id) => {
     db.query("select * from comments where id=?", [id], (error, results, fields) => {
       if (error) {
         reject({
-          success: false,
+          error: 1,
           message: error
         })
       }
@@ -58,7 +58,7 @@ const addComment = (comment) => {
     db.query("Insert into comments SET ?", comment, (error, results, fields) => {
       if (error) {
         reject({
-          success: false,
+          error: 1,
           message: error
         })
       }
@@ -69,7 +69,7 @@ const addComment = (comment) => {
         resolve(data)
       }).catch(err => {
         reject({
-          success: false,
+          error: 1,
           message: err
         })
       })
