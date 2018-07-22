@@ -26,7 +26,7 @@
     $.ajax({
         url: 'http://127.0.0.1:3100/api/comment',
         type: 'get',
-        data: {'limit': -2, page: -1},
+        data: {'limit': 2, 'page': 1},
         success: (resp) => {
             console.log(resp)
         }
