@@ -64,9 +64,16 @@ export default {
       },
       transto4: {
         group: null,
-        Sky: null
+        Sky: {
+          group: null,
+          background: null,
+          cloud: null
+        }
       },
-      page4: null,
+      page4: {
+        group: null,
+        background: null
+      },
       page1Animate: null,
       sprite: [],
       interval: null
@@ -86,9 +93,9 @@ export default {
     setTimeout(() => {
       this.nextPage();
     }, 1500);
-    setTimeout(() => {
-      this.nextPage();
-    }, 6000);
+    // setTimeout(() => {
+    //   this.nextPage();
+    // }, 6000);
 
     // this.loadAssetsPage2();
     // this.layer.append(this.page2);
@@ -147,7 +154,6 @@ export default {
             duration: 500,
             fill: "forwards"
           });
-          this.moveToPage2();
         }, 150);
         // this.page1.group.animate(
         //   [
@@ -168,10 +174,11 @@ export default {
         this.Page3TransToPage4();
       }
       if (this.step === 4) {
-        this.page4.animate([{ x: 0 - 10 }, { x: 0 - 750 }], {
-          // iterations: Infinity,
-          duration: 2000
-        });
+        // this.page4.animate([{ x: 0 - 10 }, { x: 0 - 750 }], {
+        //   // iterations: Infinity,
+        //   duration: 2000
+        // });
+        // this.Page3TransToPage4();
       }
       this.step++;
     },
@@ -306,7 +313,6 @@ export default {
         this.nextFrame("WomanIndex", this.page1.Woman.length, 4);
       }, 100);
     },
-    moveToPage2() {},
     async loadAssetsPage2() {
       const scene = new Scene("#canvas", {
         viewport: ["auto", "auto"],
@@ -622,106 +628,167 @@ export default {
         this.nextFrame("GirlIndex", this.page3.Girl.length, 0, "page3");
       }, 100);
     },
-    Page3TransToPage4() {
+    async Page3TransToPage4() {
       clearInterval(this.interval);
+      this.Init("#canvas", "layer");
       this.transto4.group = new Group();
-      this.transto4.Sky = new Sprite(
+
+      this.transto4.group.append(
+        this.page3.background.attr({
+          width: 750,
+          height: 1336,
+          zIndex: 5
+        })
+      );
+      this.transto4.group.append(
+        this.page3.Girl[0].attr({
+          width: 260,
+          height: 600,
+          pos: [226, 510]
+        })
+      );
+      this.layer.append(this.transto4.group);
+      this.transto4.Sky.group = new Group().attr({
+        translate: [0, -1336],
+        zIndex: 9
+      });
+      this.transto4.Sky.background = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E5%A4%A9%E7%A9%BA%E8%83%8C%E6%99%AF.jpg"
       );
-      window.group = this.transto4.group.attr({
-        zIndex: 999
-      });
-      this.transto4.Sky.attr({
-        width: 750 * 1.5,
-        height: 1462 * 1.5,
-        zIndex: 6,
-        anchor: 0.5,
-        pos: [-375 * 1.5, -1462 * 1.5]
-      });
-      this.transto4.group.attr({
-        width: 750 * 1.5,
-        height: 1462 * 1.5,
-        zIndex: 6,
-        anchor: 0.5,
-        pos: [-375 * 1.5, -1462 * 1.5]
-      });
-      this.transto4.group.append(this.transto4.Sky);
-      this.layer.append(this.transto4.group);
+      this.transto4.Sky.group.append(this.transto4.Sky.background);
+      this.layer.append(this.transto4.Sky.group);
+      this.transto4.group.animate(
+        [{ translate: [0, 0] }, { translate: [0, 1336] }],
+        {
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      await this.transto4.Sky.group.animate(
+        [{ translate: [0, -1336] }, { translate: [0, 0] }],
+        {
+          duration: 1000,
+          fill: "forwards"
+        }
+      ).finished;
+      this.transto4.Sky.tree = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E6%A0%91.png"
+      );
+      this.transto4.Sky.group.append(
+        this.transto4.Sky.tree.attr({
+          pos: [0, 1336]
+        })
+      );
+      this.transto4.Sky.group.animate(
+        [{ translate: [0, 0] }, { translate: [0, -1336 - 400] }],
+        {
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      this.loadAssetsPage4();
+      // window.group = this.transto4.group.attr({
+      //   zIndex: 999
+      // });
+      // this.transto4.Sky.attr({
+      //   width: 750 * 1.5,
+      //   height: 1462 * 1.5,
+      //   zIndex: 6,
+      //   anchor: 0.5,
+      //   pos: [-375 * 1.5, -1462 * 1.5]
+      // });
+      // this.transto4.group.attr({
+      //   width: 750 * 1.5,
+      //   height: 1462 * 1.5,
+      //   zIndex: 6,
+      //   anchor: 0.5,
+      //   pos: [-375 * 1.5, -1462 * 1.5]
+      // });
+      // this.layer.append(this.transto4.group);
       // this.page3.group.animate([{ y: 668 * 1.5 }, { y: 668 * 1.5 + 200 }], {
       //   duration: 500,
       //   fill: "forwards"
       // });
-      this.transto4.group.animate(
-        [{ pos: [-375 * 1.5, -1462 * 1.5] }, { pos: [0, 0] }],
-        {
-          duration: 500,
-          fill: "forwards"
-        }
-      );
+      // this.transto4.group.animate(
+      //   [{ pos: [-375 * 1.5, -1462 * 1.5] }, { pos: [0, 0] }],
+      //   {
+      //     duration: 500,
+      //     fill: "forwards"
+      //   }
+      // );
       // this.page3.
     },
     loadAssetsPage4() {
-      const background = new Sprite(
+      this.page4.background = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/bg.png"
       );
-      const girl = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/lyx.png"
-      );
+      // this.page4.girl = new Sprite(
+      //   "https://test-1255639802.cos.ap-beijing.myqcloud.com/lyx.png"
+      // );
 
-      const boss = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/boss.png"
-      );
+      // this.page4.boss = new Sprite(
+      //   "https://test-1255639802.cos.ap-beijing.myqcloud.com/boss.png"
+      // );
 
-      girl.animate(
-        [
-          {
-            pos: [750, 764],
-            rotate: 0
-          },
-          {
-            pos: [760, 764],
-            rotate: 2
-          },
-          {
-            pos: [750, 764],
-            rotate: 0
-          }
-        ],
+      // girl.animate(
+      //   [
+      //     {
+      //       pos: [750, 764],
+      //       rotate: 0
+      //     },
+      //     {
+      //       pos: [760, 764],
+      //       rotate: 2
+      //     },
+      //     {
+      //       pos: [750, 764],
+      //       rotate: 0
+      //     }
+      //   ],
+      //   {
+      //     duration: 1000,
+      //     iterations: Infinity
+      //   }
+      // );
+      this.page4.group = new Group();
+      // this.page4.attr({
+      //   size: [750, 1331],
+      //   pos: [0, 0],
+      //   anchor: 0
+      // });
+
+      // girl.attr({
+      //   anchor: [1, 0.5],
+      //   pos: [750, 764]
+      // });
+
+      // boss.attr({
+      //   anchor: 0,
+      //   pos: [100, 464]
+      // });
+
+      // const newsman = new Sprite(
+      //   "https://test-1255639802.cos.ap-beijing.myqcloud.com/newsman.png"
+      // );
+
+      // newsman.attr({
+      //   anchor: 0,
+      //   pos: [0, 1070]
+      // });
+
+      this.page4.group.append(this.page4.background);
+      // this.page4.append(girl);
+      // this.page4.append(boss);
+      // this.page4.append(newsman);
+      this.layer.append(this.page4.group);
+
+      this.page4.group.animate(
+        [{ translate: [0, 1336 + 400] }, { translate: [0, 0] }],
         {
           duration: 1000,
-          iterations: Infinity
+          fill: "forwards"
         }
       );
-      this.page4 = new Group();
-      this.page4.attr({
-        size: [750, 1331],
-        pos: [0, 0],
-        anchor: 0
-      });
-
-      girl.attr({
-        anchor: [1, 0.5],
-        pos: [750, 764]
-      });
-
-      boss.attr({
-        anchor: 0,
-        pos: [100, 464]
-      });
-
-      const newsman = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/newsman.png"
-      );
-
-      newsman.attr({
-        anchor: 0,
-        pos: [0, 1070]
-      });
-
-      this.page4.append(background);
-      this.page4.append(girl);
-      this.page4.append(boss);
-      this.page4.append(newsman);
     },
     autoAnimatPage4() {}
   }
