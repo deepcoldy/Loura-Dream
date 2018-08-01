@@ -9,7 +9,7 @@
 
 <script>
 // @ is an alias to /src
-import { Scene, Sprite, Group } from "spritejs";
+import { Scene, Sprite, Group, Label } from "spritejs";
 
 export default {
   name: "home",
@@ -18,8 +18,22 @@ export default {
   },
   data() {
     return {
+      preload: [
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E8%83%8C%E6%99%AF.jpg",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E6%AD%8C%E7%8E%8B%E8%83%8C%E6%99%AF.jpg",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E5%A4%A9%E7%A9%BA%E8%83%8C%E6%99%AF.jpg",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E4%B8%AD%E9%97%B4%E8%BF%87%E6%B8%A1.jpg",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/1%E4%BA%91.png",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/2%E4%BA%91.png",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/3%E4%BA%91.png",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png",
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E6%A0%91.png"
+      ],
       step: 1,
       ratio: 0,
+      scene: null,
       layer: null,
       newlayer: null,
       page1: {
@@ -67,12 +81,25 @@ export default {
         Sky: {
           group: null,
           background: null,
-          cloud: null
+          cloud1: null,
+          cloud2: null,
+          cloud3: null,
+          tree: null
         }
       },
       page4: {
         group: null,
-        background: null
+        background: null,
+        Girl: [],
+        GirlIndex: 1,
+        Eye: null,
+        EyeIndex: 1,
+        FlashLight: [],
+        FlashLightIndex: 1,
+        GirlLoop: [],
+        GirlLoopIndex: 1,
+        Signature: [],
+        SignatureIndex: 1
       },
       page1Animate: null,
       sprite: [],
@@ -86,13 +113,28 @@ export default {
     // this.ratio = window.screen.availWidth / window.screen.availHeight;
   },
 
-  mounted() {
+  async mounted() {
+    this.preloadimg();
+    console.log(this.preload);
     this.Init("#canvas", "layer");
+    const label = new Label(this.loadingText).attr({
+      pos: [750 / 2, 1336 / 2],
+      anchor: 0.5
+    });
+    this.scene.on("preload", evt => {
+      label.text = `加载中... ${Math.floor(
+        (evt.loaded.length / evt.resources.length) * 100
+      )}%`;
+    });
+    this.layer.append(label);
+
+    await this.scene.preload(...this.preload);
+
     this.loadAssetsPage1();
-    this.nextPage();
-    setTimeout(() => {
-      this.nextPage();
-    }, 1500);
+    // this.nextPage();
+    // setTimeout(() => {
+    //   this.nextPage();
+    // }, 1500);
     // setTimeout(() => {
     //   this.nextPage();
     // }, 6000);
@@ -116,15 +158,129 @@ export default {
     // });
   },
   methods: {
+    preloadimg() {
+      let IMG = "";
+      for (let index = 0; index <= 21; index++) {
+        IMG = `
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90-3_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 0; index <= 21; index++) {
+        IMG = `
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/gas/%E6%B0%B4%E6%B1%BD_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 4; index <= 21; index++) {
+        IMG = `https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/man/%E5%8F%B3_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }.png`;
+        this.preload.push(IMG);
+      }
+      for (let index = 4; index <= 21; index++) {
+        //没有序号11
+        if (index !== 11) {
+          IMG = `https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/woman/%E9%A2%84%E5%90%88%E6%88%90-7_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }.png`;
+          this.preload.push(IMG);
+        }
+      }
+      for (let index = 0; index <= 9; index++) {
+        IMG = `https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left1/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png`;
+        this.preload.push(IMG);
+      }
+      for (let index = 0; index <= 9; index++) {
+        IMG = `
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/meijia/%E7%BE%8E%E5%98%89_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 0; index <= 9; index++) {
+        IMG = `
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left2/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 0; index <= 9; index++) {
+        IMG = `
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/eye/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 0; index <= 15; index++) {
+        IMG = `
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 0; index <= 10; index++) {
+        IMG = `
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left4/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 0; index <= 11; index++) {
+        IMG = `
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 0; index <= 27; index++) {
+        if ([2, 5, 8, 12, 15, 18, 23, 26].indexOf(index) === -1) {
+          IMG = `
+              https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/girl/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+                index.toString().length === 1 ? `0${index}` : index
+              }-min.png
+            `;
+          this.preload.push(IMG);
+        }
+      }
+      for (let index = 28; index <= 44; index++) {
+        IMG = `
+          https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/girlloop/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }-min.png
+        `;
+        this.preload.push(IMG);
+      }
+      for (let index = 10; index <= 24; index++) {
+        IMG = `
+          https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/signature/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }-min.png
+        `;
+        this.preload.push(IMG);
+      }
+    },
     Init(canvasid, name) {
       let stickMode = "height";
       if (this.ratio > 750 / 1331) stickMode = "width";
-      const scene = new Scene(canvasid, {
+      this.scene = new Scene(canvasid, {
         viewport: ["auto", "auto"],
         resolution: [750, 1331],
         stickMode
       });
-      this[name] = scene.layer();
+      this[name] = this.scene.layer();
     },
     nextPage() {
       // this.page1Animate = setInterval(() => {
@@ -551,16 +707,19 @@ export default {
         anchor: 0.5
       });
       this.page2.group.animate([{ x: 224 }, { x: -960 }], {
-        duration: 1000,
-        fill: "forwards"
+        duration: 500,
+        fill: "forwards",
+        easing: "ease-in"
       });
       await this.transto3.group.animate([{ x: 1975 }, { x: 781 }], {
-        duration: 1000,
-        fill: "forwards"
+        duration: 500,
+        fill: "forwards",
+        easing: "ease-in"
       }).finished;
       await this.transto3.group.animate([{ x: 781 }, { x: 270 }], {
-        duration: 500,
-        fill: "forwards"
+        duration: 100,
+        fill: "forwards",
+        easing: "linear"
       }).finished;
       this.loadAssetsPage3();
     },
@@ -584,11 +743,13 @@ export default {
       this.page3.group.append(this.page3.background);
       this.transto3.group.animate([{ x: 270 }, { x: -950 }], {
         // this.transto3.group.animate([{ x: 270 }, { x: 200 }], {
-        duration: 500,
+        duration: 300,
+        easing: "ease-out",
         fill: "forwards"
       });
       await this.page3.group.animate([{ x: 2020 }, { x: 800 }], {
-        duration: 500,
+        duration: 300,
+        easing: "ease-out",
         fill: "forwards"
       }).finished;
       this.page3.group.animate(
@@ -655,7 +816,32 @@ export default {
       this.transto4.Sky.background = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E5%A4%A9%E7%A9%BA%E8%83%8C%E6%99%AF.jpg"
       );
+      this.transto4.Sky.cloud1 = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/1%E4%BA%91.png"
+      );
+      this.transto4.Sky.cloud2 = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/2%E4%BA%91.png"
+      );
+      this.transto4.Sky.cloud3 = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/3%E4%BA%91.png"
+      );
       this.transto4.Sky.group.append(this.transto4.Sky.background);
+
+      this.transto4.Sky.group.append(
+        this.transto4.Sky.cloud1.attr({
+          pos: [310, 276]
+        })
+      );
+      this.transto4.Sky.group.append(
+        this.transto4.Sky.cloud2.attr({
+          pos: [33, 523]
+        })
+      );
+      this.transto4.Sky.group.append(
+        this.transto4.Sky.cloud3.attr({
+          pos: [338, 716]
+        })
+      );
       this.layer.append(this.transto4.Sky.group);
       this.transto4.group.animate(
         [{ translate: [0, 0] }, { translate: [0, 1336] }],
@@ -671,6 +857,59 @@ export default {
           fill: "forwards"
         }
       ).finished;
+
+      this.loadAssetsPage4();
+    },
+    async loadAssetsPage4() {
+      this.page4.background = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg"
+      ).attr({
+        height: 1336
+      });
+      for (let index = 0; index <= 27; index++) {
+        if ([2, 5, 8, 12, 15, 18, 23, 26].indexOf(index) === -1) {
+          const Girl = new Sprite(`
+            https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/girl/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+              index.toString().length === 1 ? `0${index}` : index
+            }-min.png
+          `);
+          Girl.attr({ zIndex: 6, pos: [460, 430] });
+          this.page4.Girl.push(Girl);
+        }
+      }
+      for (let index = 28; index <= 44; index++) {
+        const GirlLoop = new Sprite(`
+          https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/girlloop/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }-min.png
+        `);
+        GirlLoop.attr({ zIndex: 6, pos: [460, 430] });
+        this.page4.GirlLoop.push(GirlLoop);
+      }
+      for (let index = 10; index <= 24; index++) {
+        const Signature = new Sprite(`
+          https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/signature/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }-min.png
+        `);
+        Signature.attr({ zIndex: 6, pos: [410, 668] });
+        this.page4.Signature.push(Signature);
+      }
+      this.page4.Eye = new Sprite(`
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png
+      `);
+      this.page4.Eye.attr({ zIndex: 6, pos: [122, 486] });
+      this.page4.group = new Group();
+      this.page4.group.attr({
+        translate: [0, 1336 + 400]
+      });
+      this.page4.group.append(this.page4.background);
+      this.page4.group.append(this.page4.Girl[0]);
+      // this.page4.append(girl);
+      // this.page4.append(boss);
+      // this.page4.append(newsman);
+      this.layer.append(this.page4.group);
+
       this.transto4.Sky.tree = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E6%A0%91.png"
       );
@@ -686,111 +925,65 @@ export default {
           fill: "forwards"
         }
       );
-      this.loadAssetsPage4();
-      // window.group = this.transto4.group.attr({
-      //   zIndex: 999
-      // });
-      // this.transto4.Sky.attr({
-      //   width: 750 * 1.5,
-      //   height: 1462 * 1.5,
-      //   zIndex: 6,
-      //   anchor: 0.5,
-      //   pos: [-375 * 1.5, -1462 * 1.5]
-      // });
-      // this.transto4.group.attr({
-      //   width: 750 * 1.5,
-      //   height: 1462 * 1.5,
-      //   zIndex: 6,
-      //   anchor: 0.5,
-      //   pos: [-375 * 1.5, -1462 * 1.5]
-      // });
-      // this.layer.append(this.transto4.group);
-      // this.page3.group.animate([{ y: 668 * 1.5 }, { y: 668 * 1.5 + 200 }], {
-      //   duration: 500,
-      //   fill: "forwards"
-      // });
-      // this.transto4.group.animate(
-      //   [{ pos: [-375 * 1.5, -1462 * 1.5] }, { pos: [0, 0] }],
-      //   {
-      //     duration: 500,
-      //     fill: "forwards"
-      //   }
-      // );
-      // this.page3.
-    },
-    loadAssetsPage4() {
-      this.page4.background = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/bg.png"
-      );
-      // this.page4.girl = new Sprite(
-      //   "https://test-1255639802.cos.ap-beijing.myqcloud.com/lyx.png"
-      // );
-
-      // this.page4.boss = new Sprite(
-      //   "https://test-1255639802.cos.ap-beijing.myqcloud.com/boss.png"
-      // );
-
-      // girl.animate(
-      //   [
-      //     {
-      //       pos: [750, 764],
-      //       rotate: 0
-      //     },
-      //     {
-      //       pos: [760, 764],
-      //       rotate: 2
-      //     },
-      //     {
-      //       pos: [750, 764],
-      //       rotate: 0
-      //     }
-      //   ],
-      //   {
-      //     duration: 1000,
-      //     iterations: Infinity
-      //   }
-      // );
-      this.page4.group = new Group();
-      // this.page4.attr({
-      //   size: [750, 1331],
-      //   pos: [0, 0],
-      //   anchor: 0
-      // });
-
-      // girl.attr({
-      //   anchor: [1, 0.5],
-      //   pos: [750, 764]
-      // });
-
-      // boss.attr({
-      //   anchor: 0,
-      //   pos: [100, 464]
-      // });
-
-      // const newsman = new Sprite(
-      //   "https://test-1255639802.cos.ap-beijing.myqcloud.com/newsman.png"
-      // );
-
-      // newsman.attr({
-      //   anchor: 0,
-      //   pos: [0, 1070]
-      // });
-
-      this.page4.group.append(this.page4.background);
-      // this.page4.append(girl);
-      // this.page4.append(boss);
-      // this.page4.append(newsman);
-      this.layer.append(this.page4.group);
-
-      this.page4.group.animate(
+      await this.page4.group.animate(
         [{ translate: [0, 1336 + 400] }, { translate: [0, 0] }],
         {
           duration: 1000,
           fill: "forwards"
         }
-      );
+      ).finished;
+      this.animatPage4Once();
+      setTimeout(() => {
+        clearInterval(this.interval);
+        this.autoAnimatPage4();
+      }, this.page4.Girl.length * 100);
     },
-    autoAnimatPage4() {}
+    animatPage4Once() {
+      let flag = 0;
+      this.interval = setInterval(() => {
+        this.page4.group.clear();
+        this.page4.group.append(this.page4.background);
+        this.page4.group.append(this.page4.Girl[this.page4.GirlIndex]);
+        this.nextFrame("GirlIndex", this.page4.Girl.length, 0, "page4", "once");
+        if (flag % 10 === 0) {
+          this.page4.group.append(this.page4.Eye);
+        }
+        if (flag >= 3 && flag <= 16) {
+          this.page4.group.append(
+            this.page4.Signature[this.page4.SignatureIndex]
+          );
+          this.nextFrame(
+            "SignatureIndex",
+            this.page4.Signature.length,
+            0,
+            "page4"
+          );
+        } else if (flag > 16) {
+          this.page4.group.append(
+            this.page4.Signature[this.page4.Signature.length - 1]
+          );
+        }
+
+        flag++;
+      }, 100);
+    },
+    autoAnimatPage4() {
+      let flag = 0;
+      this.interval = setInterval(() => {
+        this.page4.group.clear();
+        if (flag % 20 === 0) {
+          this.page4.group.append(this.page4.Eye);
+        }
+        this.page4.group.append(this.page4.background);
+        this.page4.group.append(
+          this.page4.Signature[this.page4.Signature.length - 1]
+        );
+
+        this.page4.group.append(this.page4.GirlLoop[this.page4.GirlLoopIndex]);
+        this.nextFrame("GirlLoopIndex", this.page4.GirlLoop.length, 0, "page4");
+        flag++;
+      }, 100);
+    }
   }
 };
 </script>
