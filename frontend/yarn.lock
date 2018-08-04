@@ -3035,9 +3035,9 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
-fast-animation-frame@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/fast-animation-frame/-/fast-animation-frame-0.3.0.tgz#3bf8bcf58f04a19716ae21ec0cbbea7af5399041"
+fast-animation-frame@^0.3.2:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/fast-animation-frame/-/fast-animation-frame-0.3.3.tgz#09dca23584d61165d949a6b6334719c272f459ba"
   dependencies:
     babel-runtime "^6.26.0"
 
@@ -3518,6 +3518,10 @@ has-ansi@^2.0.0:
   resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-2.0.0.tgz#34f5049ce1ecdf2b0649af3ef24e45ed35416d91"
   dependencies:
     ansi-regex "^2.0.0"
+
+has-flag@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-1.0.0.tgz#9d9e793165ce017a00f00418c43f942a7b1d11fa"
 
 has-flag@^3.0.0:
   version "3.0.0"
@@ -4182,7 +4186,7 @@ joi@^13.0.0:
     isemail "3.x.x"
     topo "3.x.x"
 
-js-base64@^2.1.8:
+js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.8"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.8.tgz#57a9b130888f956834aa40c5b165ba59c758f033"
 
@@ -5582,6 +5586,13 @@ postcss-ordered-values@^4.0.0:
     postcss "^6.0.0"
     postcss-value-parser "^3.0.0"
 
+postcss-pxtorem@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/postcss-pxtorem/-/postcss-pxtorem-4.0.1.tgz#9c64d0efe4885473cc1cb0305c6ffc3ebb45b1cd"
+  dependencies:
+    object-assign "^4.1.0"
+    postcss "^5.2.10"
+
 postcss-reduce-initial@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/postcss-reduce-initial/-/postcss-reduce-initial-4.0.1.tgz#f2d58f50cea2b0c5dc1278d6ea5ed0ff5829c293"
@@ -5636,6 +5647,15 @@ postcss-unique-selectors@^4.0.0:
 postcss-value-parser@^3.0.0, postcss-value-parser@^3.2.3, postcss-value-parser@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-3.3.0.tgz#87f38f9f18f774a4ab4c8a232f5c5ce8872a9d15"
+
+postcss@^5.2.10:
+  version "5.2.18"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.18.tgz#badfa1497d46244f6390f58b319830d9107853c5"
+  dependencies:
+    chalk "^1.1.3"
+    js-base64 "^2.1.9"
+    source-map "^0.5.6"
+    supports-color "^3.2.3"
 
 postcss@^6.0.0, postcss@^6.0.1, postcss@^6.0.20, postcss@^6.0.23:
   version "6.0.23"
@@ -6511,55 +6531,56 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-sprite-animator@^1.8.5:
-  version "1.8.5"
-  resolved "https://registry.yarnpkg.com/sprite-animator/-/sprite-animator-1.8.5.tgz#ae429e222e10fae75ffc813a7cf8a141b410ba3d"
+sprite-animator@^1.10.2:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/sprite-animator/-/sprite-animator-1.10.3.tgz#7ffaa8404fdb9ad9640990ceff9384a2688d3174"
   dependencies:
     babel-runtime "^6.26.0"
     bezier-easing "^2.0.3"
-    sprite-timeline "^1.8.3"
+    sprite-timeline "^1.9.2"
 
-sprite-core@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/sprite-core/-/sprite-core-2.6.0.tgz#ac6966b5f9a856e31627ac5abe07cd0942a9726b"
+sprite-core@^2.9.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/sprite-core/-/sprite-core-2.9.2.tgz#86c26d047ca63fbb902081fad6e4e49f0daf4675"
   dependencies:
     babel-decorators-runtime "^0.2.0"
     babel-runtime "^6.26.0"
     css-line-break "^1.0.1"
-    fast-animation-frame "^0.3.0"
-    sprite-animator "^1.8.5"
-    sprite-math "^1.0.1"
-    sprite-utils "^1.10.0"
-    svg-path-to-canvas "^1.8.1"
+    fast-animation-frame "^0.3.2"
+    sprite-animator "^1.10.2"
+    sprite-math "^1.0.3"
+    sprite-timeline "^1.9.1"
+    sprite-utils "^1.11.0"
+    svg-path-to-canvas "^1.9.3"
 
-sprite-math@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/sprite-math/-/sprite-math-1.0.1.tgz#52004ee5e212dac00486aa339419708b861f130d"
+sprite-math@^1.0.3, sprite-math@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/sprite-math/-/sprite-math-1.0.4.tgz#f2ddc98b911d78f6b99828f5cede6166a75058f7"
   dependencies:
     babel-runtime "^6.26.0"
 
-sprite-timeline@^1.8.3:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/sprite-timeline/-/sprite-timeline-1.8.3.tgz#37ecaf96bbd5628192ba5c87fcffcaac665c8e03"
+sprite-timeline@^1.9.1, sprite-timeline@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/sprite-timeline/-/sprite-timeline-1.9.2.tgz#f6388c1ad430bca79c8ae29bbe301ce85dd49f49"
   dependencies:
     babel-runtime "^6.26.0"
 
-sprite-utils@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/sprite-utils/-/sprite-utils-1.10.0.tgz#33abb7cafc923b4e4ef0386bf4f1514cff452684"
+sprite-utils@^1.11.0:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/sprite-utils/-/sprite-utils-1.11.1.tgz#8181fbe86c29deb1d347ba6088fb9c920753f641"
   dependencies:
     babel-decorators-runtime "^0.2.0"
     babel-runtime "^6.26.0"
     color-string "^1.5.2"
 
-spritejs@^2.4.4:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/spritejs/-/spritejs-2.4.4.tgz#b1ccc5917811e3d746512d7e711a83b2286426d7"
+spritejs@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/spritejs/-/spritejs-2.7.1.tgz#bd3cd7bbc00f25b897b408571290573976fb2e40"
   dependencies:
     axios "^0.16.2"
     babel-decorators-runtime "^0.2.0"
     babel-runtime "^6.26.0"
-    sprite-core "^2.6.0"
+    sprite-core "^2.9.2"
 
 sshpk@^1.7.0:
   version "1.14.2"
@@ -6736,19 +6757,25 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
+supports-color@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
+  dependencies:
+    has-flag "^1.0.0"
+
 supports-color@^5.1.0, supports-color@^5.3.0, supports-color@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.4.0.tgz#1c6b337402c2137605efe19f10fec390f6faab54"
   dependencies:
     has-flag "^3.0.0"
 
-svg-path-to-canvas@^1.8.1:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/svg-path-to-canvas/-/svg-path-to-canvas-1.8.2.tgz#24bdddad9b05466e9d98c52c5d254990ece3102d"
+svg-path-to-canvas@^1.9.3:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/svg-path-to-canvas/-/svg-path-to-canvas-1.9.5.tgz#f93919809a3b17d4745ccbe53e7a2907ec980c36"
   dependencies:
     babel-runtime "^6.26.0"
     point-at-length "^1.1.0"
-    sprite-math "^1.0.1"
+    sprite-math "^1.0.4"
 
 svgo@^1.0.0:
   version "1.0.5"

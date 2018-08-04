@@ -113,6 +113,22 @@ export default {
         Flash3: null,
         Flash4: null
       },
+      page5: {
+        group: null,
+        Translation: [],
+        TranslationIndex: 1,
+        Loop: [],
+        LoopIndex: 1,
+        ToPage6: [],
+        ToPage6Index: 1,
+        Moon: null
+      },
+      page6: {
+        group: null,
+        CD: null,
+        Star: null,
+        Arrow: null
+      },
       page1Animate: null,
       sprite: [],
       interval: null
@@ -188,6 +204,9 @@ export default {
     // });
   },
   methods: {
+    toNextPage() {
+      this.$router.push("/dream");
+    },
     preloadimg() {
       let IMG = "";
       for (let index = 0; index <= 21; index++) {
@@ -313,16 +332,6 @@ export default {
       this[name] = this.scene.layer();
     },
     nextPage() {
-      // this.page1Animate = setInterval(() => {
-      //   this.page1.removeChild(this.index);
-      //   this.index = this.index - 1;
-      //   console.log(this.index);
-      //   if (this.index === 0) clearInterval(this.page1Animate);
-      // }, 100);
-      // setInterval(() => {
-      //   console.log(this.index);
-      //   // this.page1.removeChild(item);
-      // }, 50);
       if (this.step === 1) {
         clearInterval(this.interval);
         this.loadAssetsPage1(false);
@@ -341,30 +350,16 @@ export default {
             fill: "forwards"
           });
         }, 150);
-        // this.page1.group.animate(
-        //   [
-        //     { size: [750, 1331], pos: [0, 0], borderRadius: 0 },
-        //     { size: [126, 85], pos: [43, 442], borderRadius: 4 }
-        //   ],
-        //   {
-        //     // iterations: Infinity,
-        //     duration: 2000,
-        //     fill: "forwards"
-        //   }
-        // );
-      }
-      if (this.step === 2) {
+      } else if (this.step === 2) {
         this.Page2TransToPage3();
-      }
-      if (this.step === 3) {
+      } else if (this.step === 3) {
         this.Page3TransToPage4();
-      }
-      if (this.step === 4) {
-        // this.page4.animate([{ x: 0 - 10 }, { x: 0 - 750 }], {
-        //   // iterations: Infinity,
-        //   duration: 2000
-        // });
-        // this.Page3TransToPage4();
+      } else if (this.step === 4) {
+        this.Page4TransToPage5();
+      } else if (this.step === 5) {
+        this.Page5TransToPage6();
+      } else {
+        this.toNextPage();
       }
       this.step++;
     },
@@ -541,7 +536,6 @@ export default {
         resolution: [750 * 1.5, 1331 * 1.5]
       });
       this.layer = scene.layer();
-      this.layer.removeChild(this.page1.group);
       this.page2.background = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png"
       );
@@ -858,7 +852,6 @@ export default {
     },
     autoAnimatPage3() {
       this.interval = setInterval(() => {
-        this.page3.group.append(this.page3.background);
         this.page3.group.append(this.page3.Girl[this.page3.GirlIndex]);
 
         this.nextFrame("Girl", "GirlIndex", this.page3.Girl.length, 0, "page3");
@@ -988,39 +981,51 @@ export default {
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash1.png"
       ).attr({
         pos: [120, 1045],
-        opacity: 0
+        opacity: 0,
+        anchor: 0.5,
+        zIndex: 10
       });
       this.page4.Flash2 = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash2.png"
       ).attr({
         pos: [250, 1080],
-        opacity: 0
+        opacity: 0,
+        anchor: 0.5,
+        zIndex: 10
       });
       this.page4.Flash3 = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash3.png"
       ).attr({
         pos: [340, 1130],
-        opacity: 0
+        opacity: 0,
+        anchor: 0.5,
+        zIndex: 10
       });
       this.page4.Flash4 = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash4.png"
       ).attr({
         pos: [505, 1090],
-        opacity: 0
+        opacity: 0,
+        anchor: 0.5,
+        zIndex: 10
       });
       this.page4.group.append(this.page4.Flower);
       this.page4.group.append(this.page4.background);
       this.page4.group.append(this.page4.Girl[0]);
       this.page4.group.append(this.page4.Signature[0]);
-      this.page4.group.append(this.page4.Flash1);
-      this.page4.group.append(this.page4.Flash2);
-      this.page4.group.append(this.page4.Flash3);
-      this.page4.group.append(this.page4.Flash4);
+      this.layer.append(this.page4.Flash1);
+      this.layer.append(this.page4.Flash2);
+      this.layer.append(this.page4.Flash3);
+      this.layer.append(this.page4.Flash4);
       this.page4.group.append(this.page4.Eye);
       // this.page4.append(girl);
       // this.page4.append(boss);
       // this.page4.append(newsman);
-      this.layer.append(this.page4.group);
+      this.layer.append(
+        this.page4.group.attr({
+          zIndex: 2
+        })
+      );
 
       this.transto4.Sky.tree = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E6%A0%91.png"
@@ -1050,44 +1055,72 @@ export default {
         clearInterval(this.interval);
         this.autoAnimatPage4();
       }, this.page4.Girl.length * 100);
+      this.page3.group.clear();
     },
-    persistAnimatePage4() {
+    controlFlash(time) {
       this.page4.Flash1.animate(
-        [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }],
+        [
+          { opacity: 0 },
+          { opacity: 1 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 }
+        ],
         {
-          duration: 300,
+          duration: time,
           fill: "forwards",
           iterations: Infinity,
           delay: 250
         }
       );
       this.page4.Flash2.animate(
-        [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }],
+        [
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 1 },
+          { opacity: 0 }
+        ],
         {
-          duration: 300,
+          duration: time,
           fill: "forwards",
           iterations: Infinity,
           delay: 0
         }
       );
       this.page4.Flash3.animate(
-        [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }],
+        [
+          { opacity: 1 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 }
+        ],
         {
-          duration: 300,
+          duration: time,
           fill: "forwards",
           iterations: Infinity,
           delay: 170
         }
       );
       this.page4.Flash4.animate(
-        [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }],
+        [
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 1 }
+        ],
         {
-          duration: 300,
+          duration: time,
           fill: "forwards",
           iterations: Infinity,
           delay: 30
         }
       );
+    },
+    persistAnimatePage4() {
+      this.controlFlash(1500);
       setInterval(() => {
         this.page4.Eye.animate(
           [{ opacity: 0 }, { opacity: 1 }, { opacity: 0 }],
@@ -1115,7 +1148,6 @@ export default {
           this.page4.group.append(
             this.page4.Signature[this.page4.SignatureIndex]
           );
-          console.log(this.page4.SignatureIndex);
           this.nextFrame(
             "Signature",
             "SignatureIndex",
@@ -1157,6 +1189,308 @@ export default {
         );
         flag++;
       }, 100);
+    },
+    Page4TransToPage5() {
+      this.controlFlash(200);
+      this.page5.group = new Group();
+      for (let index = 23; index <= 28; index++) {
+        const Translation = new Sprite(`
+          https://test-1255639802.cos.ap-beijing.myqcloud.com/page5/translation/%E8%AF%9D%E5%89%A7-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }.jpg
+        `);
+        this.page5.Translation.push(
+          Translation.attr({
+            zIndex: 1
+          })
+        );
+      }
+      this.page5.group.append(this.page5.Translation[0]);
+      this.layer.append(
+        this.page5.group.attr({
+          zIndex: 1
+        })
+      );
+
+      this.page4.group.animate(
+        [
+          {
+            opacity: 1
+          },
+          {
+            opacity: 0
+          }
+        ],
+        {
+          easing: "ease-in",
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      const upDelay = 300;
+      this.page4.group.animate(
+        [
+          {
+            translate: [0, 0]
+          },
+          {
+            translate: [0, -1000]
+          }
+        ],
+        {
+          delay: upDelay,
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      this.page4.Flash1.animate(
+        [
+          {
+            translate: [0, 0]
+          },
+          {
+            translate: [0, -1000]
+          }
+        ],
+        {
+          delay: upDelay,
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      this.page4.Flash2.animate(
+        [
+          {
+            translate: [0, 0]
+          },
+          {
+            translate: [0, -1000]
+          }
+        ],
+        {
+          delay: upDelay,
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      this.page4.Flash3.animate(
+        [
+          {
+            translate: [0, 0]
+          },
+          {
+            translate: [0, -1000]
+          }
+        ],
+        {
+          delay: upDelay,
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      this.page4.Flash4.animate(
+        [
+          {
+            translate: [0, 0]
+          },
+          {
+            translate: [0, -1000]
+          }
+        ],
+        {
+          delay: upDelay,
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      this.page4.Flash1.animate([{ scale: 1 }, { scale: 0.2 }], {
+        delay: 950 + upDelay,
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.page4.Flash2.animate([{ scale: 1 }, { scale: 0.2 }], {
+        delay: 950 + upDelay,
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.page4.Flash3.animate([{ scale: 1 }, { scale: 0.2 }], {
+        delay: 950 + upDelay,
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.page4.Flash4.animate([{ scale: 1 }, { scale: 0.2 }], {
+        delay: 950 + upDelay,
+        duration: 1000,
+        fill: "forwards"
+      });
+      clearInterval(this.interval);
+      setTimeout(() => {
+        this.interval = setInterval(() => {
+          this.page5.group.append(
+            this.page5.Translation[this.page5.TranslationIndex]
+          );
+          console.log(this.page5.TranslationIndex);
+          this.nextFrame(
+            "Translation",
+            "TranslationIndex",
+            this.page5.Translation.length,
+            0,
+            "page5",
+            "once"
+          );
+          this.controlFlash(2000);
+        }, 150);
+        setTimeout(() => {
+          clearInterval(this.interval);
+          this.loadAssetsPage5();
+        }, this.page5.Translation.length * 150);
+      }, 1200);
+    },
+    loadAssetsPage5() {
+      for (let index = 25; index <= 37; index++) {
+        const Loop = new Sprite(`
+          https://test-1255639802.cos.ap-beijing.myqcloud.com/page5/loop/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }.jpg
+        `);
+        this.page5.Loop.push(
+          Loop.attr({
+            zIndex: 2
+          })
+        );
+      }
+      this.page5.Moon = new Sprite(
+        `https://test-1255639802.cos.ap-beijing.myqcloud.com/page5/%E6%9C%88%E4%BA%AE-min.png`
+      ).attr({
+        zIndex: 4,
+        pos: [500, 130],
+        opacity: 0
+      });
+      this.page5.group.append(this.page5.Moon);
+      this.page5.group.append(this.page5.Loop[0]);
+      this.page5.group.append(this.page5.Loop[0]);
+      this.autoAnimatPage5();
+    },
+    autoAnimatPage5() {
+      this.page5.Moon.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 500,
+        fill: "forwards"
+      });
+      this.interval = setInterval(() => {
+        this.page5.group.append(this.page5.Loop[this.page5.LoopIndex]);
+        this.nextFrame("Loop", "LoopIndex", this.page5.Loop.length, 0, "page5");
+      }, 125);
+    },
+    Page5TransToPage6() {
+      for (let index = 47; index <= 88; index++) {
+        const ToPage6 = new Sprite(`
+          https://test-1255639802.cos.ap-beijing.myqcloud.com/page5/topage6/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }.jpg
+        `);
+        this.page5.ToPage6.push(
+          ToPage6.attr({
+            zIndex: 3
+          })
+        );
+      }
+      this.page5.group.append(this.page5.ToPage6[0]);
+      this.page5.Moon.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 500,
+        fill: "forwards"
+      });
+      this.page6.Star = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page6/%E6%98%9F%E5%BA%A7-min.png"
+      ).attr({
+        zIndex: 5,
+        pos: [280, 20],
+        opacity: 0,
+        rotate: -10
+      });
+
+      this.page5.group.append(this.page6.Star);
+      this.page6.Star.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay: 2000,
+        duration: 500,
+        fill: "forwards"
+      });
+      clearInterval(this.interval);
+      this.interval = setInterval(() => {
+        this.page5.group.append(this.page5.ToPage6[this.page5.ToPage6Index]);
+        this.nextFrame(
+          "ToPage6",
+          "ToPage6Index",
+          this.page5.ToPage6.length,
+          0,
+          "page5",
+          "once"
+        );
+      }, 100);
+      setTimeout(() => {
+        this.autoAnimatPage6();
+      }, this.page5.ToPage6.length * 100);
+    },
+    autoAnimatPage6() {
+      this.page6.CD = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page6/%E4%B8%93%E8%BE%91%E5%9C%86-min.png"
+      ).attr({
+        zIndex: 4,
+        anchor: 0.5,
+        pos: [388, 708]
+      });
+
+      this.page5.group.append(this.page6.CD);
+      this.page6.CD.animate([{ rotate: 0 }, { rotate: 360 }], {
+        delay: 500,
+        duration: 5000,
+        iterations: Infinity
+      });
+      this.page6.Star.animate([{ rotate: -10 }, { rotate: 5 }], {
+        duration: 500,
+        fill: "forwards"
+      });
+      this.page6.Arrow = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page6/%E7%AE%AD%E5%A4%B4-min.png"
+      ).attr({
+        anchor: 0.5,
+        pos: [750 / 2, 1200],
+        opacity: 0,
+        zIndex: 5
+      });
+      this.page5.group.append(this.page6.Arrow);
+      this.page6.Arrow.animate(
+        [
+          {
+            opacity: 0
+          },
+          {
+            opacity: 1
+          }
+        ],
+        {
+          delay: 1000,
+          duration: 500,
+          fill: "forwards"
+        }
+      );
+      this.page6.Arrow.animate(
+        [
+          {
+            translate: [0, 0]
+          },
+          {
+            translate: [0, 50]
+          },
+          {
+            translate: [0, 0]
+          }
+        ],
+        {
+          delay: 1500,
+          duration: 800,
+          fill: "forwards"
+        }
+      );
     }
   }
 };
