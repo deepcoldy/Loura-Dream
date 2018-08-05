@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="layer" @click="nextPage()">
+    <div class="layer" @click="nextPage()"  style='-webkit-tap-highlight-color:rgba(255,0,0,0);'>
         <div id="dream"></div>
       </div>
   </div>
@@ -56,7 +56,7 @@ export default {
       // 看着这张新专辑
       this.text[0].attr({
         opacity: 0,
-        pos: [750 / 2, 95]
+        pos: [750 / 2, 115]
       })
     );
     this.group.append(
@@ -159,7 +159,7 @@ export default {
     this.group.append(this.Arrow);
     this.text.map((item, index) => {
       this.text[index].animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: 700 * index,
+        delay: 500 * index,
         duration: 500,
         fill: "forwards"
       });
@@ -198,7 +198,12 @@ export default {
           iterations: Infinity
         }
       );
-    }, 700 * this.text.length);
+    }, 500 * this.text.length);
+  },
+  methods: {
+    nextPage() {
+      this.$router.replace("/comment");
+    }
   }
 };
 </script>

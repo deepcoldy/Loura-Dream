@@ -7,6 +7,8 @@
     <transition :name="transitionName" >
       <router-view class="child-view"/>
     </transition>
+
+    <audio id='music' src="https://test-1255639802.cos.ap-beijing.myqcloud.com/10%20Naughty%20Ball%20%E5%A8%84%E8%89%BA%E6%BD%87%20DEMO.mp3" autoplay loop preload="preload"></audio>
   </div>
 </template>
 <script>
@@ -22,6 +24,54 @@ export default {
       const fromDepth = from.path.split("/").length;
       this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-top";
       console.log(this.transitionName);
+    }
+  },
+  mounted() {
+    this.autoPlayMusic();
+    this.audioAutoPlay();
+  },
+  methods: {
+    audioAutoPlay() {
+      var audio = document.getElementById("music");
+      audio.play();
+      document.addEventListener(
+        "WeixinJSBridgeReady",
+        function() {
+          audio.play();
+        },
+        false
+      );
+    },
+    // 音乐播放
+    autoPlayMusic() {
+      // 自动播放音乐效果，解决浏览器或者APP自动播放问题
+      function musicInBrowserHandler() {
+        this.musicPlay(true);
+        document.body.removeEventListener("touchstart", musicInBrowserHandler);
+      }
+      document.body.addEventListener("touchstart", musicInBrowserHandler);
+      // 自动播放音乐效果，解决微信自动播放问题
+      function musicInWeixinHandler() {
+        this.musicPlay(true);
+        document.addEventListener(
+          "WeixinJSBridgeReady",
+          function() {
+            this.musicPlay(true);
+          },
+          false
+        );
+        document.removeEventListener("DOMContentLoaded", musicInWeixinHandler);
+      }
+      document.addEventListener("DOMContentLoaded", musicInWeixinHandler);
+    },
+    musicPlay(isPlay) {
+      var media = document.querySelector("#music");
+      if (isPlay && media.paused) {
+        media.play();
+      }
+      if (!isPlay && !media.paused) {
+        media.pause();
+      }
     }
   }
 };
