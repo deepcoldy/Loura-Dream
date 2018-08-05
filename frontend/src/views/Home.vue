@@ -1,17 +1,17 @@
 <template>
   <div class="home">
     <div id="loading"></div>
-    <div class="layer" @click="nextPage()">
-      <div id="canvas"></div>
+    <div class="layer">
+      <div id="canvas" style='-webkit-tap-highlight-color:rgba(255,0,0,0);'></div>
     </div>
-    <!-- <audio src="https://test-1255639802.cos.ap-beijing.myqcloud.com/10%20Naughty%20Ball%20%E5%A8%84%E8%89%BA%E6%BD%87%20DEMO.mp3" autoplay controls="controls"></audio> -->
+    <audio id='music' src="https://test-1255639802.cos.ap-beijing.myqcloud.com/10%20Naughty%20Ball%20%E5%A8%84%E8%89%BA%E6%BD%87%20DEMO.mp3" autoplay preload="preload"></audio>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { Scene, Sprite, Group, Label } from "spritejs";
-import lottie from "lottie-web";
+// import lottie from "lottie-web";
 
 export default {
   name: "home",
@@ -38,11 +38,19 @@ export default {
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash3.png",
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash4.png"
       ],
-      step: 1,
+      step: 0,
       ratio: 0,
       scene: null,
       layer: null,
       newlayer: null,
+      prePage: {
+        group: null,
+        curtainLeft: null,
+        curtainRight: null,
+        Light: null,
+        Text: null,
+        Slate: null
+      },
       page1: {
         group: null,
         background: null,
@@ -68,8 +76,10 @@ export default {
         Girl3Index: 1,
         Eye4: [],
         Eye4Index: 1,
-        Girl5: [],
-        Girl5Index: 1,
+        Girl5: null,
+        Girl5Hand: null,
+        Box: null,
+        Microphone: null,
         Man6: [],
         Man6Index: 1
       },
@@ -135,6 +145,15 @@ export default {
     };
   },
   created() {
+    window.addEventListener(
+      // 避免在微信下 横屏后返回出现问题
+      "orientationchange",
+      function() {
+        // Announce the new orientation number
+        location.reload();
+      },
+      false
+    );
     this.ratio =
       document.documentElement.clientWidth /
       document.documentElement.clientHeight;
@@ -142,6 +161,51 @@ export default {
   },
 
   async mounted() {
+    function audioAutoPlay() {
+      var audio = document.getElementById("music");
+      audio.play();
+      document.addEventListener(
+        "WeixinJSBridgeReady",
+        function() {
+          audio.play();
+        },
+        false
+      );
+    }
+    // 音乐播放
+    function autoPlayMusic() {
+      // 自动播放音乐效果，解决浏览器或者APP自动播放问题
+      function musicInBrowserHandler() {
+        musicPlay(true);
+        document.body.removeEventListener("touchstart", musicInBrowserHandler);
+      }
+      document.body.addEventListener("touchstart", musicInBrowserHandler);
+      // 自动播放音乐效果，解决微信自动播放问题
+      function musicInWeixinHandler() {
+        musicPlay(true);
+        document.addEventListener(
+          "WeixinJSBridgeReady",
+          function() {
+            musicPlay(true);
+          },
+          false
+        );
+        document.removeEventListener("DOMContentLoaded", musicInWeixinHandler);
+      }
+      document.addEventListener("DOMContentLoaded", musicInWeixinHandler);
+    }
+    function musicPlay(isPlay) {
+      var media = document.querySelector("#music");
+      if (isPlay && media.paused) {
+        media.play();
+      }
+      if (!isPlay && !media.paused) {
+        media.pause();
+      }
+    }
+    autoPlayMusic();
+    audioAutoPlay();
+
     this.preloadimg();
     console.log(this.preload);
     let stickMode = "height";
@@ -154,14 +218,14 @@ export default {
       stickMode
     });
     this.layer = this.scene.layer();
-    const loading = lottie.loadAnimation({
-      container: document.getElementById("canvas"),
-      renderer: `canvas`,
-      loop: true,
-      autoplay: true,
-      path: `https://test-1255639802.cos.ap-beijing.myqcloud.com/loading.json`
-    });
-    loading.setSpeed(0.8);
+    // const loading = lottie.loadAnimation({
+    //   container: document.getElementById("canvas"),
+    //   renderer: `canvas`,
+    //   loop: true,
+    //   autoplay: true,
+    //   path: `https://test-1255639802.cos.ap-beijing.myqcloud.com/loading.json`
+    // });
+    // loading.setSpeed(0.8);
     const label = new Label(this.loadingText).attr({
       pos: [750 / 2 / 2, 1331 / 2 / 2 + 500],
       font: "bold 34px Arial",
@@ -176,32 +240,7 @@ export default {
 
     await this.scene.preload(...this.preload);
     this.Init("#canvas", "layer");
-    this.loadAssetsPage1();
-    // this.nextPage();
-    // setTimeout(() => {
-    //   this.nextPage();
-    // }, 2500);
-    // setTimeout(() => {
-    //   this.nextPage();
-    // }, 6000);
-
-    // this.loadAssetsPage2();
-    // this.layer.append(this.page2);
-    // this.loadAssetsPage4();
-    // layer.append(this.page4);
-
-    // const gif = new Sprite(
-    //   "https://test-1255639802.cos.ap-beijing.myqcloud.com/test.gif"
-    // );
-
-    // const robot = new Sprite(
-    //   "https://p5.ssl.qhimg.com/t01c33383c0e168c3c4.png"
-    // );
-
-    // robot.attr({
-    //   anchor: [0, 0.5],
-    //   pos: [0, 0]
-    // });
+    this.loadPrePage();
   },
   methods: {
     toNextPage() {
@@ -209,11 +248,11 @@ export default {
     },
     preloadimg() {
       let IMG = "";
-      for (let index = 0; index <= 21; index++) {
+      for (let index = 0; index <= 19; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90-3_000${
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90%203_000${
           index.toString().length === 1 ? `0${index}` : index
-        }.png
+        }-min.png
         `;
         this.preload.push(IMG);
       }
@@ -331,8 +370,52 @@ export default {
       });
       this[name] = this.scene.layer();
     },
-    nextPage() {
-      if (this.step === 1) {
+    async nextPage() {
+      if (this.step === 0) {
+        this.prePage.Text.animate([{ opacity: 1 }, { opacity: 0 }], {
+          duration: 1000,
+          fill: "forwards"
+        });
+        await this.prePage.Slate.animate([{ opacity: 1 }, { opacity: 0 }], {
+          duration: 1000,
+          fill: "forwards"
+        }).finished;
+        this.prePage.Light.animate([{ opacity: 1 }, { opacity: 0 }], {
+          duration: 1000,
+          fill: "forwards"
+        });
+        this.prePage.curtainLeft.animate(
+          [
+            {
+              translate: [0 + 1, 0]
+            },
+            {
+              translate: [-375, 0]
+            }
+          ],
+          {
+            duration: 1000,
+            fill: "forwards",
+            easing: "ease-in"
+          }
+        );
+        this.prePage.curtainRight.animate(
+          [
+            {
+              translate: [750 / 2 - 4, 0]
+            },
+            {
+              translate: [750, 0]
+            }
+          ],
+          {
+            duration: 1000,
+            fill: "forwards",
+            easing: "ease-in"
+          }
+        );
+        this.loadAssetsPage1();
+      } else if (this.step === 1) {
         clearInterval(this.interval);
         this.loadAssetsPage1(false);
         this.loadAssetsPage2();
@@ -403,22 +486,105 @@ export default {
         this[page][indexName] = this[page][indexName] + 1;
       }
     },
+    loadPrePage() {
+      this.prePage.group = new Group();
+      this.prePage.curtainLeft = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/curtainLeft.png"
+      ).attr({
+        translate: [0 + 1, 0]
+      });
+      this.prePage.curtainRight = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/curtainRight.png"
+      ).attr({
+        translate: [750 / 2 - 4, 0]
+      });
+      this.prePage.Light = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/light.png"
+      );
+      this.prePage.Text = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/text.png"
+      );
+      this.prePage.Slate = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png"
+      ).on("touchstart", async () => {
+        SlateAnimate.finish();
+        this.nextPage();
+        this.prePage.Slate.off("touchstart");
+      });
+
+      this.prePage.group.append(this.prePage.curtainLeft);
+      this.prePage.group.append(this.prePage.curtainRight);
+      this.prePage.group.append(this.prePage.Light);
+      this.prePage.group.append(
+        this.prePage.Slate.attr({
+          pos: [750 / 2, 900],
+          anchor: 0.5,
+          opacity: 0,
+          zIndex: 9
+        })
+      );
+      this.prePage.group.append(
+        this.prePage.Text.attr({
+          pos: [750 / 2, 500],
+          anchor: 0.5,
+          opacity: 0,
+          zIndex: 9
+        })
+      );
+      this.layer.append(
+        this.prePage.group.attr({
+          zIndex: 2
+        })
+      );
+      this.prePage.Text.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
+      const SlateAnimate = this.prePage.Slate.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        {
+          delay: 1000,
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      this.prePage.Slate.animate(
+        [{ scale: 0.9 }, { scale: 1 }, { scale: 0.9 }],
+        {
+          delay: 1000,
+          duration: 2000,
+          fill: "forwards",
+          iterations: Infinity
+        }
+      );
+    },
     loadAssetsPage1(auto = true) {
       this.page1.group = new Group();
-      this.page1.background = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E8%83%8C%E6%99%AF.jpg"
-      );
+      if (auto) {
+        // page1
+        this.page1.background = new Sprite(
+          "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E8%83%8C%E6%99%AF.jpg"
+        ).on("touchstart", () => {
+          this.page1.background.off("touchstart");
+          this.nextPage();
+        });
+      } else {
+        // page2用到
+        this.page1.background = new Sprite(
+          "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E8%83%8C%E6%99%AF.jpg"
+        );
+      }
       this.page1.microphone = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E9%BA%A6%E5%85%8B%E9%A3%8E.png"
       ).attr({
-        pos: [122, 400],
+        pos: [0, 415],
         zIndex: 2
       });
-      for (let index = 0; index <= 21; index++) {
+      for (let index = 0; index <= 19; index++) {
         const Girl = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90-3_000${
+        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90%203_000${
           index.toString().length === 1 ? `0${index}` : index
-        }.png
+        }-min.png
         `);
         Girl.attr({ zIndex: 1 });
         this.page1.Girl.push(
@@ -490,30 +656,10 @@ export default {
       this.page1.group.append(this.page1.GasLeft[0]);
       this.page1.group.append(this.page1.GasRight[0]);
       this.layer.append(this.page1.group);
-      // if (index === 0) {
-      //   background.attr({
-      //     opacity: 1
-      //   });
-      // }
-      // this.page1.background.push(background);
-      // for (let index = 0; index <= 101; index++) {
-      // const background = new Sprite(
-      //   `https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E8%80%83%E8%AF%95_00${
-      //     index.toString().length === 1
-      //       ? `00${index}`
-      //       : index.toString().length === 2
-      //         ? `0${index}`
-      //         : index
-      //   }.jpg`
-      // );
-
-      // }
       auto ? this.autoAnimatPage1() : "";
     },
     autoAnimatPage1() {
       this.interval = setInterval(() => {
-        this.page1.group.append(this.page1.background);
-        this.page1.group.append(this.page1.microphone);
         this.page1.group.append(this.page1.Girl[this.page1.GirlIndex]);
         this.page1.group.append(this.page1.GasLeft[this.page1.GasIndex]);
         this.page1.group.append(this.page1.GasRight[this.page1.GasIndex]);
@@ -532,6 +678,7 @@ export default {
     },
     async loadAssetsPage2() {
       const scene = new Scene("#canvas", {
+        // 为了提高page1所需的分辨率
         viewport: ["auto", "auto"],
         resolution: [750 * 1.5, 1331 * 1.5]
       });
@@ -633,23 +780,42 @@ export default {
           })
         );
       }
-      // Page2 Girl5
-      for (let index = 0; index <= 15; index++) {
-        const Girl5 = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
-          index.toString().length === 1 ? `0${index}` : index
-        }-min.png
-        `);
-        Girl5.attr({ zIndex: 5 });
-        this.page2.Girl5.push(
-          Girl5.attr({
-            width: 160 * 1.5,
-            height: 350 * 1.5,
-            pos: [413 * 1.5, 786 * 1.5],
-            zIndex: 5
-          })
-        );
-      }
+      this.page2.Girl5 = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E8%BA%AB%E4%BD%93-min.png"
+      ).attr({
+        width: 160 * 1.5,
+        height: 350 * 1.5,
+        pos: [413 * 1.5, 786 * 1.5],
+        zIndex: 5
+      });
+
+      this.page2.Girl5Hand = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E6%89%8B-min.png"
+      ).attr({
+        width: 35 * 1.5,
+        height: 26 * 1.5,
+        pos: [480 * 1.5, 928 * 1.5],
+        zIndex: 5
+      });
+
+      this.page2.Microphone = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E9%BA%A6%E5%85%8B%E9%A3%8E-min.png"
+      ).attr({
+        width: 42 * 1.5,
+        height: 39 * 1.5,
+        pos: [440 * 1.5 + 42 * 0.8, 910 * 1.5 + 39 * 0.8],
+        anchor: 0.5,
+        zIndex: 5,
+        scale: 0.9
+      });
+      this.page2.Box = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E7%A4%BC%E7%9B%92%E7%9B%96%E5%AD%90-min.png"
+      ).attr({
+        width: 72 * 1.5,
+        height: 56 * 1.5,
+        pos: [430 * 1.5, 890 * 1.5],
+        zIndex: 6
+      });
       // Page2 Man6
       for (let index = 0; index <= 10; index++) {
         const Man6 = new Sprite(`
@@ -671,7 +837,10 @@ export default {
       this.page2.group.append(this.page2.Girl2[0]);
       this.page2.group.append(this.page2.Girl3[0]);
       this.page2.group.append(this.page2.Eye4[0]);
-      this.page2.group.append(this.page2.Girl5[0]);
+      this.page2.group.append(this.page2.Girl5);
+      this.page2.group.append(this.page2.Girl5Hand);
+      this.page2.group.append(this.page2.Box);
+      this.page2.group.append(this.page2.Microphone);
       this.page2.group.append(this.page2.Man6[0]);
 
       this.layer.append(this.page2.group);
@@ -691,7 +860,7 @@ export default {
           }
         ],
         {
-          duration: 1000,
+          duration: 1500,
           fill: "forwards"
         }
       ).finished;
@@ -699,6 +868,49 @@ export default {
       this.autoAnimatPage2();
     },
     autoAnimatPage2() {
+      this.page2.Box.animate(
+        [
+          {
+            pos: [430 * 1.5, 890 * 1.5],
+            opacity: 1,
+            scale: 1
+          },
+          {
+            pos: [440 * 1.5, 880 * 1.5],
+            opacity: 0,
+            scale: 1.1
+          }
+        ],
+        {
+          duration: 1500,
+          fill: "forwards",
+          easing: "ease-in"
+        }
+      );
+      this.page2.Microphone.animate(
+        [
+          {
+            scale: 1
+          },
+          {
+            scale: 1.3
+          },
+          {
+            scale: 1
+          }
+        ],
+        {
+          duration: 1500,
+          fill: "forwards",
+          easing: "ease-in",
+          iterations: Infinity
+        }
+      );
+      this.page2.Microphone.on("touchstart", () => {
+        this.page2.Microphone.off("touchstart");
+        this.nextPage();
+      });
+      let flag = 0;
       this.interval = setInterval(() => {
         this.page2.group.append(this.page2.background);
         this.page2.group.append(this.page1.group);
@@ -706,7 +918,7 @@ export default {
         this.page2.group.append(this.page2.Girl2[this.page2.Girl2Index]);
         this.page2.group.append(this.page2.Girl3[this.page2.Girl3Index]);
         this.page2.group.append(this.page2.Eye4[this.page2.Eye4Index]);
-        this.page2.group.append(this.page2.Girl5[this.page2.Girl5Index]);
+        // this.page2.group.append(this.page2.Girl5[this.page2.Girl5Index]);
         this.page2.group.append(this.page2.Man6[this.page2.Man6Index]);
         this.nextFrame("Man1", "Man1Index", this.page2.Man1.length, 0, "page2");
         this.nextFrame(
@@ -716,53 +928,67 @@ export default {
           0,
           "page2"
         );
-        this.nextFrame(
-          "Girl3",
-          "Girl3Index",
-          this.page2.Girl3.length,
-          0,
-          "page2",
-          "once"
-        );
+        if (flag > 15) {
+          this.nextFrame(
+            "Girl3",
+            "Girl3Index",
+            this.page2.Girl3.length,
+            0,
+            "page2",
+            "once"
+          );
+        }
         this.nextFrame("Eye4", "Eye4Index", this.page2.Eye4.length, 0, "page2");
-        this.nextFrame(
-          "Girl5",
-          "Girl5Index",
-          this.page2.Girl5.length,
-          0,
-          "page2"
-        );
+        // this.nextFrame(
+        //   "Girl5",
+        //   "Girl5Index",
+        //   this.page2.Girl5.length,
+        //   0,
+        //   "page2"
+        // );
         this.nextFrame("Man6", "Man6Index", this.page2.Man6.length, 0, "page2");
+        flag++;
       }, 100);
     },
     async Page2TransToPage3() {
       clearInterval(this.interval);
-      this.transto3.group = new Group();
-      this.layer.append(this.transto3.group);
-      this.transto3.group.attr({
-        pos: [750 * 1.5, 0],
-        zIndex: 5
-      });
+      // this.transto3.group = new Group();
+      // this.layer.append(this.transto3.group);
+      // this.transto3.group.attr({
+      //   translate: [750 * 1.5, 0],
+      //   zIndex: 5,
+      //   anchor: 0
+      // });
       this.page3.transBackground = new Sprite(
         "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E4%B8%AD%E9%97%B4%E8%BF%87%E6%B8%A1.jpg"
-      );
-      this.transto3.group.append(
-        this.page3.transBackground.attr({
-          width: 711 * 1.5,
-          height: 1331 * 1.5
-        })
-      );
+      ).attr({
+        width: 711 * 1.5,
+        height: 1331 * 1.5,
+        translate: [750 * 1.5, 0]
+      });
+      this.page3.background = new Sprite(
+        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/3%E6%AD%8C%E7%8E%8B-%E5%8A%A0%E5%AD%97.jpg"
+      ).attr({
+        width: 750 * 1.5,
+        height: 1331 * 1.5,
+        translate: [750 * 1.5 + 711 * 1.5, 0]
+      });
+      this.page2.group.attr({
+        width: [750 * 1.5 + 711 * 1.5 + 750 * 1.5],
+        anchor: [375 / (750 + 711 + 750), 0.5]
+      });
+      this.page2.group.append(this.page3.transBackground);
+      this.page2.group.append(this.page3.background);
+
       await this.page2.group.animate(
+        //缩小
         [
           {
-            scale: 1,
-            x: 562.5,
-            y: 1002
+            scale: 1
           },
           {
             scale: 1.6,
-            x: 224,
-            y: 449
+            translate: [(-750 / 2) * 0.6, (-1331 / 2) * 0.6]
           }
         ],
         {
@@ -770,68 +996,19 @@ export default {
           fill: "forwards"
         }
       ).finished;
-      this.transto3.group.attr({
-        x: 1975,
-        y: 448,
-        scale: 1.6,
-        anchor: 0.5
-      });
-      this.page2.group.animate([{ x: 224 }, { x: -960 }], {
-        duration: 500,
-        fill: "forwards",
-        easing: "ease-in"
-      });
-      await this.transto3.group.animate([{ x: 1975 }, { x: 781 }], {
-        duration: 500,
-        fill: "forwards",
-        easing: "ease-in"
-      }).finished;
-      await this.transto3.group.animate([{ x: 781 }, { x: 270 }], {
-        duration: 100,
-        fill: "forwards",
-        easing: "linear"
-      }).finished;
-      this.loadAssetsPage3();
-    },
-    async loadAssetsPage3() {
-      this.page3.background = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E6%AD%8C%E7%8E%8B%E8%83%8C%E6%99%AF.jpg"
-      ).attr({
-        width: 750 * 1.5,
-        height: 1331 * 1.5
-      });
-      this.page3.group = new Group();
-      this.layer.append(this.page3.group);
-      this.page3.group.attr({
-        zIndex: 6,
-        anchor: 0.5,
-        // x: 1950,
-        x: 2020,
-        y: 450,
-        scale: 1.6
-      });
-      this.page3.group.append(this.page3.background);
-      this.transto3.group.animate([{ x: 270 }, { x: -950 }], {
-        // this.transto3.group.animate([{ x: 270 }, { x: 200 }], {
-        duration: 300,
-        easing: "ease-out",
-        fill: "forwards"
-      });
-      await this.page3.group.animate([{ x: 2020 }, { x: 800 }], {
-        duration: 300,
-        easing: "ease-out",
-        fill: "forwards"
-      }).finished;
-      this.page3.group.animate(
+
+      await this.page2.group.animate(
+        // 画面二转三
         [
-          { scale: 1.6, x: 800, y: 450 },
-          { scale: 1, x: 375 * 1.5, y: 668 * 1.5 }
+          { translate: [(-750 / 2) * 0.6, (-1331 / 2) * 0.6] },
+          { translate: [(-750 / 2) * 0.6 - 711 - 750 - 375, (-1331 / 2) * 0.6] }
         ],
         {
-          duration: 500,
-          fill: "forwards"
+          duration: 800,
+          fill: "forwards",
+          easing: "ease-in"
         }
-      );
+      ).finished;
       for (let index = 0; index <= 11; index++) {
         const Girl = new Sprite(`
         https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
@@ -841,13 +1018,68 @@ export default {
         Girl.attr({ zIndex: 6 });
         this.page3.Girl.push(
           Girl.attr({
-            width: 260 * 1.5,
-            height: 600 * 1.5,
-            pos: [226 * 1.5, 510 * 1.5]
+            width: 260,
+            height: 600,
+            pos: [226, 510]
           })
         );
       }
-      this.page3.group.append(this.page3.Girl[0]);
+      this.page2.group.append(
+        this.page3.Girl[0].attr({
+          width: 260 * 1.5,
+          height: 600 * 1.5,
+          pos: [226 * 1.5 + 750 * 1.5 + 711 * 1.5, 510 * 1.5]
+        })
+      );
+
+      await this.page2.group.animate(
+        //画面三缩小
+        [
+          {
+            scale: 1.6,
+            translate: [(-750 / 2) * 0.6 - 711 - 750 - 375, (-1331 / 2) * 0.6]
+          },
+          {
+            scale: 1,
+            translate: [-750 - 375 - 132, 0]
+          }
+        ],
+        {
+          duration: 800,
+          fill: "forwards"
+        }
+      ).finished;
+      this.loadAssetsPage3();
+    },
+    async loadAssetsPage3() {
+      const scene = new Scene("#canvas", {
+        // 还原分辨率
+        viewport: ["auto", "auto"],
+        resolution: [750, 1331]
+      });
+      this.layer = scene.layer();
+      this.page3.group = new Group();
+      this.layer.append(this.page3.group);
+      this.page3.group;
+
+      this.page3.group.append(
+        this.page3.background
+          .attr({
+            width: 750,
+            height: 1331,
+            translate: [0, 0]
+          })
+          .on("touchstart", () => {
+            this.nextPage();
+          })
+      );
+      this.page3.group.append(
+        this.page3.Girl[0].attr({
+          width: 260,
+          height: 600,
+          pos: [226, 510]
+        })
+      );
       this.autoAnimatPage3();
     },
     autoAnimatPage3() {
@@ -878,7 +1110,7 @@ export default {
       );
       this.layer.append(this.transto4.group);
       this.transto4.Sky.group = new Group().attr({
-        translate: [0, -1331],
+        translate: [0, -1462],
         zIndex: 9
       });
       this.transto4.Sky.background = new Sprite(
@@ -897,17 +1129,20 @@ export default {
 
       this.transto4.Sky.group.append(
         this.transto4.Sky.cloud1.attr({
-          pos: [310, 276]
+          pos: [750, 276]
+          // pos: [310, 276]
         })
       );
       this.transto4.Sky.group.append(
         this.transto4.Sky.cloud2.attr({
-          pos: [33, 523]
+          pos: [-362, 523]
+          // pos: [33, 523]
         })
       );
       this.transto4.Sky.group.append(
         this.transto4.Sky.cloud3.attr({
-          pos: [338, 716]
+          pos: [750, 716]
+          // pos: [338, 716]
         })
       );
       this.layer.append(this.transto4.Sky.group);
@@ -915,18 +1150,62 @@ export default {
         [{ translate: [0, 0] }, { translate: [0, 1331] }],
         {
           duration: 1000,
-          fill: "forwards"
+          fill: "forwards",
+          easing: "ease-in"
         }
       );
-      await this.transto4.Sky.group.animate(
-        [{ translate: [0, -1331] }, { translate: [0, 0] }],
+      this.transto4.Sky.group.animate(
+        [{ translate: [0, -1462] }, { translate: [0, 0] }],
         {
           duration: 1000,
-          fill: "forwards"
+          fill: "forwards",
+          easing: "ease-in"
+        }
+      ); // 天空进场完毕
+      // 云进场
+      this.transto4.Sky.cloud1.animate(
+        [{ pos: [750, 276] }, { pos: [280, 276] }, { pos: [310, 276] }],
+        {
+          duration: 1000,
+          delay: 800
+        }
+      );
+      this.transto4.Sky.cloud2.animate(
+        [{ pos: [-362, 523] }, { pos: [63, 523] }, { pos: [33, 523] }],
+        {
+          duration: 1000,
+          delay: 800
+        }
+      );
+      await this.transto4.Sky.cloud3.animate(
+        [{ pos: [750, 716] }, { pos: [298, 716] }, { pos: [338, 716] }],
+        {
+          duration: 1000,
+          delay: 800
         }
       ).finished;
-
-      this.loadAssetsPage4();
+      // 云返回
+      this.transto4.Sky.cloud1.animate(
+        [{ pos: [310, 276] }, { pos: [280, 276] }, { pos: [750, 276] }],
+        {
+          duration: 1000
+        }
+      );
+      this.transto4.Sky.cloud2.animate(
+        [{ pos: [33, 523] }, { pos: [63, 523] }, { pos: [-362, 523] }],
+        {
+          duration: 1000
+        }
+      );
+      this.transto4.Sky.cloud3.animate(
+        [{ pos: [338, 716] }, { pos: [298, 716] }, { pos: [750, 716] }],
+        {
+          duration: 1000
+        }
+      );
+      setTimeout(() => {
+        this.loadAssetsPage4();
+      }, 500);
     },
     async loadAssetsPage4() {
       this.page4.background = new Sprite(
@@ -1039,14 +1318,16 @@ export default {
         [{ translate: [0, 0] }, { translate: [0, -1331 - 400] }],
         {
           duration: 1000,
-          fill: "forwards"
+          fill: "forwards",
+          easing: "ease-in"
         }
       );
       await this.page4.group.animate(
         [{ translate: [0, 1331 + 400] }, { translate: [0, 0] }],
         {
           duration: 1000,
-          fill: "forwards"
+          fill: "forwards",
+          easing: "ease-in"
         }
       ).finished;
       this.animatPage4Once();
@@ -1187,6 +1468,10 @@ export default {
             scale
           })
         );
+        this.page4.Flower.off("touchstart");
+        this.page4.Flower.on("touchstart", () => {
+          this.nextPage();
+        });
         flag++;
       }, 100);
     },
@@ -1376,6 +1661,14 @@ export default {
         duration: 500,
         fill: "forwards"
       });
+      this.page5.Moon.animate([{ scale: 1 }, { scale: 0.9 }, { scale: 1 }], {
+        delay: 500,
+        duration: 100,
+        fill: "forwards"
+      });
+      this.page5.Moon.on("touchstart", () => {
+        this.nextPage();
+      });
       this.interval = setInterval(() => {
         this.page5.group.append(this.page5.Loop[this.page5.LoopIndex]);
         this.nextFrame("Loop", "LoopIndex", this.page5.Loop.length, 0, "page5");
@@ -1488,6 +1781,7 @@ export default {
         {
           delay: 1500,
           duration: 800,
+          iterations: Infinity,
           fill: "forwards"
         }
       );
