@@ -34,7 +34,7 @@ export default {
     });
     this.layer = this.scene.layer();
     this.background = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page7/%E8%83%8C%E6%99%AF.jpg"
+      "https://cdn.zoocer.com/page7/%E8%83%8C%E6%99%AF.jpg"
     );
     this.group = new Group();
     this.group.append(this.background);
@@ -44,10 +44,7 @@ export default {
     array.map((item, index) => {
       console.log(item);
       this.text.push(
-        new Sprite(
-          `https://test-1255639802.cos.ap-beijing.myqcloud.com/page7/${index +
-            1}.png`
-        ).attr({
+        new Sprite(`https://cdn.zoocer.com/page7/${index + 1}.png`).attr({
           anchor: 0.5
         })
       );
@@ -149,7 +146,7 @@ export default {
       })
     );
     this.Arrow = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page6/%E7%AE%AD%E5%A4%B4-min.png"
+      "https://cdn.zoocer.com/page6/%E7%AE%AD%E5%A4%B4-min.png"
     ).attr({
       anchor: 0.5,
       pos: [750 / 2, 1230],

@@ -8,7 +8,7 @@
       <router-view class="child-view"/>
     </transition>
 
-    <audio id='music' src="https://test-1255639802.cos.ap-beijing.myqcloud.com/10%20Naughty%20Ball%20%E5%A8%84%E8%89%BA%E6%BD%87%20DEMO.mp3" autoplay loop preload="preload"></audio>
+    <audio id='music' src="https://cdn.zoocer.com/10%20Naughty%20Ball%20%E5%A8%84%E8%89%BA%E6%BD%87%20DEMO.mp3" autoplay loop preload="preload"></audio>
   </div>
 </template>
 <script>

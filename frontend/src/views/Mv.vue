@@ -50,23 +50,23 @@ export default {
     });
     this.layer = this.scene.layer();
     this.background = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page9/%E8%83%8C%E6%99%AF.jpg"
+      "https://cdn.zoocer.com/page9/%E8%83%8C%E6%99%AF.jpg"
     );
     this.group = new Group();
     this.group.append(this.background);
     this.layer.append(this.group);
     this.tv = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page9/%E7%94%B5%E8%A7%86-min.png"
+      "https://cdn.zoocer.com/page9/%E7%94%B5%E8%A7%86-min.png"
     ).attr({ zIndex: 2 });
     this.group.append(this.tv);
     this.cover = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page9/%E9%9D%9E%E7%B1%BB-min.png"
+      "https://cdn.zoocer.com/page9/%E9%9D%9E%E7%B1%BB-min.png"
     ).attr({
       pos: [110, 190]
     });
     this.group.append(this.cover);
     this.playButton = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page9/%E6%92%AD%E6%94%BE%E6%8C%89%E9%92%AE-min.png"
+      "https://cdn.zoocer.com/page9/%E6%92%AD%E6%94%BE%E6%8C%89%E9%92%AE-min.png"
     ).attr({
       pos: [280, 290]
     });
@@ -77,28 +77,24 @@ export default {
       })
     );
 
-    this.button1 = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page9/button1.png"
-    ).attr({
+    this.button1 = new Sprite("https://cdn.zoocer.com/page9/button1.png").attr({
       pos: [240, 650]
     });
     this.group.append(this.button1);
     this.button1Active = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page9/button1-active.png"
+      "https://cdn.zoocer.com/page9/button1-active.png"
     ).attr({
       pos: [240, 650]
     });
     this.group.append(this.button1Active);
 
     this.button2Active = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page9/button2-active.png"
+      "https://cdn.zoocer.com/page9/button2-active.png"
     ).attr({
       pos: [230, 710]
     });
     this.group.append(this.button2Active);
-    this.button2 = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page9/button2.png"
-    ).attr({
+    this.button2 = new Sprite("https://cdn.zoocer.com/page9/button2.png").attr({
       pos: [230, 710]
     });
     this.group.append(this.button2);

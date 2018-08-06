@@ -21,22 +21,22 @@ export default {
   data() {
     return {
       preload: [
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E8%83%8C%E6%99%AF.jpg",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E6%AD%8C%E7%8E%8B%E8%83%8C%E6%99%AF.jpg",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E5%A4%A9%E7%A9%BA%E8%83%8C%E6%99%AF.jpg",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E4%B8%AD%E9%97%B4%E8%BF%87%E6%B8%A1.jpg",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/1%E4%BA%91.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/2%E4%BA%91.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/3%E4%BA%91.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E6%A0%91.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E6%8C%89%E9%92%AE-%E8%8A%B1.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash1.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash2.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash3.png",
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash4.png"
+        "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png",
+        "https://cdn.zoocer.com/page3/%E6%AD%8C%E7%8E%8B%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page3/%E5%A4%A9%E7%A9%BA%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page3/%E4%B8%AD%E9%97%B4%E8%BF%87%E6%B8%A1.jpg",
+        "https://cdn.zoocer.com/page3/1%E4%BA%91.png",
+        "https://cdn.zoocer.com/page3/2%E4%BA%91.png",
+        "https://cdn.zoocer.com/page3/3%E4%BA%91.png",
+        "https://cdn.zoocer.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png",
+        "https://cdn.zoocer.com/page4/%E6%A0%91.png",
+        "https://cdn.zoocer.com/page4/%E6%8C%89%E9%92%AE-%E8%8A%B1.png",
+        "https://cdn.zoocer.com/page4/flash1.png",
+        "https://cdn.zoocer.com/page4/flash2.png",
+        "https://cdn.zoocer.com/page4/flash3.png",
+        "https://cdn.zoocer.com/page4/flash4.png"
       ],
       step: 0,
       ratio: 0,
@@ -178,7 +178,7 @@ export default {
     //   renderer: `canvas`,
     //   loop: true,
     //   autoplay: true,
-    //   path: `https://test-1255639802.cos.ap-beijing.myqcloud.com/loading.json`
+    //   path: `https://cdn.zoocer.com/loading.json`
     // });
     // loading.setSpeed(0.8);
     const label = new Label(this.loadingText).attr({
@@ -205,7 +205,7 @@ export default {
       let IMG = "";
       for (let index = 0; index <= 19; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90%203_000${
+        https://cdn.zoocer.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90%203_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `;
@@ -213,14 +213,14 @@ export default {
       }
       for (let index = 0; index <= 21; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/gas/%E6%B0%B4%E6%B1%BD_000${
+        https://cdn.zoocer.com/page1/gas/%E6%B0%B4%E6%B1%BD_000${
           index.toString().length === 1 ? `0${index}` : index
         }.png
         `;
         this.preload.push(IMG);
       }
       for (let index = 4; index <= 21; index++) {
-        IMG = `https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/man/%E5%8F%B3_000${
+        IMG = `https://cdn.zoocer.com/page1/man/%E5%8F%B3_000${
           index.toString().length === 1 ? `0${index}` : index
         }.png`;
         this.preload.push(IMG);
@@ -228,21 +228,21 @@ export default {
       for (let index = 4; index <= 21; index++) {
         //没有序号11
         if (index !== 11) {
-          IMG = `https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/woman/%E9%A2%84%E5%90%88%E6%88%90-7_000${
+          IMG = `https://cdn.zoocer.com/page1/woman/%E9%A2%84%E5%90%88%E6%88%90-7_000${
             index.toString().length === 1 ? `0${index}` : index
           }.png`;
           this.preload.push(IMG);
         }
       }
       for (let index = 0; index <= 9; index++) {
-        IMG = `https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left1/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        IMG = `https://cdn.zoocer.com/page2/left1/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png`;
         this.preload.push(IMG);
       }
       for (let index = 0; index <= 9; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/meijia/%E7%BE%8E%E5%98%89_000${
+        https://cdn.zoocer.com/page2/meijia/%E7%BE%8E%E5%98%89_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `;
@@ -250,7 +250,7 @@ export default {
       }
       for (let index = 0; index <= 9; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left2/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page2/left2/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `;
@@ -258,7 +258,7 @@ export default {
       }
       for (let index = 0; index <= 9; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/eye/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page2/eye/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }.png
         `;
@@ -266,7 +266,7 @@ export default {
       }
       for (let index = 0; index <= 15; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page2/left3/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `;
@@ -274,7 +274,7 @@ export default {
       }
       for (let index = 0; index <= 10; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left4/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page2/left4/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `;
@@ -282,7 +282,7 @@ export default {
       }
       for (let index = 0; index <= 11; index++) {
         IMG = `
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `;
@@ -291,7 +291,7 @@ export default {
       for (let index = 0; index <= 27; index++) {
         if ([2, 5, 8, 12, 15, 18, 23, 26].indexOf(index) === -1) {
           IMG = `
-              https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/girl/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+              https://cdn.zoocer.com/page4/girl/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
                 index.toString().length === 1 ? `0${index}` : index
               }-min.png
             `;
@@ -300,7 +300,7 @@ export default {
       }
       for (let index = 28; index <= 44; index++) {
         IMG = `
-          https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/girlloop/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          https://cdn.zoocer.com/page4/girlloop/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
             index.toString().length === 1 ? `0${index}` : index
           }-min.png
         `;
@@ -308,7 +308,7 @@ export default {
       }
       for (let index = 10; index <= 24; index++) {
         IMG = `
-          https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/signature/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          https://cdn.zoocer.com/page4/signature/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
             index.toString().length === 1 ? `0${index}` : index
           }-min.png
         `;
@@ -444,23 +444,21 @@ export default {
     loadPrePage() {
       this.prePage.group = new Group();
       this.prePage.curtainLeft = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/curtainLeft.png"
+        "https://cdn.zoocer.com/prepage/curtainLeft.png"
       ).attr({
         translate: [0 + 1, 0]
       });
       this.prePage.curtainRight = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/curtainRight.png"
+        "https://cdn.zoocer.com/prepage/curtainRight.png"
       ).attr({
         translate: [750 / 2 - 4, 0]
       });
       this.prePage.Light = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/light.png"
+        "https://cdn.zoocer.com/prepage/light.png"
       );
-      this.prePage.Text = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/text.png"
-      );
+      this.prePage.Text = new Sprite("https://cdn.zoocer.com/prepage/text.png");
       this.prePage.Slate = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png"
+        "https://cdn.zoocer.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png"
       ).on("touchstart", async () => {
         SlateAnimate.finish();
         this.nextPage();
@@ -518,7 +516,7 @@ export default {
       if (auto) {
         // page1
         this.page1.background = new Sprite(
-          "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E8%83%8C%E6%99%AF.jpg"
+          "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg"
         ).on("touchstart", () => {
           this.page1.background.off("touchstart");
           this.nextPage();
@@ -526,18 +524,18 @@ export default {
       } else {
         // page2用到
         this.page1.background = new Sprite(
-          "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E8%83%8C%E6%99%AF.jpg"
+          "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg"
         );
       }
       this.page1.microphone = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/%E9%BA%A6%E5%85%8B%E9%A3%8E.png"
+        "https://cdn.zoocer.com/page1/%E9%BA%A6%E5%85%8B%E9%A3%8E.png"
       ).attr({
         pos: [0, 415],
         zIndex: 2
       });
       for (let index = 0; index <= 19; index++) {
         const Girl = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90%203_000${
+        https://cdn.zoocer.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90%203_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `);
@@ -550,12 +548,12 @@ export default {
       }
       for (let index = 0; index <= 21; index++) {
         const GasLeft = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/gas/%E6%B0%B4%E6%B1%BD_000${
+        https://cdn.zoocer.com/page1/gas/%E6%B0%B4%E6%B1%BD_000${
           index.toString().length === 1 ? `0${index}` : index
         }.png
         `);
         const GasRight = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/gas/%E6%B0%B4%E6%B1%BD_000${
+        https://cdn.zoocer.com/page1/gas/%E6%B0%B4%E6%B1%BD_000${
           index.toString().length === 1 ? `0${index}` : index
         }.png
         `);
@@ -575,7 +573,7 @@ export default {
       }
       for (let index = 4; index <= 21; index++) {
         const Man = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/man/%E5%8F%B3_000${
+        https://cdn.zoocer.com/page1/man/%E5%8F%B3_000${
           index.toString().length === 1 ? `0${index}` : index
         }.png
         `);
@@ -590,7 +588,7 @@ export default {
         //没有序号11
         if (index !== 11) {
           const Woman = new Sprite(`
-          https://test-1255639802.cos.ap-beijing.myqcloud.com/page1/woman/%E9%A2%84%E5%90%88%E6%88%90-7_000${
+          https://cdn.zoocer.com/page1/woman/%E9%A2%84%E5%90%88%E6%88%90-7_000${
             index.toString().length === 1 ? `0${index}` : index
           }.png
           `);
@@ -639,7 +637,7 @@ export default {
       });
       this.layer = scene.layer();
       this.page2.background = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png"
+        "https://cdn.zoocer.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png"
       );
       this.page2.group = new Group();
 
@@ -671,7 +669,7 @@ export default {
       // Page2 Man1
       for (let index = 0; index <= 9; index++) {
         const Man1 = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left1/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page2/left1/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `);
@@ -687,7 +685,7 @@ export default {
       // Page2 Girl2
       for (let index = 0; index <= 9; index++) {
         const Girl2 = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/meijia/%E7%BE%8E%E5%98%89_000${
+        https://cdn.zoocer.com/page2/meijia/%E7%BE%8E%E5%98%89_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `);
@@ -704,7 +702,7 @@ export default {
       // Page2 Girl3
       for (let index = 0; index <= 9; index++) {
         const Girl3 = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left2/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page2/left2/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `);
@@ -721,7 +719,7 @@ export default {
       // Page2 Eye4
       for (let index = 0; index <= 9; index++) {
         const Eye4 = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/eye/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page2/eye/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }.png
         `);
@@ -736,7 +734,7 @@ export default {
         );
       }
       this.page2.Girl5 = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E8%BA%AB%E4%BD%93-min.png"
+        "https://cdn.zoocer.com/page2/left3/%E8%BA%AB%E4%BD%93-min.png"
       ).attr({
         width: 160 * 1.5,
         height: 350 * 1.5,
@@ -745,7 +743,7 @@ export default {
       });
 
       this.page2.Girl5Hand = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E6%89%8B-min.png"
+        "https://cdn.zoocer.com/page2/left3/%E6%89%8B-min.png"
       ).attr({
         width: 35 * 1.5,
         height: 26 * 1.5,
@@ -754,7 +752,7 @@ export default {
       });
 
       this.page2.Microphone = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E9%BA%A6%E5%85%8B%E9%A3%8E-min.png"
+        "https://cdn.zoocer.com/page2/left3/%E9%BA%A6%E5%85%8B%E9%A3%8E-min.png"
       ).attr({
         width: 42 * 1.5,
         height: 39 * 1.5,
@@ -764,7 +762,7 @@ export default {
         scale: 0.9
       });
       this.page2.Box = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left3/%E7%A4%BC%E7%9B%92%E7%9B%96%E5%AD%90-min.png"
+        "https://cdn.zoocer.com/page2/left3/%E7%A4%BC%E7%9B%92%E7%9B%96%E5%AD%90-min.png"
       ).attr({
         width: 72 * 1.5,
         height: 56 * 1.5,
@@ -774,7 +772,7 @@ export default {
       // Page2 Man6
       for (let index = 0; index <= 10; index++) {
         const Man6 = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page2/left4/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page2/left4/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `);
@@ -915,14 +913,14 @@ export default {
       //   anchor: 0
       // });
       this.page3.transBackground = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E4%B8%AD%E9%97%B4%E8%BF%87%E6%B8%A1.jpg"
+        "https://cdn.zoocer.com/page3/%E4%B8%AD%E9%97%B4%E8%BF%87%E6%B8%A1.jpg"
       ).attr({
         width: 711 * 1.5,
         height: 1331 * 1.5,
         translate: [750 * 1.5, 0]
       });
       this.page3.background = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/3%E6%AD%8C%E7%8E%8B-%E5%8A%A0%E5%AD%97.jpg"
+        "https://cdn.zoocer.com/page3/3%E6%AD%8C%E7%8E%8B-%E5%8A%A0%E5%AD%97.jpg"
       ).attr({
         width: 750 * 1.5,
         height: 1331 * 1.5,
@@ -936,7 +934,7 @@ export default {
       this.page2.group.append(this.page3.background);
       for (let index = 0; index <= 11; index++) {
         const Girl = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+        https://cdn.zoocer.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
         `);
@@ -1069,16 +1067,16 @@ export default {
         zIndex: 9
       });
       this.transto4.Sky.background = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/%E5%A4%A9%E7%A9%BA%E8%83%8C%E6%99%AF.jpg"
+        "https://cdn.zoocer.com/page3/%E5%A4%A9%E7%A9%BA%E8%83%8C%E6%99%AF.jpg"
       );
       this.transto4.Sky.cloud1 = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/1%E4%BA%91.png"
+        "https://cdn.zoocer.com/page3/1%E4%BA%91.png"
       );
       this.transto4.Sky.cloud2 = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/2%E4%BA%91.png"
+        "https://cdn.zoocer.com/page3/2%E4%BA%91.png"
       );
       this.transto4.Sky.cloud3 = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page3/3%E4%BA%91.png"
+        "https://cdn.zoocer.com/page3/3%E4%BA%91.png"
       );
       this.transto4.Sky.group.append(this.transto4.Sky.background);
 
@@ -1145,14 +1143,14 @@ export default {
     },
     async loadAssetsPage4() {
       this.page4.background = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg"
+        "https://cdn.zoocer.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg"
       ).attr({
         height: 1331
       });
       for (let index = 0; index <= 27; index++) {
         if ([2, 5, 8, 12, 15, 18, 23, 26].indexOf(index) === -1) {
           const Girl = new Sprite(`
-            https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/girl/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            https://cdn.zoocer.com/page4/girl/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
               index.toString().length === 1 ? `0${index}` : index
             }-min.png
           `);
@@ -1162,7 +1160,7 @@ export default {
       }
       for (let index = 28; index <= 44; index++) {
         const GirlLoop = new Sprite(`
-          https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/girlloop/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          https://cdn.zoocer.com/page4/girlloop/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
             index.toString().length === 1 ? `0${index}` : index
           }-min.png
         `);
@@ -1171,7 +1169,7 @@ export default {
       }
       for (let index = 10; index <= 24; index++) {
         const Signature = new Sprite(`
-          https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/signature/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          https://cdn.zoocer.com/page4/signature/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
             index.toString().length === 1 ? `0${index}` : index
           }-min.png
         `);
@@ -1179,7 +1177,7 @@ export default {
         this.page4.Signature.push(Signature);
       }
       this.page4.Eye = new Sprite(`
-        https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png
+        https://cdn.zoocer.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png
       `);
       this.page4.Eye.attr({ zIndex: 6, pos: [122, 486], opacity: 0 });
       this.page4.group = new Group();
@@ -1187,7 +1185,7 @@ export default {
         translate: [0, 1331 + 400]
       });
       this.page4.Flower = new Sprite(
-        `https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E6%8C%89%E9%92%AE-%E8%8A%B1.png`
+        `https://cdn.zoocer.com/page4/%E6%8C%89%E9%92%AE-%E8%8A%B1.png`
       ).attr({
         pos: [315 + 45, 750 + 71 / 2],
         anchor: 0.5,
@@ -1195,7 +1193,7 @@ export default {
         opacity: 0
       });
       this.page4.Flash1 = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash1.png"
+        "https://cdn.zoocer.com/page4/flash1.png"
       ).attr({
         pos: [120, 1045],
         opacity: 0,
@@ -1203,7 +1201,7 @@ export default {
         zIndex: 10
       });
       this.page4.Flash2 = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash2.png"
+        "https://cdn.zoocer.com/page4/flash2.png"
       ).attr({
         pos: [250, 1080],
         opacity: 0,
@@ -1211,7 +1209,7 @@ export default {
         zIndex: 10
       });
       this.page4.Flash3 = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash3.png"
+        "https://cdn.zoocer.com/page4/flash3.png"
       ).attr({
         pos: [340, 1130],
         opacity: 0,
@@ -1219,7 +1217,7 @@ export default {
         zIndex: 10
       });
       this.page4.Flash4 = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/flash4.png"
+        "https://cdn.zoocer.com/page4/flash4.png"
       ).attr({
         pos: [505, 1090],
         opacity: 0,
@@ -1245,7 +1243,7 @@ export default {
       );
 
       this.transto4.Sky.tree = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page4/%E6%A0%91.png"
+        "https://cdn.zoocer.com/page4/%E6%A0%91.png"
       );
       this.transto4.Sky.group.append(
         this.transto4.Sky.tree.attr({
@@ -1419,7 +1417,7 @@ export default {
       this.page5.group = new Group();
       for (let index = 23; index <= 35; index++) {
         const Translation = new Sprite(`
-          https://test-1255639802.cos.ap-beijing.myqcloud.com/page5/translation/%E8%AF%9D%E5%89%A7-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          https://cdn.zoocer.com/page5/translation/%E8%AF%9D%E5%89%A7-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
             index.toString().length === 1 ? `0${index}` : index
           }.jpg
         `);
@@ -1573,7 +1571,7 @@ export default {
     loadAssetsPage5() {
       for (let index = 25; index <= 37; index++) {
         const Loop = new Sprite(`
-          https://test-1255639802.cos.ap-beijing.myqcloud.com/page5/loop/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
+          https://cdn.zoocer.com/page5/loop/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
             index.toString().length === 1 ? `0${index}` : index
           }.jpg
         `);
@@ -1584,7 +1582,7 @@ export default {
         );
       }
       this.page5.Moon = new Sprite(
-        `https://test-1255639802.cos.ap-beijing.myqcloud.com/page5/%E6%9C%88%E4%BA%AE-min.png`
+        `https://cdn.zoocer.com/page5/%E6%9C%88%E4%BA%AE-min.png`
       ).attr({
         zIndex: 4,
         pos: [500 + 209 / 2, 100 + 225 / 2],
@@ -1618,7 +1616,7 @@ export default {
     Page5TransToPage6() {
       for (let index = 47; index <= 88; index++) {
         const ToPage6 = new Sprite(`
-          https://test-1255639802.cos.ap-beijing.myqcloud.com/page5/topage6/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
+          https://cdn.zoocer.com/page5/topage6/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
             index.toString().length === 1 ? `0${index}` : index
           }.jpg
         `);
@@ -1634,7 +1632,7 @@ export default {
         fill: "forwards"
       });
       this.page6.Star = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page6/%E6%98%9F%E5%BA%A7-min.png"
+        "https://cdn.zoocer.com/page6/%E6%98%9F%E5%BA%A7-min.png"
       ).attr({
         zIndex: 5,
         pos: [280, 20],
@@ -1666,7 +1664,7 @@ export default {
     },
     autoAnimatPage6() {
       this.page6.CD = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page6/%E4%B8%93%E8%BE%91%E5%9C%86-min.png"
+        "https://cdn.zoocer.com/page6/%E4%B8%93%E8%BE%91%E5%9C%86-min.png"
       ).attr({
         zIndex: 4,
         anchor: 0.5,
@@ -1684,7 +1682,7 @@ export default {
         fill: "forwards"
       });
       this.page6.Arrow = new Sprite(
-        "https://test-1255639802.cos.ap-beijing.myqcloud.com/page6/%E7%AE%AD%E5%A4%B4-min.png"
+        "https://cdn.zoocer.com/page6/%E7%AE%AD%E5%A4%B4-min.png"
       ).attr({
         anchor: 0.5,
         pos: [750 / 2, 1200],
