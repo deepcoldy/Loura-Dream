@@ -36,7 +36,7 @@ export default {
       audio.play();
       document.addEventListener(
         "WeixinJSBridgeReady",
-        function() {
+        () => {
           audio.play();
         },
         false
@@ -45,23 +45,23 @@ export default {
     // 音乐播放
     autoPlayMusic() {
       // 自动播放音乐效果，解决浏览器或者APP自动播放问题
-      function musicInBrowserHandler() {
+      const musicInBrowserHandler = () => {
         this.musicPlay(true);
         document.body.removeEventListener("touchstart", musicInBrowserHandler);
-      }
+      };
       document.body.addEventListener("touchstart", musicInBrowserHandler);
       // 自动播放音乐效果，解决微信自动播放问题
-      function musicInWeixinHandler() {
+      const musicInWeixinHandler = () => {
         this.musicPlay(true);
         document.addEventListener(
           "WeixinJSBridgeReady",
-          function() {
+          () => {
             this.musicPlay(true);
           },
           false
         );
         document.removeEventListener("DOMContentLoaded", musicInWeixinHandler);
-      }
+      };
       document.addEventListener("DOMContentLoaded", musicInWeixinHandler);
     },
     musicPlay(isPlay) {
@@ -69,7 +69,9 @@ export default {
       if (isPlay && media.paused) {
         media.play();
       }
+      console.log(isPlay, media.paused);
       if (!isPlay && !media.paused) {
+        console.log("in");
         media.pause();
       }
     }
@@ -124,29 +126,6 @@ body {
   opacity: 0;
   -webkit-transform: translate(0, -1331px);
   transform: translate(0, -1331px);
-}
-@media screen and (min-width: 320px) {
-  html {
-    font-size: 10px;
-  }
-}
-
-@media screen and (min-width: 375px) {
-  html {
-    font-size: 12px;
-  }
-}
-
-@media screen and(min-width:414px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@media screen and(min-width:600px) {
-  html {
-    font-size: 16px;
-  }
 }
 </style>
 

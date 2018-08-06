@@ -40,7 +40,7 @@ export default {
     this.group.append(this.background);
     this.layer.append(this.group);
     this.comment = new Sprite(
-      "https://cdn.zoocer.com/page8/%E5%BC%B9%E5%B9%95-min.png"
+      "https://cdn.zoocer.com/page8/%E5%BC%B9%E5%B9%952-min.png"
     );
     this.group.append(this.comment);
     this.comment.animate([{ translate: [0, 0] }, { translate: [-2764, 0] }], {

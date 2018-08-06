@@ -2,7 +2,7 @@ module.exports = {
   plugins: {
     autoprefixer: {},
     "postcss-pxtorem": {
-      rootValue: 12,
+      rootValue: 75,
       unitPrecision: 5,
       propWhiteList: [
         'font', 'font-size', 'line-height', 'letter-spacing', 'min-height',

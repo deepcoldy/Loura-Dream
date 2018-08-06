@@ -3,11 +3,11 @@
     <div class="layer" style='-webkit-tap-highlight-color:rgba(255,0,0,0);'>
       <div id="video"></div>
     </div>
-    <video id="test" controls="" preload="true" mediagroup="myVideoGroup" poster="http://media.w3.org/2010/05/sintel/poster.png"> 
-      <source id="mp4" src="https://ss.archirookies.com/assets/lili.mp4" type="video/mp4"> 
+    <video id="test" controls="" preload="auto" mediagroup="myVideoGroup" poster="https://cdn.zoocer.com/page9/%E9%9D%9E%E7%B1%BB-min.png"> 
+      <source id="mp4" src="https://test-1255639802.cos.ap-beijing.myqcloud.com/%E5%A5%BD%E6%83%B3%E4%BB%96converted.mp4" type="video/mp4"> 
       <p>Your user agent does not support the HTML5 Video element.</p> 
-    </video> 
-    <iframe v-if="shadow" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=o00279bx3os&tiny=0" allowfullscreen="auto"></iframe>
+    </video>
+    <img @click="play()" class="tv" src="https://cdn.zoocer.com/page9/%E7%94%B5%E8%A7%86-min.png" alt="">
   </div>
 </template>
 
@@ -31,9 +31,12 @@ export default {
     };
   },
   mounted() {
+    setTimeout(() => {
+      this.$parent.musicPlay(false);
+    }, 2000);
     document.addEventListener(
       "WeixinJSBridgeReady",
-      function() {
+      () => {
         document.getElementById("test").play();
       },
       false
@@ -55,27 +58,27 @@ export default {
     this.group = new Group();
     this.group.append(this.background);
     this.layer.append(this.group);
-    this.tv = new Sprite(
-      "https://cdn.zoocer.com/page9/%E7%94%B5%E8%A7%86-min.png"
-    ).attr({ zIndex: 2 });
-    this.group.append(this.tv);
-    this.cover = new Sprite(
-      "https://cdn.zoocer.com/page9/%E9%9D%9E%E7%B1%BB-min.png"
-    ).attr({
-      pos: [110, 190]
-    });
-    this.group.append(this.cover);
-    this.playButton = new Sprite(
-      "https://cdn.zoocer.com/page9/%E6%92%AD%E6%94%BE%E6%8C%89%E9%92%AE-min.png"
-    ).attr({
-      pos: [280, 290]
-    });
-    this.group.append(
-      this.playButton.on("click", () => {
-        this.toggleShadow();
-        console.log(this.shadow);
-      })
-    );
+    // this.tv = new Sprite(
+    //   "https://cdn.zoocer.com/page9/%E7%94%B5%E8%A7%86-min.png"
+    // ).attr({ zIndex: 2 });
+    // this.group.append(this.tv);
+    // this.cover = new Sprite(
+    //   "https://cdn.zoocer.com/page9/%E9%9D%9E%E7%B1%BB-min.png"
+    // ).attr({
+    //   pos: [110, 190]
+    // });
+    // this.group.append(this.cover);
+    // this.playButton = new Sprite(
+    //   "https://cdn.zoocer.com/page9/%E6%92%AD%E6%94%BE%E6%8C%89%E9%92%AE-min.png"
+    // ).attr({
+    //   pos: [280, 290]
+    // });
+    // this.group.append(
+    //   this.playButton.on("click", () => {
+    //     this.toggleShadow();
+    //     console.log(this.shadow);
+    //   })
+    // );
 
     this.button1 = new Sprite("https://cdn.zoocer.com/page9/button1.png").attr({
       pos: [240, 650]
@@ -128,6 +131,9 @@ export default {
         this.group.removeChild(this.shadow);
         this.shadow = null;
       }
+    },
+    play() {
+      document.getElementById("test").play();
     }
   }
 };
@@ -143,12 +149,17 @@ export default {
   height: 100%;
   overflow: hidden;
 }
-.iframe {
-  position: absolute;
-  top: 50%;
-  left: 0%;
-  width: 100%;
-  height: 50%;
-  transform: translateY(-50%);
+#test {
+  position: fixed;
+  top: 14%;
+  left: 15%;
+  height: 20%;
+  display: block;
+}
+.tv {
+  position: fixed;
+  top: 0;
+  height: 43%;
+  display: block;
 }
 </style>
