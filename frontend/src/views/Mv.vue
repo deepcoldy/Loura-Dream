@@ -3,6 +3,10 @@
     <div class="layer" style='-webkit-tap-highlight-color:rgba(255,0,0,0);'>
       <div id="video"></div>
     </div>
+    <video id="test" controls="" preload="true" mediagroup="myVideoGroup" poster="http://media.w3.org/2010/05/sintel/poster.png"> 
+      <source id="mp4" src="http://ss.archirookies.com/assets/lili.mp4" type="video/mp4"> 
+      <p>Your user agent does not support the HTML5 Video element.</p> 
+    </video> 
     <iframe v-if="shadow" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=o00279bx3os&tiny=0" allowfullscreen="auto"></iframe>
   </div>
 </template>
@@ -27,6 +31,13 @@ export default {
     };
   },
   mounted() {
+    document.addEventListener(
+      "WeixinJSBridgeReady",
+      function() {
+        document.getElementById("test").play();
+      },
+      false
+    );
     this.ratio =
       document.documentElement.clientWidth /
       document.documentElement.clientHeight;
