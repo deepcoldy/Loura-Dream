@@ -11,7 +11,6 @@
 <script>
 // @ is an alias to /src
 import { Scene, Sprite, Group, Label } from "spritejs";
-// import lottie from "lottie-web";
 
 export default {
   name: "home",
@@ -150,29 +149,24 @@ export default {
     if (this.ratio > 750 / 1331) stickMode = "width";
     this.scene = new Scene("#canvas", {
       viewport: ["auto", "auto"],
-      resolution: [750 / 2, 1331 / 2],
-      width: 750 / 2,
-      height: 1331 / 2,
+      resolution: [750, 1331],
+      width: 750,
+      height: 1331,
       stickMode
     });
     this.layer = this.scene.layer();
-    // const loading = lottie.loadAnimation({
-    //   container: document.getElementById("canvas"),
-    //   renderer: `canvas`,
-    //   loop: true,
-    //   autoplay: true,
-    //   path: `https://cdn.zoocer.com/loading.json`
-    // });
-    // loading.setSpeed(0.8);
-    const label = new Label(this.loadingText).attr({
-      pos: [750 / 2 / 2, 1331 / 2 / 2 + 500],
+
+    const label = new Label("加载中...").attr({
+      pos: [750 / 2, 1331 / 2 + 500],
       font: "bold 34px Arial",
-      anchor: 0.5
+      anchor: 0.5,
+      color: "#FFFFFF"
     });
     this.scene.on("preload", evt => {
       label.text = `${Math.floor(
         (evt.loaded.length / evt.resources.length) * 100
       )}%`;
+      console.log(label.text);
     });
     this.layer.append(label);
 
@@ -184,7 +178,177 @@ export default {
     toNextPage() {
       this.$router.replace("/dream");
     },
-    preloadimg() {},
+    preloadimg() {
+      this.preload = [
+        "https://cdn.zoocer.com/prepage/curtainLeft.png",
+        "https://cdn.zoocer.com/prepage/curtainRight.png",
+        "https://cdn.zoocer.com/prepage/light.png",
+        "https://cdn.zoocer.com/prepage/text.png",
+        "https://cdn.zoocer.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png",
+        "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page1/%E9%BA%A6%E5%85%8B%E9%A3%8E.png",
+        "https://cdn.zoocer.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png",
+        "https://cdn.zoocer.com/page2/left3/%E8%BA%AB%E4%BD%93-min.png",
+        "https://cdn.zoocer.com/page2/left3/%E6%89%8B-min.png",
+        "https://cdn.zoocer.com/page2/left3/%E9%BA%A6%E5%85%8B%E9%A3%8E-min.png",
+        "https://cdn.zoocer.com/page2/left3/%E7%A4%BC%E7%9B%92%E7%9B%96%E5%AD%90-min.png",
+        "https://cdn.zoocer.com/page3/%E4%B8%AD%E9%97%B4%E8%BF%87%E6%B8%A1.jpg",
+        "https://cdn.zoocer.com/page3/3%E6%AD%8C%E7%8E%8B-%E5%8A%A0%E5%AD%97.jpg",
+        "https://cdn.zoocer.com/page3/%E5%A4%A9%E7%A9%BA%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page3/1%E4%BA%91.png",
+        "https://cdn.zoocer.com/page3/2%E4%BA%91.png",
+        "https://cdn.zoocer.com/page3/3%E4%BA%91.png",
+        "https://cdn.zoocer.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png",
+        `https://cdn.zoocer.com/page4/%E6%8C%89%E9%92%AE-%E8%8A%B1.png`,
+        "https://cdn.zoocer.com/page4/flash1.png",
+        "https://cdn.zoocer.com/page4/flash2.png",
+        "https://cdn.zoocer.com/page4/flash3.png",
+        "https://cdn.zoocer.com/page4/flash4.png",
+        "https://cdn.zoocer.com/page4/%E6%A0%91.png",
+        `https://cdn.zoocer.com/page5/%E6%9C%88%E4%BA%AE-min.png`,
+        "https://cdn.zoocer.com/page6/%E6%98%9F%E5%BA%A7-min.png",
+        "https://cdn.zoocer.com/page6/%E4%B8%93%E8%BE%91%E5%9C%86-min.png",
+        "https://cdn.zoocer.com/page6/%E7%AE%AD%E5%A4%B4-min.png"
+      ];
+      for (let index = 0; index <= 19; index++) {
+        const Girl = `
+        https://cdn.zoocer.com/page1/girl/%E9%A2%84%E5%90%88%E6%88%90%203_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(Girl);
+      }
+      for (let index = 0; index <= 21; index++) {
+        const GasLeft = `
+        https://cdn.zoocer.com/page1/gas/%E6%B0%B4%E6%B1%BD_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }.png
+        `;
+        this.preload.push(GasLeft);
+      }
+      for (let index = 4; index <= 21; index++) {
+        const Man = `
+        https://cdn.zoocer.com/page1/man/%E5%8F%B3_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }.png
+        `;
+        this.preload.push(Man);
+      }
+      for (let index = 4; index <= 21; index++) {
+        //没有序号11
+        if (index !== 11) {
+          const Woman = `
+          https://cdn.zoocer.com/page1/woman/%E9%A2%84%E5%90%88%E6%88%90-7_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }.png
+          `;
+          this.preload.push(Woman);
+        }
+      }
+      // Page2 Man1
+      for (let index = 0; index <= 9; index++) {
+        const Man1 = `
+        https://cdn.zoocer.com/page2/left1/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(Man1);
+      }
+      // Page2 Girl2
+      for (let index = 0; index <= 9; index++) {
+        const Girl2 = `
+        https://cdn.zoocer.com/page2/meijia/%E7%BE%8E%E5%98%89_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(Girl2);
+      }
+      // Page2 Girl3
+      for (let index = 0; index <= 9; index++) {
+        const Girl3 = `
+        https://cdn.zoocer.com/page2/left2/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(Girl3);
+      }
+      for (let index = 0; index <= 9; index++) {
+        const Eye4 = `
+        https://cdn.zoocer.com/page2/eye/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }.png
+        `;
+        this.preload.push(Eye4);
+      }
+      for (let index = 0; index <= 10; index++) {
+        const Man6 = `
+        https://cdn.zoocer.com/page2/left4/%E8%81%9A%E4%BC%9A-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(Man6);
+      }
+      for (let index = 0; index <= 11; index++) {
+        const Girl = `
+        https://cdn.zoocer.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+          index.toString().length === 1 ? `0${index}` : index
+        }-min.png
+        `;
+        this.preload.push(Girl);
+      }
+      for (let index = 0; index <= 27; index++) {
+        if ([2, 5, 8, 12, 15, 18, 23, 26].indexOf(index) === -1) {
+          const Girl = `
+            https://cdn.zoocer.com/page4/girl/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+              index.toString().length === 1 ? `0${index}` : index
+            }-min.png
+          `;
+          this.preload.push(Girl);
+        }
+      }
+      for (let index = 28; index <= 44; index++) {
+        const GirlLoop = `
+          https://cdn.zoocer.com/page4/girlloop/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }-min.png
+        `;
+        this.preload.push(GirlLoop);
+      }
+      for (let index = 10; index <= 24; index++) {
+        const Signature = `
+          https://cdn.zoocer.com/page4/signature/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }-min.png
+        `;
+        this.preload.push(Signature);
+      }
+      for (let index = 23; index <= 35; index++) {
+        const Translation = `
+          https://cdn.zoocer.com/page5/translation/%E8%AF%9D%E5%89%A7-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }.jpg
+        `;
+        this.preload.push(Translation);
+      }
+      for (let index = 25; index <= 37; index++) {
+        const Loop = `
+          https://cdn.zoocer.com/page5/loop/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }.jpg
+        `;
+        this.preload.push(Loop);
+      }
+      for (let index = 47; index <= 88; index++) {
+        const ToPage6 = `
+          https://cdn.zoocer.com/page5/topage6/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
+            index.toString().length === 1 ? `0${index}` : index
+          }.jpg
+        `;
+        this.preload.push(ToPage6);
+      }
+    },
     Init(canvasid, name) {
       let stickMode = "height";
       if (this.ratio > 750 / 1331) stickMode = "width";
@@ -769,8 +933,8 @@ export default {
         //   0,
         //   "page2"
         // );
-        this.nextFrame("Man6", "Man6Index", this.page2.Man6.length, 0, "page2");
         flag++;
+        this.nextFrame("Man6", "Man6Index", this.page2.Man6.length, 0, "page2");
       }, 100);
     },
     async Page2TransToPage3() {
@@ -1264,7 +1428,6 @@ export default {
         this.nextPage();
         this.page4.Flower.off("touchstart");
       });
-      let flag = 0;
       clearInterval(this.interval);
       this.interval = setInterval(() => {
         this.page4.group.append(
@@ -1279,7 +1442,6 @@ export default {
           0,
           "page4"
         );
-        flag++;
       }, 100);
     },
     Page4TransToPage5() {
