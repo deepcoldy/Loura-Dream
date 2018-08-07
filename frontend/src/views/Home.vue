@@ -4,7 +4,6 @@
     <div class="layer">
       <div id="canvas" style='-webkit-tap-highlight-color:rgba(255,0,0,0);'></div>
     </div>
-    
   </div>
 </template>
 
@@ -128,15 +127,6 @@ export default {
     };
   },
   created() {
-    window.addEventListener(
-      // 避免在微信下 横屏后返回出现问题
-      "orientationchange",
-      function() {
-        // Announce the new orientation number
-        location.reload();
-      },
-      false
-    );
     this.ratio =
       document.documentElement.clientWidth /
       document.documentElement.clientHeight;
@@ -661,8 +651,9 @@ export default {
     },
     autoAnimatPage1() {
       this.page1.Camera.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay: 3000,
         fill: "forwards",
-        duration: 5000
+        duration: 1000
       });
       this.page1.Camera.animate(
         [{ scale: 0.8 }, { scale: 1 }, { scale: 0.8 }],
@@ -993,12 +984,22 @@ export default {
       });
       this.page2.group.append(this.page3.transBackground);
       this.page2.group.append(this.page3.background);
+      let count = 0;
+      setInterval(() => {
+        count++;
+      }, 1000);
       for (let index = 0; index <= 11; index++) {
         const Girl = new Sprite(`
         https://cdn.zoocer.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
-        `);
+        `).on("touchstart", () => {
+          if (count < 3) return;
+          this.nextPage();
+          this.page3.Girl.map(item => {
+            item.off("touchstart");
+          });
+        });
         Girl.attr({ zIndex: 6 });
         this.page3.Girl.push(
           Girl.attr({
@@ -1077,16 +1078,11 @@ export default {
       this.page3.group;
 
       this.page3.group.append(
-        this.page3.background
-          .attr({
-            width: 750,
-            height: 1331,
-            translate: [0, 0]
-          })
-          .on("touchstart", () => {
-            this.nextPage();
-            this.page3.background.off("touchstart");
-          })
+        this.page3.background.attr({
+          width: 750,
+          height: 1331,
+          translate: [0, 0]
+        })
       );
       this.page3.group.append(
         this.page3.Girl[0].attr({
