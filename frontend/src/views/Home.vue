@@ -363,6 +363,7 @@ export default {
     },
     async nextPage() {
       if (this.step === 0) {
+        this.loadAssetsPage1();
         this.prePage.Text.animate([{ opacity: 1 }, { opacity: 0 }], {
           duration: 1000,
           fill: "forwards"
@@ -405,7 +406,6 @@ export default {
             easing: "ease-in"
           }
         );
-        this.loadAssetsPage1();
       } else if (this.step === 1) {
         clearInterval(this.interval);
         this.loadAssetsPage1(false);
@@ -556,16 +556,13 @@ export default {
         );
         this.page1.Camera = new Sprite(
           "https://cdn.zoocer.com/page1%2F%E7%85%A7%E7%9B%B8%E6%9C%BA.png"
-        )
-          .attr({
-            zIndex: 3,
-            anchor: 0.5,
-            pos: [130 + 174 / 2, 815 + 119 / 2]
-          })
-          .on("touchstart", () => {
-            this.page1.background.off("touchstart");
-            this.nextPage();
-          });
+        ).attr({
+          opacity: 0,
+          zIndex: 3,
+          anchor: 0.5,
+          scale: 0.8,
+          pos: [130 + 174 / 2, 815 + 119 / 2]
+        });
       } else {
         // page2用到
         this.page1.background = new Sprite(
@@ -654,10 +651,28 @@ export default {
       this.page1.group.append(this.page1.Woman[0]);
       this.page1.group.append(this.page1.GasLeft[0]);
       this.page1.group.append(this.page1.GasRight[0]);
+      this.page1.Camera.on("touchstart", () => {
+        this.page1.Camera.off("touchstart");
+        this.nextPage();
+        this.page1.group.removeChild(this.page1.Camera);
+      });
       this.layer.append(this.page1.group);
       auto ? this.autoAnimatPage1() : "";
     },
     autoAnimatPage1() {
+      this.page1.Camera.animate([{ opacity: 0 }, { opacity: 1 }], {
+        fill: "forwards",
+        duration: 5000
+      });
+      this.page1.Camera.animate(
+        [{ scale: 0.8 }, { scale: 1 }, { scale: 0.8 }],
+        {
+          delay: 5000,
+          fill: "forwards",
+          duration: 2000,
+          iterations: Infinity
+        }
+      );
       this.interval = setInterval(() => {
         this.page1.group.append(this.page1.Girl[this.page1.GirlIndex]);
         this.page1.group.append(this.page1.GasLeft[this.page1.GasIndex]);
