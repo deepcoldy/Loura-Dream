@@ -45,7 +45,8 @@ export default {
         WomanIndex: 1,
         GasLeft: [],
         GasRight: [],
-        GasIndex: 1
+        GasIndex: 1,
+        Camera: null
       },
       page2: {
         group: null,
@@ -188,7 +189,8 @@ export default {
         "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
         "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
         "https://cdn.zoocer.com/page1/%E9%BA%A6%E5%85%8B%E9%A3%8E.png",
-        "https://cdn.zoocer.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png",
+        "https://cdn.zoocer.com/page1%2F%E7%85%A7%E7%9B%B8%E6%9C%BA.png", // camera
+        "https://cdn.zoocer.com/page2%2F%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF.png",
         "https://cdn.zoocer.com/page2/left3/%E8%BA%AB%E4%BD%93-min.png",
         "https://cdn.zoocer.com/page2/left3/%E6%89%8B-min.png",
         "https://cdn.zoocer.com/page2/left3/%E9%BA%A6%E5%85%8B%E9%A3%8E-min.png",
@@ -551,10 +553,19 @@ export default {
         // page1
         this.page1.background = new Sprite(
           "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg"
-        ).on("touchstart", () => {
-          this.page1.background.off("touchstart");
-          this.nextPage();
-        });
+        );
+        this.page1.Camera = new Sprite(
+          "https://cdn.zoocer.com/page1%2F%E7%85%A7%E7%9B%B8%E6%9C%BA.png"
+        )
+          .attr({
+            zIndex: 3,
+            anchor: 0.5,
+            pos: [130 + 174 / 2, 815 + 119 / 2]
+          })
+          .on("touchstart", () => {
+            this.page1.background.off("touchstart");
+            this.nextPage();
+          });
       } else {
         // page2用到
         this.page1.background = new Sprite(
@@ -637,6 +648,7 @@ export default {
 
       this.page1.group.append(this.page1.background);
       this.page1.group.append(this.page1.microphone);
+      this.page1.group.append(this.page1.Camera);
       this.page1.group.append(this.page1.Girl[0]);
       this.page1.group.append(this.page1.Man[0]);
       this.page1.group.append(this.page1.Woman[0]);
@@ -671,7 +683,7 @@ export default {
       });
       this.layer = scene.layer();
       this.page2.background = new Sprite(
-        "https://cdn.zoocer.com/page2/%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF%202.png"
+        "https://cdn.zoocer.com/page2%2F%E8%81%9A%E4%BC%9A%E8%83%8C%E6%99%AF.png"
       );
       this.page2.group = new Group();
 
