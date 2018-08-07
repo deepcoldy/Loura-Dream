@@ -335,11 +335,9 @@ export default {
         `;
         this.preload.push(Loop);
       }
-      for (let index = 47; index <= 88; index++) {
+      for (let index = 1; index <= 28; index++) {
         const ToPage6 = `
-          https://cdn.zoocer.com/page5/topage6/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
-            index.toString().length === 1 ? `0${index}` : index
-          }.jpg
+          https://cdn.zoocer.com/page5%2Ftopage6%2Fa${index}.jpg
         `;
         this.preload.push(ToPage6);
       }
@@ -555,7 +553,7 @@ export default {
           opacity: 0,
           zIndex: 3,
           anchor: 0.5,
-          scale: 0.8,
+          scale: 0.6,
           pos: [130 + 174 / 2, 815 + 119 / 2]
         });
       } else {
@@ -661,7 +659,7 @@ export default {
         duration: 1000
       });
       this.page1.Camera.animate(
-        [{ scale: 0.8 }, { scale: 1 }, { scale: 0.8 }],
+        [{ scale: 0.6 }, { scale: 0.8 }, { scale: 0.6 }],
         {
           delay: 5000,
           fill: "forwards",
@@ -869,7 +867,7 @@ export default {
           },
           {
             x: 375 * 1.5,
-            y: 668 * 1.5,
+            y: 666 * 1.5,
             anchor: 0.5,
             scale: 1
           }
@@ -879,7 +877,6 @@ export default {
           fill: "forwards"
         }
       ).finished;
-      // this.Init("#canvas", "layer");
 
       this.autoAnimatPage2();
     },
@@ -922,10 +919,17 @@ export default {
           iterations: Infinity
         }
       );
-      this.page2.Microphone.on("touchstart", () => {
-        this.page2.Microphone.off("touchstart");
-        this.nextPage();
-      });
+      setTimeout(() => {
+        this.page2.Girl5.on("touchstart", () => {
+          this.page2.Microphone.off("touchstart");
+          this.page2.Girl5.off("touchstart");
+          this.nextPage();
+        });
+        this.page2.Microphone.on("touchstart", () => {
+          this.page2.Microphone.off("touchstart");
+          this.nextPage();
+        });
+      }, 2000);
       let flag = 0;
       this.interval = setInterval(() => {
         this.page2.group.append(this.page2.background);
@@ -1685,12 +1689,10 @@ export default {
       }, 125);
     },
     Page5TransToPage6() {
-      for (let index = 47; index <= 88; index++) {
-        const ToPage6 = new Sprite(`
-          https://cdn.zoocer.com/page5/topage6/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
-            index.toString().length === 1 ? `0${index}` : index
-          }.jpg
-        `);
+      for (let index = 1; index <= 28; index++) {
+        const ToPage6 = new Sprite(
+          `https://cdn.zoocer.com/page5%2Ftopage6%2Fa${index}.jpg`
+        );
         this.page5.ToPage6.push(
           ToPage6.attr({
             zIndex: 3
