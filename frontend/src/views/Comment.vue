@@ -42,12 +42,21 @@ export default {
     this.comment = new Sprite(
       "https://cdn.zoocer.com/page8/%E5%BC%B9%E5%B9%952-min.png"
     );
-    this.group.append(this.comment);
-    this.comment.animate([{ translate: [0, 0] }, { translate: [-2764, 0] }], {
-      iterations: Infinity,
-      duration: 20000,
-      fill: "forwards"
+    this.comment.on("touchstart", () => {
+      move.pause();
     });
+    this.comment.on("touchend", () => {
+      move.play();
+    });
+    this.group.append(this.comment);
+    const move = this.comment.animate(
+      [{ translate: [0, 0] }, { translate: [-2764, 0] }],
+      {
+        iterations: Infinity,
+        duration: 20000,
+        fill: "forwards"
+      }
+    );
     this.button = new Sprite(
       "https://cdn.zoocer.com/page8/%E6%8F%90%E4%BA%A4.png"
     );
