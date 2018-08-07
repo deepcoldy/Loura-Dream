@@ -906,7 +906,7 @@ export default {
             scale: 1
           },
           {
-            scale: 1.3
+            scale: 1.6
           },
           {
             scale: 1
@@ -923,10 +923,6 @@ export default {
         this.page2.Girl5.on("touchstart", () => {
           this.page2.Microphone.off("touchstart");
           this.page2.Girl5.off("touchstart");
-          this.nextPage();
-        });
-        this.page2.Microphone.on("touchstart", () => {
-          this.page2.Microphone.off("touchstart");
           this.nextPage();
         });
       }, 2000);
