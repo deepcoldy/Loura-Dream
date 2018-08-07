@@ -143,7 +143,8 @@ export default {
       resolution: [750, 1331],
       width: 750,
       height: 1331,
-      stickMode
+      stickMode,
+      stickExtend: true
     });
     this.layer = this.scene.layer();
 
@@ -171,6 +172,8 @@ export default {
     },
     preloadimg() {
       this.preload = [
+        "https://cdn.zoocer.com/music-on1.png",
+        "https://cdn.zoocer.com/music-off1.png",
         "https://cdn.zoocer.com/prepage/curtainLeft.png",
         "https://cdn.zoocer.com/prepage/curtainRight.png",
         "https://cdn.zoocer.com/prepage/light.png",
@@ -344,10 +347,12 @@ export default {
     Init(canvasid, name) {
       let stickMode = "height";
       if (this.ratio > 750 / 1331) stickMode = "width";
+      console.log(stickMode);
       this.scene = new Scene(canvasid, {
         viewport: ["auto", "auto"],
         resolution: [750, 1331],
-        stickMode
+        stickMode,
+        stickExtend: true
       });
       this[name] = this.scene.layer();
     },
@@ -682,10 +687,15 @@ export default {
       }, 100);
     },
     async loadAssetsPage2() {
+      let stickMode = "height";
+      if (this.ratio > 750 / 1331) stickMode = "width";
+      console.log(stickMode);
       const scene = new Scene("#canvas", {
         // 为了提高page1所需的分辨率
         viewport: ["auto", "auto"],
-        resolution: [750 * 1.5, 1331 * 1.5]
+        resolution: [750 * 1.5, 1331 * 1.5],
+        stickMode,
+        stickExtend: true
       });
       this.layer = scene.layer();
       this.page2.background = new Sprite(
@@ -869,6 +879,7 @@ export default {
           fill: "forwards"
         }
       ).finished;
+      // this.Init("#canvas", "layer");
 
       this.autoAnimatPage2();
     },
@@ -1067,10 +1078,14 @@ export default {
       this.loadAssetsPage3();
     },
     async loadAssetsPage3() {
+      let stickMode = "height";
+      if (this.ratio > 750 / 1331) stickMode = "width";
       const scene = new Scene("#canvas", {
         // 还原分辨率
         viewport: ["auto", "auto"],
-        resolution: [750, 1331]
+        resolution: [750, 1331],
+        stickMode,
+        stickExtend: true
       });
       this.layer = scene.layer();
       this.page3.group = new Group();
@@ -1661,6 +1676,7 @@ export default {
         iterations: Infinity
       });
       this.page5.Moon.on("touchstart", () => {
+        this.page5.Moon.off("touchstart");
         this.nextPage();
       });
       this.interval = setInterval(() => {

@@ -12,8 +12,10 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>phone-hand-hold-1</title><path d="M21,0H11A3,3,0,0,0,8,3V6H7a7,7,0,0,0-7,7v5.546a3.839,3.839,0,0,0,2,3.527V23a1,1,0,0,0,2,0V21.5a1,1,0,0,0-.515-.874C2.32,19.99,2,19.545,2,18.546V13A5,5,0,0,1,7,8h.75A.25.25,0,0,1,8,8.25v2.5a.25.25,0,0,1-.25.25H6a1,1,0,0,0,0,2h5.5a1,1,0,0,1,0,2H8.467A1,1,0,0,0,7.5,16.03a2.172,2.172,0,0,1-1.078,1.835,2.038,2.038,0,0,1-.3.175A1,1,0,0,0,6.5,19.967a1.012,1.012,0,0,0,.375-.073A4.165,4.165,0,0,0,8,19.187V21a3,3,0,0,0,3,3H21a3,3,0,0,0,3-3V3A3,3,0,0,0,21,0Zm1,19a.5.5,0,0,1-.5.5h-11A.5.5,0,0,1,10,19V17h1.5a3,3,0,0,0,0-6H10V3.5a.5.5,0,0,1,.5-.5h11a.5.5,0,0,1,.5.5Z"/></svg>
       <div class="text">请竖屏浏览页面</div>
     </div>
+    <img class="music-icon" @click="musicPlay(false)" v-show="music" src="https://cdn.zoocer.com/music-on1.png" alt="">
+    <img class="music-icon" @click="musicPlay(true)" v-show="!music" src="https://cdn.zoocer.com/music-off1.png" alt="">
 
-    <audio id='music' src="https://cdn.zoocer.com/10%20Naughty%20Ball%20%E5%A8%84%E8%89%BA%E6%BD%87%20DEMO.mp3" autoplay loop preload="preload"></audio>
+    <audio id='music' src="https://cdn.zoocer.com/10%20Naughty%20Ball%20%E5%A8%84%E8%89%BA%E6%BD%87.mp3" autoplay loop preload="preload"></audio>
   </div>
 </template>
 <script>
@@ -21,7 +23,8 @@ export default {
   data() {
     return {
       transitionName: "slide-top",
-      orientation: false
+      orientation: false,
+      music: true
     };
   },
   watch: {
@@ -95,10 +98,12 @@ export default {
       var media = document.querySelector("#music");
       if (isPlay && media.paused) {
         media.play();
+        this.music = true;
       }
       console.log(isPlay, media.paused);
       if (!isPlay && !media.paused) {
         console.log("in");
+        this.music = false;
         media.pause();
       }
     }
@@ -108,6 +113,12 @@ export default {
 
 
 <style lang="scss">
+.music-icon {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+}
 .orientation-notice {
   position: fixed;
   height: 100%;
