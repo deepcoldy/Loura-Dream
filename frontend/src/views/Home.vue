@@ -387,7 +387,7 @@ export default {
         this.prePage.curtainRight.animate(
           [
             {
-              translate: [750 / 2 - 4, 0]
+              translate: [750 / 2 - 8, 0]
             },
             {
               translate: [750, 0]
@@ -480,7 +480,7 @@ export default {
       this.prePage.curtainRight = new Sprite(
         "https://cdn.zoocer.com/prepage/curtainRight.png"
       ).attr({
-        translate: [750 / 2 - 4, 0]
+        translate: [750 / 2 - 8, 0]
       });
       this.prePage.Light = new Sprite(
         "https://cdn.zoocer.com/prepage/light.png"
@@ -550,6 +550,7 @@ export default {
         this.page1.Camera = new Sprite(
           "https://cdn.zoocer.com/page1%2F%E7%85%A7%E7%9B%B8%E6%9C%BA.png"
         ).attr({
+          rotate: -5,
           opacity: 0,
           zIndex: 3,
           anchor: 0.5,
@@ -925,7 +926,7 @@ export default {
           this.page2.Girl5.off("touchstart");
           this.nextPage();
         });
-      }, 2000);
+      }, 1000);
       let flag = 0;
       this.interval = setInterval(() => {
         this.page2.group.append(this.page2.background);
@@ -1726,10 +1727,10 @@ export default {
           "page5",
           "once"
         );
-      }, 100);
+      }, 200);
       setTimeout(() => {
         this.autoAnimatPage6();
-      }, this.page5.ToPage6.length * 100);
+      }, this.page5.ToPage6.length * 200);
     },
     autoAnimatPage6() {
       this.page6.CD = new Sprite(
