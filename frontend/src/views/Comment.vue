@@ -119,12 +119,47 @@ export default {
     this.arrow
       .attr({
         anchor: 0.5,
-        pos: [750 / 2, 1190]
+        pos: [750 / 2, 1190],
+        opacity: 0
       })
       .on("click", () => {
         this.nextPage();
       });
     this.group.append(this.arrow);
+    this.arrow.animate(
+      [
+        {
+          opacity: 0
+        },
+        {
+          opacity: 1
+        }
+      ],
+      {
+        delay: 500,
+        duration: 500,
+        fill: "forwards"
+      }
+    );
+    this.arrow.animate(
+      [
+        {
+          translate: [0, 0]
+        },
+        {
+          translate: [0, 30]
+        },
+        {
+          translate: [0, 0]
+        }
+      ],
+      {
+        delay: 500,
+        duration: 800,
+        fill: "forwards",
+        iterations: Infinity
+      }
+    );
   },
   methods: {
     nextPage() {
