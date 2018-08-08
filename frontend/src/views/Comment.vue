@@ -46,15 +46,13 @@ export default {
     });
     this.layer = this.scene.layer();
     this.background = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page8%2F8%E7%95%99%E8%A8%80%E6%9D%BF-%E6%9B%B4%E6%94%B9.jpg"
+      "https://cdn.zoocer.com/page8%2F8%E7%95%99%E8%A8%80%E6%9D%BF-%E6%9B%B4%E6%94%B9.jpg"
     );
     this.group = new Group();
     this.group.append(this.background);
     this.layer.append(this.group);
     this.CommentMove();
-    this.button = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page8%2Fsubmit.png"
-    );
+    this.button = new Sprite("https://cdn.zoocer.com/page8%2Fsubmit.png");
     this.button.attr({
       anchor: 0.5,
       pos: [750 / 2, 985]
@@ -114,7 +112,7 @@ export default {
     });
     this.group.append(this.notice);
     this.arrow = new Sprite(
-      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page8%2F%E7%AE%AD%E5%A4%B4.png"
+      "https://cdn.zoocer.com/page8%2F%E7%AE%AD%E5%A4%B4.png"
     );
     this.arrow
       .attr({
@@ -163,7 +161,7 @@ export default {
   },
   methods: {
     nextPage() {
-      this.$router.push("/mv");
+      this.$router.replace("/mv");
     },
     CommentMove() {
       this.comment = new Sprite(

@@ -205,7 +205,10 @@ export default {
         `https://cdn.zoocer.com/page5/%E6%9C%88%E4%BA%AE-min.png`,
         "https://cdn.zoocer.com/page6/%E6%98%9F%E5%BA%A7-min.png",
         "https://cdn.zoocer.com/page6/%E4%B8%93%E8%BE%91%E5%9C%86-min.png",
-        "https://cdn.zoocer.com/page6/%E7%AE%AD%E5%A4%B4-min.png"
+        "https://cdn.zoocer.com/page6/%E7%AE%AD%E5%A4%B4-min.png",
+
+        "https://cdn.zoocer.com/page7%2Fa%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page7%2Fa%E7%AE%AD%E5%A4%B4.png"
       ];
       for (let index = 0; index <= 19; index++) {
         const Girl = `
@@ -340,6 +343,11 @@ export default {
           https://cdn.zoocer.com/page5%2Ftopage6%2Fa${index}.jpg
         `;
         this.preload.push(ToPage6);
+      }
+
+      for (let index = 1; index <= 6; index++) {
+        const Text = `https://cdn.zoocer.com/page7/a${index}.png`;
+        this.preload.push(Text);
       }
     },
     Init(canvasid, name) {
