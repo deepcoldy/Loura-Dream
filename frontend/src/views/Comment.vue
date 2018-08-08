@@ -1,13 +1,18 @@
 <template>
   <div class="home">
     <div class="layer" style='-webkit-tap-highlight-color:rgba(255,0,0,0);'>
-        <div id="comment"></div>
-      </div>
+      <div id="comment"></div>
+    </div>
+    <input class="dream" maxlength="128" v-model="data.dream" type="text">
+    <input class="step" maxlength="128"  v-model="data.step" type="text">
+    <input class="name" maxlength="11"  v-model="data.name" type="text">
+    <input class="phone" maxlength="11" v-model="data.phone" type="text">
   </div>
 </template>
 
 <script>
 import { Scene, Sprite, Group } from "spritejs";
+import { Toast, MessageBox } from "mint-ui";
 
 export default {
   data() {
@@ -17,7 +22,14 @@ export default {
       group: null,
       comment: null,
       button: null,
-      notice: null
+      notice: null,
+      arrow: null,
+      data: {
+        dream: "",
+        step: "",
+        name: "",
+        phone: ""
+      }
     };
   },
   mounted() {
@@ -34,54 +46,151 @@ export default {
     });
     this.layer = this.scene.layer();
     this.background = new Sprite(
-      "https://cdn.zoocer.com/page8/%E8%83%8C%E6%99%AF.jpg"
+      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page8%2F8%E7%95%99%E8%A8%80%E6%9D%BF-%E6%9B%B4%E6%94%B9.jpg"
     );
     this.group = new Group();
     this.group.append(this.background);
     this.layer.append(this.group);
-    this.comment = new Sprite(
-      "https://cdn.zoocer.com/page8/%E5%BC%B9%E5%B9%952-min.png"
-    );
-    this.comment.on("touchstart", () => {
-      move.pause();
-    });
-    this.comment.on("touchend", () => {
-      move.play();
-    });
-    this.group.append(this.comment);
-    const move = this.comment.animate(
-      [{ translate: [0, 0] }, { translate: [-2764, 0] }],
-      {
-        iterations: Infinity,
-        duration: 20000,
-        fill: "forwards"
-      }
-    );
+    this.CommentMove();
     this.button = new Sprite(
-      "https://cdn.zoocer.com/page8/%E6%8F%90%E4%BA%A4.png"
+      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page8%2Fsubmit.png"
     );
     this.button.attr({
       anchor: 0.5,
-      pos: [750 / 2, 1220]
+      pos: [750 / 2, 985]
     });
     this.button.on("click", () => {
-      this.nextPage();
+      if (!this.data.dream) {
+        MessageBox({
+          title: "提示",
+          message: "请填写您的梦想",
+          showCancelButton: false,
+          confirmButtonText: "去填写"
+        });
+        return;
+      }
+      if (!this.data.step) {
+        MessageBox({
+          title: "提示",
+          message: "您迈出的第一步是？",
+          showCancelButton: false,
+          confirmButtonText: "去填写"
+        });
+        return;
+      }
+      if (!this.data.name) {
+        MessageBox({
+          title: "提示",
+          message: "请填写昵称",
+          showCancelButton: false,
+          confirmButtonText: "去填写"
+        });
+        return;
+      }
+      if (this.data.phone.length !== 11) {
+        MessageBox({
+          title: "提示",
+          message: "手机号填写有误",
+          showCancelButton: false,
+          confirmButtonText: "去填写"
+        });
+        return;
+      }
+
+      Toast({
+        iconClass: "mintui mintui-success",
+        message: "提交成功",
+        duration: 2000
+      });
+      setTimeout(() => {
+        this.nextPage();
+      }, 2000);
     });
     this.group.append(this.button);
     this.notice = new Sprite("https://cdn.zoocer.com/page8/notice.png");
     this.notice.attr({
       anchor: 0.5,
-      pos: [750 / 2, 1280]
+      pos: [750 / 2, 1105]
     });
     this.group.append(this.notice);
+    this.arrow = new Sprite(
+      "https://test-1255639802.cos.ap-beijing.myqcloud.com/page8%2F%E7%AE%AD%E5%A4%B4.png"
+    );
+    this.arrow
+      .attr({
+        anchor: 0.5,
+        pos: [750 / 2, 1190]
+      })
+      .on("click", () => {
+        this.nextPage();
+      });
+    this.group.append(this.arrow);
   },
   methods: {
     nextPage() {
-      this.$router.replace("/mv");
+      this.$router.push("/mv");
+    },
+    CommentMove() {
+      this.comment = new Sprite(
+        "https://cdn.zoocer.com/page8/%E5%BC%B9%E5%B9%952-min.png"
+      );
+      this.comment2 = new Sprite(
+        "https://cdn.zoocer.com/page8/%E5%BC%B9%E5%B9%952-min.png"
+      ).attr({
+        translate: [750, 0]
+      });
+      this.comment.on("touchstart", () => {
+        move.pause();
+        move2.pause();
+      });
+      this.comment.on("touchend", () => {
+        move.play();
+        move2.play();
+      });
+      this.comment2.on("touchstart", () => {
+        move.pause();
+        move2.pause();
+      });
+      this.comment2.on("touchend", () => {
+        move.play();
+        move2.play();
+      });
+      this.group.append(this.comment);
+      this.group.append(this.comment2);
+      const move = this.comment.animate(
+        [
+          { translate: [750, 0] },
+          { translate: [-4331 + 750, 0] },
+          { translate: [-4331 - 4331 + 750, 0] }
+        ],
+        {
+          iterations: Infinity,
+          duration: 20000,
+          fill: "forwards"
+        }
+      );
+      const move2 = this.comment2.animate(
+        [
+          { translate: [4331, 0] },
+          { translate: [750, 0] },
+          { translate: [-4331, 0] }
+        ],
+        {
+          iterations: Infinity,
+          duration: 20000,
+          fill: "forwards"
+        }
+      );
     }
   }
 };
 </script>
+<style>
+.mint-toast {
+  z-index: 999;
+}
+</style>
+
 <style scoped>
 #comment {
   height: 100%;
@@ -92,5 +201,40 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+</style>
+<style lang="scss" scoped>
+input {
+  background: none;
+  outline: none;
+  border: 0px;
+}
+input.dream {
+  position: fixed;
+  top: 44%;
+  left: 230px;
+  height: 30px;
+  width: 38%;
+}
+input.step {
+  position: fixed;
+  top: 51.7%;
+  left: 230px;
+  height: 30px;
+  width: 38%;
+}
+input.name {
+  position: fixed;
+  top: 59.5%;
+  left: 230px;
+  height: 30px;
+  width: 38%;
+}
+input.phone {
+  position: fixed;
+  top: 67.5%;
+  left: 230px;
+  height: 30px;
+  width: 38%;
 }
 </style>
