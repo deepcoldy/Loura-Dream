@@ -3,7 +3,8 @@
     <div class="layer" style='-webkit-tap-highlight-color:rgba(255,0,0,0);'>
       <div id="video"></div>
     </div>
-    <iframe v-if="shadow" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=o00279bx3os&tiny=0" allowfullscreen="auto"></iframe>
+    <iframe v-if="shadow && mv === 1" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=o00279bx3os&tiny=0" allowfullscreen="auto"></iframe>
+    <iframe v-if="shadow && mv === 2" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=y0027v6mg9l&tiny=0" allowfullscreen="auto"></iframe>
   </div>
 </template>
 
@@ -22,7 +23,8 @@ export default {
       button1Active: null,
       button2: null,
       button2Active: null,
-      shadow: null
+      shadow: null,
+      mv: 1
     };
   },
   mounted() {
@@ -98,10 +100,12 @@ export default {
     this.button1.on("click", () => {
       this.group.append(this.button1Active);
       this.group.append(this.button2);
+      this.mv = 1;
     });
     this.button2.on("click", () => {
       this.group.append(this.button2Active);
       this.group.append(this.button1);
+      this.mv = 2;
     });
   },
   methods: {
