@@ -209,6 +209,12 @@ export default {
 
         "https://cdn.zoocer.com/page7%2Fa%E8%83%8C%E6%99%AF.jpg",
         "https://cdn.zoocer.com/page7%2Fa%E7%AE%AD%E5%A4%B4.png"
+        // "https://cdn.zoocer.com/page8%2F8%E7%95%99%E8%A8%80%E6%9D%BF-%E6%9B%B4%E6%94%B9.jpg",
+        // "https://cdn.zoocer.com/page8%2Fsubmit.png",
+        // "https://cdn.zoocer.com/page8/notice.png",
+        // "https://cdn.zoocer.com/page8%2F%E7%AE%AD%E5%A4%B4.png",
+        // "https://cdn.zoocer.com/page8%2Funcheck.png",
+        // "https://cdn.zoocer.com/page8%2Fcheck.png",
       ];
       for (let index = 0; index <= 19; index++) {
         const Girl = `
@@ -338,10 +344,11 @@ export default {
         `;
         this.preload.push(Loop);
       }
-      for (let index = 1; index <= 28; index++) {
-        const ToPage6 = `
-          https://cdn.zoocer.com/page5%2Ftopage6%2Fa${index}.jpg
-        `;
+
+      for (let index = 94; index <= 183; index++) {
+        const ToPage6 = `https://cdn.zoocer.com/page5%2Ftopage6%2F%E9%9F%B3%E4%B9%90%E5%89%A7_00${
+          index.toString().length === 2 ? "0" + index : index
+        }.jpg`;
         this.preload.push(ToPage6);
       }
 
@@ -1694,9 +1701,11 @@ export default {
       }, 125);
     },
     Page5TransToPage6() {
-      for (let index = 1; index <= 28; index++) {
+      for (let index = 94; index <= 183; index++) {
         const ToPage6 = new Sprite(
-          `https://cdn.zoocer.com/page5%2Ftopage6%2Fa${index}.jpg`
+          `https://cdn.zoocer.com/page5%2Ftopage6%2F%E9%9F%B3%E4%B9%90%E5%89%A7_00${
+            index.toString().length === 2 ? "0" + index : index
+          }.jpg`
         );
         this.page5.ToPage6.push(
           ToPage6.attr({
@@ -1720,7 +1729,7 @@ export default {
 
       this.page5.group.append(this.page6.Star);
       this.page6.Star.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: 1000,
+        delay: this.page5.ToPage6.length * 50,
         duration: 500,
         fill: "forwards"
       });

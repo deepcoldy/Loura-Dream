@@ -24,7 +24,8 @@ export default {
       button2: null,
       button2Active: null,
       shadow: null,
-      mv: 1
+      mv: 1,
+      qqmusic: null
     };
   },
   mounted() {
@@ -117,6 +118,17 @@ export default {
       this.mv = 2;
       this.group.append(this.cover2);
     });
+    this.qqmusic = new Sprite(
+      "https://cdn.zoocer.com/page9%2FQQ%E9%9F%B3%E4%B9%90-min.png"
+    )
+      .attr({
+        anchor: 0.5,
+        pos: [750 / 2, 1200]
+      })
+      .on("click", () => {
+        location.href = "https://y.qq.com/n/yqq/album/001TxHfD0pkRc1.html";
+      });
+    this.group.append(this.qqmusic);
   },
   methods: {
     nextPage() {

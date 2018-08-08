@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="layer" @click="nextPage()"  style='-webkit-tap-highlight-color:rgba(255,0,0,0);'>
+    <div class="layer"  style='-webkit-tap-highlight-color:rgba(255,0,0,0);'>
         <div id="dream"></div>
       </div>
   </div>
@@ -91,70 +91,24 @@ export default {
         pos: [750 / 2, 867 + 40 + 50]
       })
     );
-    // this.group.append(
-    //   // 梦想可以很大
-    //   this.text[6].attr({
-    //     opacity: 0,
-    //     //越来越近
-    //     pos: [750 / 2, 536 + 100]
-    //   })
-    // );
-    // this.group.append(
-    //   // 但最重要的是
-    //   this.text[7].attr({
-    //     opacity: 0,
-    //     pos: [750 / 2, 636 + 42 + 20]
-    //   })
-    // );
-    // this.group.append(
-    //   // 记得迈出第一步
-    //   this.text[8].attr({
-    //     opacity: 0,
-    //     pos: [750 / 2, 636 + 42 + 20 + 43 + 20]
-    //   })
-    // );
-    // this.group.append(
-    //   // 留下你的
-    //   this.text[9].attr({
-    //     opacity: 0,
-    //     // 记得迈出第一步
-    //     pos: [750 / 2, 636 + 42 + 20 + 43 + 20 + 43 + 20 + 120]
-    //   })
-    // );
-    // this.group.append(
-    //   this.text[10].attr({
-    //     opacity: 0,
-    //     pos: [750 / 2, 636 + 42 + 20 + 43 + 20 + 43 + 20 + 120 + 42 + 20]
-    //   })
-    // );
-    // this.group.append(
-    //   this.text[11].attr({
-    //     opacity: 0,
-    //     pos: [
-    //       750 / 2,
-    //       636 + 42 + 20 + 43 + 20 + 43 + 20 + 120 + 42 + 20 + 57 + 20
-    //     ]
-    //   })
-    // );
-    // this.group.append(
-    //   this.text[12].attr({
-    //     opacity: 0,
-    //     pos: [750 / 2, 1083 + 44 + 20]
-    //   })
-    // );
+
     this.Arrow = new Sprite(
       "https://cdn.zoocer.com/page7%2Fa%E7%AE%AD%E5%A4%B4.png"
-    ).attr({
-      anchor: 0.5,
-      pos: [750 / 2, 1110],
-      opacity: 0,
-      zIndex: 5
-    });
+    )
+      .attr({
+        anchor: 0.5,
+        pos: [750 / 2, 1110],
+        opacity: 0,
+        zIndex: 5
+      })
+      .on("touchstart", () => {
+        this.nextPage();
+      });
     this.group.append(this.Arrow);
     this.text.map((item, index) => {
       this.text[index].animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: 500 * index,
-        duration: 500,
+        delay: 1500 * index,
+        duration: 1000,
         fill: "forwards"
       });
     });
@@ -187,16 +141,198 @@ export default {
         ],
         {
           delay: 500,
-          duration: 800,
+          duration: 1500,
           fill: "forwards",
           iterations: Infinity
         }
       );
-    }, 500 * this.text.length);
+    }, 1500 * this.text.length);
+    this.addStar();
   },
   methods: {
     nextPage() {
       this.$router.replace("/comment");
+    },
+    addStar() {
+      this.Flash1 = new Sprite("https://cdn.zoocer.com/page4/flash1.png").attr({
+        pos: [120, 145],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash2 = new Sprite("https://cdn.zoocer.com/page4/flash2.png").attr({
+        pos: [250, 180],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash3 = new Sprite("https://cdn.zoocer.com/page4/flash3.png").attr({
+        pos: [340, 230],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash4 = new Sprite("https://cdn.zoocer.com/page4/flash4.png").attr({
+        pos: [505, 190],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash5 = new Sprite("https://cdn.zoocer.com/page4/flash1.png").attr({
+        pos: [100, 445],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash6 = new Sprite("https://cdn.zoocer.com/page4/flash2.png").attr({
+        pos: [230, 480],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash7 = new Sprite("https://cdn.zoocer.com/page4/flash3.png").attr({
+        pos: [370, 530],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash8 = new Sprite("https://cdn.zoocer.com/page4/flash4.png").attr({
+        pos: [525, 490],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.group.append(this.Flash1);
+      this.group.append(this.Flash2);
+      this.group.append(this.Flash3);
+      this.group.append(this.Flash4);
+      this.group.append(this.Flash5);
+      this.group.append(this.Flash6);
+      this.group.append(this.Flash7);
+      this.group.append(this.Flash8);
+      this.controlFlash(2000);
+    },
+    controlFlash(time) {
+      this.Flash1.animate(
+        [
+          { opacity: 0 },
+          { opacity: 1 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 250
+        }
+      );
+      this.Flash2.animate(
+        [
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 1 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 0
+        }
+      );
+      this.Flash3.animate(
+        [
+          { opacity: 1 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 170
+        }
+      );
+      this.Flash4.animate(
+        [
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 1 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 30
+        }
+      );
+      this.Flash5.animate(
+        [
+          { opacity: 0 },
+          { opacity: 1 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 550
+        }
+      );
+      this.Flash6.animate(
+        [
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 1 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 500
+        }
+      );
+      this.Flash7.animate(
+        [
+          { opacity: 1 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 670
+        }
+      );
+      this.Flash8.animate(
+        [
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 1 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 530
+        }
+      );
     }
   }
 };

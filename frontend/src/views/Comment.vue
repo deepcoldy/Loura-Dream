@@ -24,6 +24,9 @@ export default {
       button: null,
       notice: null,
       arrow: null,
+      check: null,
+      uncheck: null,
+      agree: true,
       data: {
         dream: "",
         step: "",
@@ -58,6 +61,15 @@ export default {
       pos: [750 / 2, 985]
     });
     this.button.on("click", () => {
+      if (!this.agree) {
+        MessageBox({
+          title: "提示",
+          message: "请先了解并同意条款哦",
+          showCancelButton: false,
+          confirmButtonText: "知道了"
+        });
+        return;
+      }
       if (!this.data.dream) {
         MessageBox({
           title: "提示",
@@ -153,7 +165,7 @@ export default {
       ],
       {
         delay: 500,
-        duration: 800,
+        duration: 1500,
         fill: "forwards",
         iterations: Infinity
       }
@@ -198,7 +210,7 @@ export default {
         ],
         {
           iterations: Infinity,
-          duration: 20000,
+          duration: 80000,
           fill: "forwards"
         }
       );
@@ -210,8 +222,126 @@ export default {
         ],
         {
           iterations: Infinity,
-          duration: 20000,
+          duration: 80000,
           fill: "forwards"
+        }
+      );
+      this.addStar();
+      this.addCheckBox();
+    },
+    addCheckBox() {
+      this.uncheck = new Sprite(
+        "https://cdn.zoocer.com/page8%2Funcheck.png"
+      ).attr({
+        pos: [135, 1096],
+        scale: 0.4
+      });
+      this.check = new Sprite("https://cdn.zoocer.com/page8%2Fcheck.png").attr({
+        pos: [135, 1096],
+        scale: 0.4
+      });
+      this.group.append(this.check);
+      this.check.on("click", () => {
+        this.group.removeChild(this.check);
+        this.group.append(this.uncheck);
+        this.agree = false;
+      });
+      this.uncheck.on("click", () => {
+        this.group.removeChild(this.uncheck);
+        this.group.append(this.check);
+        this.agree = true;
+      });
+    },
+    addStar() {
+      this.Flash1 = new Sprite("https://cdn.zoocer.com/page4/flash1.png").attr({
+        pos: [100, 645],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash2 = new Sprite("https://cdn.zoocer.com/page4/flash2.png").attr({
+        pos: [80, 830],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash3 = new Sprite("https://cdn.zoocer.com/page4/flash3.png").attr({
+        pos: [690, 630],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.Flash4 = new Sprite("https://cdn.zoocer.com/page4/flash4.png").attr({
+        pos: [650, 900],
+        opacity: 0,
+        anchor: 0.5,
+        scale: 0.3
+      });
+      this.group.append(this.Flash1);
+      this.group.append(this.Flash2);
+      this.group.append(this.Flash3);
+      this.group.append(this.Flash4);
+      this.controlFlash(2000);
+    },
+    controlFlash(time) {
+      this.Flash1.animate(
+        [
+          { opacity: 0 },
+          { opacity: 1 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 250
+        }
+      );
+      this.Flash2.animate(
+        [
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 1 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 0
+        }
+      );
+      this.Flash3.animate(
+        [
+          { opacity: 1 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 170
+        }
+      );
+      this.Flash4.animate(
+        [
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 0 },
+          { opacity: 1 }
+        ],
+        {
+          duration: time,
+          fill: "forwards",
+          iterations: Infinity,
+          delay: 30
         }
       );
     }
