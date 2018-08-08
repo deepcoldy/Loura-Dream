@@ -29,7 +29,9 @@ export default {
         curtainLeft: null,
         curtainRight: null,
         Light: null,
-        Text: null,
+        Text1: null,
+        Text2: null,
+        Text3: null,
         Slate: null
       },
       page1: {
@@ -177,7 +179,9 @@ export default {
         "https://cdn.zoocer.com/prepage/curtainLeft.png",
         "https://cdn.zoocer.com/prepage/curtainRight.png",
         "https://cdn.zoocer.com/prepage/light.png",
-        "https://cdn.zoocer.com/prepage/text.png",
+        "https://cdn.zoocer.com/prepage/1.png",
+        "https://cdn.zoocer.com/prepage/2.png",
+        "https://cdn.zoocer.com/prepage/3.png",
         "https://cdn.zoocer.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png",
         "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
         "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
@@ -371,49 +375,7 @@ export default {
     },
     async nextPage() {
       if (this.step === 0) {
-        this.loadAssetsPage1();
-        this.prePage.Text.animate([{ opacity: 1 }, { opacity: 0 }], {
-          duration: 1000,
-          fill: "forwards"
-        });
-        await this.prePage.Slate.animate([{ opacity: 1 }, { opacity: 0 }], {
-          duration: 1000,
-          fill: "forwards"
-        }).finished;
-        this.prePage.Light.animate([{ opacity: 1 }, { opacity: 0 }], {
-          duration: 1000,
-          fill: "forwards"
-        });
-        this.prePage.curtainLeft.animate(
-          [
-            {
-              translate: [0 + 1, 0]
-            },
-            {
-              translate: [-375, 0]
-            }
-          ],
-          {
-            duration: 1000,
-            fill: "forwards",
-            easing: "ease-in"
-          }
-        );
-        this.prePage.curtainRight.animate(
-          [
-            {
-              translate: [750 / 2 - 8, 0]
-            },
-            {
-              translate: [750, 0]
-            }
-          ],
-          {
-            duration: 1000,
-            fill: "forwards",
-            easing: "ease-in"
-          }
-        );
+        this.prePageTransToPage1();
       } else if (this.step === 1) {
         clearInterval(this.interval);
         this.loadAssetsPage1(false);
@@ -500,7 +462,9 @@ export default {
       this.prePage.Light = new Sprite(
         "https://cdn.zoocer.com/prepage/light.png"
       );
-      this.prePage.Text = new Sprite("https://cdn.zoocer.com/prepage/text.png");
+      this.prePage.Text1 = new Sprite("https://cdn.zoocer.com/prepage/1.png");
+      this.prePage.Text2 = new Sprite("https://cdn.zoocer.com/prepage/2.png");
+      this.prePage.Text3 = new Sprite("https://cdn.zoocer.com/prepage/3.png");
       this.prePage.Slate = new Sprite(
         "https://cdn.zoocer.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png"
       ).on("touchstart", async () => {
@@ -521,8 +485,24 @@ export default {
         })
       );
       this.prePage.group.append(
-        this.prePage.Text.attr({
+        this.prePage.Text1.attr({
           pos: [750 / 2, 500],
+          anchor: 0.5,
+          opacity: 0,
+          zIndex: 9
+        })
+      );
+      this.prePage.group.append(
+        this.prePage.Text2.attr({
+          pos: [750 / 2, 500 + 67 + 20],
+          anchor: 0.5,
+          opacity: 0,
+          zIndex: 9
+        })
+      );
+      this.prePage.group.append(
+        this.prePage.Text3.attr({
+          pos: [750 / 2, 500 + 67 + 20 + 68 + 20],
           anchor: 0.5,
           opacity: 0,
           zIndex: 9
@@ -533,14 +513,24 @@ export default {
           zIndex: 2
         })
       );
-      this.prePage.Text.animate([{ opacity: 0 }, { opacity: 1 }], {
+      this.prePage.Text1.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.prePage.Text2.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay: 1500,
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.prePage.Text3.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay: 3000,
         duration: 1000,
         fill: "forwards"
       });
       const SlateAnimate = this.prePage.Slate.animate(
         [{ opacity: 0 }, { opacity: 1 }],
         {
-          delay: 1000,
+          delay: 4500,
           duration: 1000,
           fill: "forwards"
         }
@@ -548,10 +538,63 @@ export default {
       this.prePage.Slate.animate(
         [{ scale: 0.9 }, { scale: 1 }, { scale: 0.9 }],
         {
-          delay: 1000,
+          delay: 4500,
           duration: 2000,
           fill: "forwards",
           iterations: Infinity
+        }
+      );
+    },
+    async prePageTransToPage1() {
+      this.loadAssetsPage1();
+      this.prePage.Text1.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.prePage.Text2.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.prePage.Text3.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
+      await this.prePage.Slate.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 1000,
+        fill: "forwards"
+      }).finished;
+      this.prePage.Light.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.prePage.curtainLeft.animate(
+        [
+          {
+            translate: [0 + 1, 0]
+          },
+          {
+            translate: [-375, 0]
+          }
+        ],
+        {
+          duration: 1000,
+          fill: "forwards",
+          easing: "ease-in"
+        }
+      );
+      this.prePage.curtainRight.animate(
+        [
+          {
+            translate: [750 / 2 - 8, 0]
+          },
+          {
+            translate: [750, 0]
+          }
+        ],
+        {
+          duration: 1000,
+          fill: "forwards",
+          easing: "ease-in"
         }
       );
     },
