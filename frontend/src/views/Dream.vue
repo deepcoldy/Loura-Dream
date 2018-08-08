@@ -34,122 +34,119 @@ export default {
     });
     this.layer = this.scene.layer();
     this.background = new Sprite(
-      "https://cdn.zoocer.com/page7/%E8%83%8C%E6%99%AF.jpg"
+      "https://cdn.zoocer.com/page7%2Fa%E8%83%8C%E6%99%AF.jpg"
     );
     this.group = new Group();
     this.group.append(this.background);
     this.layer.append(this.group);
 
-    const array = Array.from({ length: 13 });
+    const array = Array.from({ length: 6 });
     array.map((item, index) => {
       console.log(item);
       this.text.push(
-        new Sprite(`https://cdn.zoocer.com/page7/${index + 1}.png`).attr({
+        new Sprite(`https://cdn.zoocer.com/page7/a${index + 1}.png`).attr({
           anchor: 0.5
         })
       );
     });
     this.group.append(
-      // 看着这张新专辑
+      // 一步一步
       this.text[0].attr({
         opacity: 0,
-        pos: [750 / 2, 115]
+        pos: [750 / 2, 320]
       })
     );
     this.group.append(
       // 关于音乐
       this.text[1].attr({
         opacity: 0,
-        pos: [750 / 2, 95 + 40 + 20 + 67]
-      })
-    );
-    this.group.append(
-      // 我从不是说时所而已
-      this.text[2].attr({
-        opacity: 0,
-        pos: [750 / 2, 95 + 40 + 20 + 67 + 42 + 20]
-      })
-    );
-    this.group.append(
-      // 它是我的梦想
-      this.text[3].attr({
-        opacity: 0,
-        pos: [750 / 2, 95 + 40 + 20 + 67 + 42 + 20 + 42 + 20]
-      })
-    );
-    this.group.append(
-      // 一步一步
-      this.text[4].attr({
-        opacity: 0,
-        pos: [750 / 2, 95 + 40 + 20 + 67 + 42 + 20 + 42 + 20 + 43 + 20]
-      })
-    );
-    this.group.append(
-      // 我离他越来越近
-      this.text[5].attr({
-        opacity: 0,
-        pos: [
-          750 / 2,
-          95 + 40 + 20 + 67 + 42 + 20 + 42 + 20 + 43 + 20 + 43 + 20
-        ]
+        pos: [750 / 2, 320 + 42 + 50]
       })
     );
     this.group.append(
       // 梦想可以很大
-      this.text[6].attr({
+      this.text[2].attr({
         opacity: 0,
-        //越来越近
-        pos: [750 / 2, 536 + 100]
+        pos: [750 / 2, 412 + 40 + 120]
       })
     );
     this.group.append(
-      // 但最重要的是
-      this.text[7].attr({
+      // 你的第一步准备怎么走
+      this.text[3].attr({
         opacity: 0,
-        pos: [750 / 2, 636 + 42 + 20]
+        pos: [750 / 2, 572 + 41 + 50]
       })
     );
     this.group.append(
-      // 记得迈出第一步
-      this.text[8].attr({
+      // 告诉我
+      this.text[4].attr({
         opacity: 0,
-        pos: [750 / 2, 636 + 42 + 20 + 43 + 20]
+        pos: [750 / 2, 663 + 44 + 160]
       })
     );
     this.group.append(
-      // 留下你的
-      this.text[9].attr({
+      // 让我帮你一起实现它
+      this.text[5].attr({
         opacity: 0,
-        // 记得迈出第一步
-        pos: [750 / 2, 636 + 42 + 20 + 43 + 20 + 43 + 20 + 120]
+        pos: [750 / 2, 867 + 40 + 50]
       })
     );
-    this.group.append(
-      this.text[10].attr({
-        opacity: 0,
-        pos: [750 / 2, 636 + 42 + 20 + 43 + 20 + 43 + 20 + 120 + 42 + 20]
-      })
-    );
-    this.group.append(
-      this.text[11].attr({
-        opacity: 0,
-        pos: [
-          750 / 2,
-          636 + 42 + 20 + 43 + 20 + 43 + 20 + 120 + 42 + 20 + 57 + 20
-        ]
-      })
-    );
-    this.group.append(
-      this.text[12].attr({
-        opacity: 0,
-        pos: [750 / 2, 1083 + 44 + 20]
-      })
-    );
+    // this.group.append(
+    //   // 梦想可以很大
+    //   this.text[6].attr({
+    //     opacity: 0,
+    //     //越来越近
+    //     pos: [750 / 2, 536 + 100]
+    //   })
+    // );
+    // this.group.append(
+    //   // 但最重要的是
+    //   this.text[7].attr({
+    //     opacity: 0,
+    //     pos: [750 / 2, 636 + 42 + 20]
+    //   })
+    // );
+    // this.group.append(
+    //   // 记得迈出第一步
+    //   this.text[8].attr({
+    //     opacity: 0,
+    //     pos: [750 / 2, 636 + 42 + 20 + 43 + 20]
+    //   })
+    // );
+    // this.group.append(
+    //   // 留下你的
+    //   this.text[9].attr({
+    //     opacity: 0,
+    //     // 记得迈出第一步
+    //     pos: [750 / 2, 636 + 42 + 20 + 43 + 20 + 43 + 20 + 120]
+    //   })
+    // );
+    // this.group.append(
+    //   this.text[10].attr({
+    //     opacity: 0,
+    //     pos: [750 / 2, 636 + 42 + 20 + 43 + 20 + 43 + 20 + 120 + 42 + 20]
+    //   })
+    // );
+    // this.group.append(
+    //   this.text[11].attr({
+    //     opacity: 0,
+    //     pos: [
+    //       750 / 2,
+    //       636 + 42 + 20 + 43 + 20 + 43 + 20 + 120 + 42 + 20 + 57 + 20
+    //     ]
+    //   })
+    // );
+    // this.group.append(
+    //   this.text[12].attr({
+    //     opacity: 0,
+    //     pos: [750 / 2, 1083 + 44 + 20]
+    //   })
+    // );
     this.Arrow = new Sprite(
-      "https://cdn.zoocer.com/page6/%E7%AE%AD%E5%A4%B4-min.png"
+      "https://cdn.zoocer.com/page7%2Fa%E7%AE%AD%E5%A4%B4.png"
     ).attr({
       anchor: 0.5,
-      pos: [750 / 2, 1230],
+      pos: [750 / 2, 1110],
       opacity: 0,
       zIndex: 5
     });
