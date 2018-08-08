@@ -1712,7 +1712,7 @@ export default {
 
       this.page5.group.append(this.page6.Star);
       this.page6.Star.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: 2000,
+        delay: 5000,
         duration: 500,
         fill: "forwards"
       });
