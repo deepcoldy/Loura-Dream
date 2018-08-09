@@ -75,7 +75,8 @@ export default {
         group: null,
         background: null,
         Girl: [],
-        GirlIndex: 1
+        GirlIndex: 1,
+        Flower: null
       },
       transto4: {
         group: null,
@@ -198,6 +199,7 @@ export default {
         "https://cdn.zoocer.com/page3/1%E4%BA%91.png",
         "https://cdn.zoocer.com/page3/2%E4%BA%91.png",
         "https://cdn.zoocer.com/page3/3%E4%BA%91.png",
+        "https://cdn.zoocer.com/page3%2F%E8%8A%B1.png",
         "https://cdn.zoocer.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg",
         "https://cdn.zoocer.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png",
         `https://cdn.zoocer.com/page4/%E6%8C%89%E9%92%AE-%E8%8A%B1.png`,
@@ -1061,22 +1063,13 @@ export default {
       });
       this.page2.group.append(this.page3.transBackground);
       this.page2.group.append(this.page3.background);
-      let count = 0;
-      setInterval(() => {
-        count++;
-      }, 1000);
+
       for (let index = 0; index <= 11; index++) {
         const Girl = new Sprite(`
         https://cdn.zoocer.com/page3/girl/%E6%AD%8C%E7%8E%8B-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
           index.toString().length === 1 ? `0${index}` : index
         }-min.png
-        `).on("touchstart", () => {
-          if (count < 3) return;
-          this.nextPage();
-          this.page3.Girl.map(item => {
-            item.off("touchstart");
-          });
-        });
+        `);
         Girl.attr({ zIndex: 6 });
         this.page3.Girl.push(
           Girl.attr({
@@ -1086,6 +1079,15 @@ export default {
           })
         );
       }
+      this.page3.Flower = new Sprite(
+        "https://cdn.zoocer.com/page3%2F%E8%8A%B1.png"
+      ).attr({
+        pos: [540 * 1.5 + 750 * 1.5 + 711 * 1.5, 1120 * 1.5],
+        zIndex: 6,
+        width: 139 * 1.5,
+        height: 138 * 1.5
+      });
+      this.page2.group.append(this.page3.Flower);
       this.page2.group.append(
         this.page3.Girl[0].attr({
           width: 260 * 1.5,
@@ -1158,6 +1160,16 @@ export default {
       this.layer.append(this.page3.group);
       this.page3.group;
 
+      this.page3.Flower.attr({
+        pos: [540, 1120],
+        width: 139,
+        height: 138
+      }).on("touchstart", () => {
+        this.nextPage();
+        this.page3.Flower.off("touchstart");
+      });
+      this.page3.group.append(this.page3.Flower);
+
       this.page3.group.append(
         this.page3.background.attr({
           width: 750,
@@ -1185,6 +1197,7 @@ export default {
       clearInterval(this.interval);
       this.transto4.group = new Group();
 
+      // append page3元素到新画布上
       this.transto4.group.append(
         this.page3.background.attr({
           width: 750,
@@ -1199,7 +1212,9 @@ export default {
           pos: [226, 510]
         })
       );
+      this.transto4.group.append(this.page3.Flower);
       this.layer.append(this.transto4.group);
+      // append天空到新画布
       this.transto4.Sky.group = new Group().attr({
         translate: [0, -1462],
         zIndex: 9
