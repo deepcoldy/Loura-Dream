@@ -212,13 +212,22 @@ export default {
         "https://cdn.zoocer.com/page6/%E7%AE%AD%E5%A4%B4-min.png",
 
         "https://cdn.zoocer.com/page7%2Fa%E8%83%8C%E6%99%AF.jpg",
-        "https://cdn.zoocer.com/page7%2Fa%E7%AE%AD%E5%A4%B4.png"
-        // "https://cdn.zoocer.com/page8%2F8%E7%95%99%E8%A8%80%E6%9D%BF-%E6%9B%B4%E6%94%B9.jpg",
-        // "https://cdn.zoocer.com/page8%2Fsubmit.png",
-        // "https://cdn.zoocer.com/page8/notice.png",
-        // "https://cdn.zoocer.com/page8%2F%E7%AE%AD%E5%A4%B4.png",
-        // "https://cdn.zoocer.com/page8%2Funcheck.png",
-        // "https://cdn.zoocer.com/page8%2Fcheck.png",
+        "https://cdn.zoocer.com/page7%2Fa%E7%AE%AD%E5%A4%B4.png",
+        "https://cdn.zoocer.com/page8%2F8%E7%95%99%E8%A8%80%E6%9D%BF-%E6%9B%B4%E6%94%B9.jpg",
+        "https://cdn.zoocer.com/page8%2Fsubmit.png",
+        "https://cdn.zoocer.com/page8/notice.png",
+        "https://cdn.zoocer.com/page8%2F%E7%AE%AD%E5%A4%B4.png",
+        "https://cdn.zoocer.com/page8%2Funcheck.png",
+        "https://cdn.zoocer.com/page8%2Fcheck.png",
+        "https://cdn.zoocer.com/page9/%E8%83%8C%E6%99%AF.jpg",
+        "https://cdn.zoocer.com/page9/%E7%94%B5%E8%A7%86-min.png",
+        "https://cdn.zoocer.com/page9/%E9%9D%9E%E7%B1%BB-min.png",
+        "https://cdn.zoocer.com/page9%2F%E5%A5%BD%E6%83%B3%E4%BB%96.jpg",
+        "https://cdn.zoocer.com/page9/button1.png",
+        "https://cdn.zoocer.com/page9/button1-active.png",
+        "https://cdn.zoocer.com/page9/button2-active.png",
+        "https://cdn.zoocer.com/page9/button2.png",
+        "https://cdn.zoocer.com/page9%2FQQ%E9%9F%B3%E4%B9%90-min.png"
       ];
       for (let index = 0; index <= 19; index++) {
         const Girl = `
