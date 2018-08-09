@@ -358,10 +358,8 @@ export default {
         this.preload.push(Loop);
       }
 
-      for (let index = 94; index <= 183; index++) {
-        const ToPage6 = `https://cdn.zoocer.com/page5%2Ftopage6%2F%E9%9F%B3%E4%B9%90%E5%89%A7_00${
-          index.toString().length === 2 ? "0" + index : index
-        }.jpg`;
+      for (let index = 113; index <= 261; index++) {
+        const ToPage6 = `https://cdn.zoocer.com/page5%2Ftopage6%2Fabc_00${index}.jpg`;
         this.preload.push(ToPage6);
       }
 
@@ -1752,12 +1750,10 @@ export default {
         this.nextFrame("Loop", "LoopIndex", this.page5.Loop.length, 0, "page5");
       }, 125);
     },
-    Page5TransToPage6() {
-      for (let index = 94; index <= 183; index++) {
+    async Page5TransToPage6() {
+      for (let index = 113; index <= 261; index++) {
         const ToPage6 = new Sprite(
-          `https://cdn.zoocer.com/page5%2Ftopage6%2F%E9%9F%B3%E4%B9%90%E5%89%A7_00${
-            index.toString().length === 2 ? "0" + index : index
-          }.jpg`
+          `https://cdn.zoocer.com/page5%2Ftopage6%2Fabc_00${index}.jpg`
         );
         this.page5.ToPage6.push(
           ToPage6.attr({
@@ -1766,10 +1762,10 @@ export default {
         );
       }
       this.page5.group.append(this.page5.ToPage6[0]);
-      this.page5.Moon.animate([{ opacity: 1 }, { opacity: 0 }], {
+      await this.page5.Moon.animate([{ opacity: 1 }, { opacity: 0 }], {
         duration: 500,
         fill: "forwards"
-      });
+      }).finished;
       this.page6.Star = new Sprite(
         "https://cdn.zoocer.com/page6/%E6%98%9F%E5%BA%A7-min.png"
       ).attr({
