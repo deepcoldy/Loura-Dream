@@ -1082,7 +1082,7 @@ export default {
       this.page3.Flower = new Sprite(
         "https://cdn.zoocer.com/page3%2F%E8%8A%B1.png"
       ).attr({
-        pos: [540 * 1.5 + 750 * 1.5 + 711 * 1.5, 1120 * 1.5],
+        pos: [520 * 1.5 + 750 * 1.5 + 711 * 1.5, 1080 * 1.5],
         zIndex: 6,
         width: 139 * 1.5,
         height: 138 * 1.5
@@ -1161,7 +1161,7 @@ export default {
       this.page3.group;
 
       this.page3.Flower.attr({
-        pos: [540, 1120],
+        pos: [520, 1080],
         width: 139,
         height: 138
       }).on("touchstart", () => {
