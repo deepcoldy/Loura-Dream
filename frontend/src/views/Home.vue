@@ -1846,7 +1846,7 @@ export default {
             translate: [0, 0]
           },
           {
-            translate: [0, 50]
+            translate: [0, 30]
           },
           {
             translate: [0, 0]
@@ -1854,7 +1854,7 @@ export default {
         ],
         {
           delay: 1500,
-          duration: 800,
+          duration: 1500,
           iterations: Infinity,
           fill: "forwards"
         }
