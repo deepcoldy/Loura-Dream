@@ -21,6 +21,7 @@ export default {
     };
   },
   mounted() {
+    __mixdataMn__("trans", 7);
     this.ratio =
       document.documentElement.clientWidth /
       document.documentElement.clientHeight;

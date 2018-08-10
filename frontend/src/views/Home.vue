@@ -137,6 +137,7 @@ export default {
   },
 
   async mounted() {
+    __mixdataMn__("target", 1);
     this.preloadimg();
     console.log(this.preload);
     let stickMode = "height";
@@ -385,7 +386,9 @@ export default {
     async nextPage() {
       if (this.step === 0) {
         this.prePageTransToPage1();
+        __mixdataMn__("trans", 1);
       } else if (this.step === 1) {
+        __mixdataMn__("trans", 2);
         clearInterval(this.interval);
         this.loadAssetsPage1(false);
         this.loadAssetsPage2();
@@ -404,12 +407,16 @@ export default {
           });
         }, 150);
       } else if (this.step === 2) {
+        __mixdataMn__("trans", 3);
         this.Page2TransToPage3();
       } else if (this.step === 3) {
+        __mixdataMn__("trans", 4);
         this.Page3TransToPage4();
       } else if (this.step === 4) {
+        __mixdataMn__("trans", 5);
         this.Page4TransToPage5();
       } else if (this.step === 5) {
+        __mixdataMn__("trans", 6);
         this.Page5TransToPage6();
       } else {
         this.toNextPage();

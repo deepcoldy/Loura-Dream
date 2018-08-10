@@ -36,6 +36,7 @@ export default {
     };
   },
   mounted() {
+    __mixdataMn__("trans", 8);
     this.ratio =
       document.documentElement.clientWidth /
       document.documentElement.clientHeight;
@@ -106,7 +107,7 @@ export default {
         });
         return;
       }
-
+      __mixdataMn__("reg", 1);
       Toast({
         iconClass: "mintui mintui-success",
         message: "提交成功",

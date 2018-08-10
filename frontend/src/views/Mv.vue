@@ -29,6 +29,7 @@ export default {
     };
   },
   mounted() {
+    __mixdataMn__("trans", 9);
     document.addEventListener(
       "WeixinJSBridgeReady",
       function() {
