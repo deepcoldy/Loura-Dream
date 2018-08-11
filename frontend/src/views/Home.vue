@@ -1168,7 +1168,7 @@ export default {
       this.page3.group;
 
       this.page3.Flower.attr({
-        pos: [520, 1080],
+        pos: [515, 1060],
         width: 139,
         height: 138
       }).on("touchstart", () => {
