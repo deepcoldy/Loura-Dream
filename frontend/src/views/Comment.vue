@@ -13,6 +13,7 @@
 <script>
 import { Scene, Sprite, Group } from "spritejs";
 import { Toast, MessageBox } from "mint-ui";
+import axios from "axios";
 
 export default {
   data() {
@@ -107,15 +108,18 @@ export default {
         });
         return;
       }
-      __mixdataMn__("reg", 1);
-      Toast({
-        iconClass: "mintui mintui-success",
-        message: "提交成功",
-        duration: 2000
+      axios.post("/api/", this.data).then(resp => {
+        console.log(resp);
+        __mixdataMn__("reg", 1);
+        Toast({
+          iconClass: "mintui mintui-success",
+          message: "提交成功",
+          duration: 2000
+        });
+        setTimeout(() => {
+          this.nextPage();
+        }, 2000);
       });
-      setTimeout(() => {
-        this.nextPage();
-      }, 2000);
     });
     this.group.append(this.button);
     this.notice = new Sprite("https://cdn.zoocer.com/page8/notice.png");
