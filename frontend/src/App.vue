@@ -62,37 +62,14 @@ export default {
       }
     },
     audioAutoPlay() {
-      var audio = document.getElementById("music");
-      audio.play();
       document.addEventListener(
         "WeixinJSBridgeReady",
         () => {
-          audio.play();
+          this.musicPlay(true);
         },
         false
       );
-    },
-    // 音乐播放
-    autoPlayMusic() {
-      // 自动播放音乐效果，解决浏览器或者APP自动播放问题
-      const musicInBrowserHandler = () => {
-        this.musicPlay(true);
-        document.body.removeEventListener("touchstart", musicInBrowserHandler);
-      };
-      document.body.addEventListener("touchstart", musicInBrowserHandler);
-      // 自动播放音乐效果，解决微信自动播放问题
-      const musicInWeixinHandler = () => {
-        this.musicPlay(true);
-        document.addEventListener(
-          "WeixinJSBridgeReady",
-          () => {
-            this.musicPlay(true);
-          },
-          false
-        );
-        document.removeEventListener("DOMContentLoaded", musicInWeixinHandler);
-      };
-      document.addEventListener("DOMContentLoaded", musicInWeixinHandler);
+      this.musicPlay(true);
     },
     musicPlay(isPlay) {
       var media = document.querySelector("#music");
