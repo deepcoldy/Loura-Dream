@@ -36,8 +36,6 @@ export default {
     }
   },
   mounted() {
-    console.log(window);
-    this.autoPlayMusic();
     this.audioAutoPlay();
     this.judgeOrientation();
     window.addEventListener(
