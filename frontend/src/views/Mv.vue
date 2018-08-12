@@ -68,8 +68,8 @@ export default {
     ).attr({
       pos: [110, 190]
     });
-    this.group.append(this.cover2);
     this.group.append(this.cover);
+    this.group.append(this.cover2);
     this.playButton = new Path().attr({
       path: {
         d:
@@ -87,26 +87,27 @@ export default {
         console.log(this.shadow);
       })
     );
-    this.button1 = new Sprite("https://cdn.zoocer.com/page9/button1.png").attr({
-      pos: [240, 650]
-    });
-    this.group.append(this.button1);
     this.button1Active = new Sprite(
       "https://cdn.zoocer.com/page9/button1-active.png"
     ).attr({
       pos: [240, 650]
     });
     this.group.append(this.button1Active);
+    this.button1 = new Sprite("https://cdn.zoocer.com/page9/button1.png").attr({
+      pos: [240, 650]
+    });
+    this.group.append(this.button1);
+
+    this.button2 = new Sprite("https://cdn.zoocer.com/page9/button2.png").attr({
+      pos: [230, 710]
+    });
+    this.group.append(this.button2);
     this.button2Active = new Sprite(
       "https://cdn.zoocer.com/page9/button2-active.png"
     ).attr({
       pos: [230, 710]
     });
     this.group.append(this.button2Active);
-    this.button2 = new Sprite("https://cdn.zoocer.com/page9/button2.png").attr({
-      pos: [230, 710]
-    });
-    this.group.append(this.button2);
     this.button1.on("click", () => {
       this.group.append(this.button1Active);
       this.group.append(this.button2);
