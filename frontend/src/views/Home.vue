@@ -1578,7 +1578,7 @@ export default {
       )
         .attr({
           anchor: 0.5,
-          pos: [300, 1000],
+          pos: [440, 1100],
           zIndex: 3
         })
         .on("touchstart", () => {
@@ -1590,7 +1590,7 @@ export default {
         this.createWave({
           size: [40, 40],
           color: "#FFEEAF",
-          pos: [300, 1000],
+          pos: [440, 1100],
           zIndex: 2,
           page: "page4"
         });
