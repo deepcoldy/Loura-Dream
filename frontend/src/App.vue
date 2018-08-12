@@ -60,6 +60,14 @@ export default {
       }
     },
     audioAutoPlay() {
+      this.musicPlay(true);
+      const musicInBrowserHandler = () => {
+        this.musicPlay(true);
+        this.musicPlay(false);
+        this.musicPlay(true);
+        document.body.removeEventListener("touchstart", musicInBrowserHandler);
+      };
+      document.body.addEventListener("touchstart", musicInBrowserHandler);
       document.addEventListener(
         "WeixinJSBridgeReady",
         () => {
@@ -67,7 +75,6 @@ export default {
         },
         false
       );
-      this.musicPlay(true);
     },
     musicPlay(isPlay) {
       var media = document.querySelector("#music");
