@@ -106,7 +106,8 @@ export default {
         Flash1: null,
         Flash2: null,
         Flash3: null,
-        Flash4: null
+        Flash4: null,
+        ClickFlash: null
       },
       page5: {
         group: null,
@@ -204,6 +205,7 @@ export default {
         "https://cdn.zoocer.com/page4/%E7%AD%BE%E7%BA%A6-%E8%83%8C%E6%99%AF.jpg",
         "https://cdn.zoocer.com/page4/eye/%E9%A2%84%E5%90%88%E6%88%90%203_00007-min.png",
         `https://cdn.zoocer.com/page4/%E6%8C%89%E9%92%AE-%E8%8A%B1.png`,
+        "https://cdn.zoocer.com/page4%2F%E9%97%AA%E5%85%89%E7%81%AF.png",
         "https://cdn.zoocer.com/page4/flash1.png",
         "https://cdn.zoocer.com/page4/flash2.png",
         "https://cdn.zoocer.com/page4/flash3.png",
@@ -727,21 +729,7 @@ export default {
       this.layer.append(this.page1.group);
       auto ? this.autoAnimatPage1() : "";
     },
-    autoAnimatPage1() {
-      this.page1.Camera.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: 3000,
-        fill: "forwards",
-        duration: 1000
-      });
-      this.page1.Camera.animate(
-        [{ scale: 0.6 }, { scale: 0.8 }, { scale: 0.6 }],
-        {
-          delay: 5000,
-          fill: "forwards",
-          duration: 2000,
-          iterations: Infinity
-        }
-      );
+    async autoAnimatPage1() {
       this.interval = setInterval(() => {
         this.page1.group.append(this.page1.Girl[this.page1.GirlIndex]);
         this.page1.group.append(this.page1.GasLeft[this.page1.GasIndex]);
@@ -758,6 +746,42 @@ export default {
         this.nextFrame("Man", "ManIndex", this.page1.Man.length, 4);
         this.nextFrame("Woman", "WomanIndex", this.page1.Woman.length, 4);
       }, 100);
+      await this.page1.Camera.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay: 3000,
+        fill: "forwards",
+        duration: 1000
+      }).finished;
+
+      setInterval(() => {
+        this.createWave({
+          size: [40, 40],
+          color: "#EEDB91",
+          pos: [130 + 174 / 2, 815 + 119 / 2],
+          zIndex: 2,
+          page: "page1"
+        });
+      }, 500);
+    },
+    async createWave({ size, pos, color, zIndex, page }) {
+      const second = 1; //一个波浪的动画周期
+      const wave = new Sprite().attr({
+        size,
+        pos,
+        bgcolor: color,
+        borderRadius: size[0] / 2,
+        zIndex,
+        anchor: 0.5,
+        scale: [1, 1],
+        opacity: 1
+      });
+      this[page].group.append(wave);
+      await wave.transition(second).attr({
+        scale: [5, 5], // 放大倍数
+        opacity: 0
+      });
+      setTimeout(() => {
+        wave.remove();
+      }, second * 1000);
     },
     async loadAssetsPage2() {
       let stickMode = "height";
@@ -893,7 +917,7 @@ export default {
         height: 39 * 1.5,
         pos: [440 * 1.5 + 42 * 0.8, 910 * 1.5 + 39 * 0.8],
         anchor: 0.5,
-        zIndex: 5,
+        zIndex: 6,
         scale: 0.9
       });
       this.page2.Box = new Sprite(
@@ -902,7 +926,7 @@ export default {
         width: 72 * 1.5,
         height: 56 * 1.5,
         pos: [430 * 1.5, 890 * 1.5],
-        zIndex: 6
+        zIndex: 7
       });
       // Page2 Man6
       for (let index = 0; index <= 10; index++) {
@@ -975,25 +999,15 @@ export default {
           easing: "ease-in"
         }
       );
-      this.page2.Microphone.animate(
-        [
-          {
-            scale: 1
-          },
-          {
-            scale: 1.6
-          },
-          {
-            scale: 1
-          }
-        ],
-        {
-          duration: 1500,
-          fill: "forwards",
-          easing: "ease-in",
-          iterations: Infinity
-        }
-      );
+      setInterval(() => {
+        this.createWave({
+          size: [40, 40],
+          color: "#FFE8CC",
+          pos: [440 * 1.5 + 42 * 0.8, 910 * 1.5 + 39 * 0.8],
+          zIndex: 5,
+          page: "page2"
+        });
+      }, 500);
       setTimeout(() => {
         this.page2.Girl5.on("touchstart", () => {
           this.page2.Microphone.off("touchstart");
@@ -1003,13 +1017,10 @@ export default {
       }, 1000);
       let flag = 0;
       this.interval = setInterval(() => {
-        this.page2.group.append(this.page2.background);
-        this.page2.group.append(this.page1.group);
         this.page2.group.append(this.page2.Man1[this.page2.Man1Index]);
         this.page2.group.append(this.page2.Girl2[this.page2.Girl2Index]);
         this.page2.group.append(this.page2.Girl3[this.page2.Girl3Index]);
         this.page2.group.append(this.page2.Eye4[this.page2.Eye4Index]);
-        // this.page2.group.append(this.page2.Girl5[this.page2.Girl5Index]);
         this.page2.group.append(this.page2.Man6[this.page2.Man6Index]);
         this.nextFrame("Man1", "Man1Index", this.page2.Man1.length, 0, "page2");
         this.nextFrame(
@@ -1030,13 +1041,6 @@ export default {
           );
         }
         this.nextFrame("Eye4", "Eye4Index", this.page2.Eye4.length, 0, "page2");
-        // this.nextFrame(
-        //   "Girl5",
-        //   "Girl5Index",
-        //   this.page2.Girl5.length,
-        //   0,
-        //   "page2"
-        // );
         flag++;
         this.nextFrame("Man6", "Man6Index", this.page2.Man6.length, 0, "page2");
       }, 100);
@@ -1194,6 +1198,15 @@ export default {
       this.autoAnimatPage3();
     },
     autoAnimatPage3() {
+      setInterval(() => {
+        this.createWave({
+          size: [40, 40],
+          color: "#F0CE5B",
+          pos: [515 + 139 / 2, 1060 + 138 / 2],
+          zIndex: 5,
+          page: "page3"
+        });
+      }, 500);
       this.interval = setInterval(() => {
         this.page3.group.append(this.page3.Girl[this.page3.GirlIndex]);
 
@@ -1393,9 +1406,6 @@ export default {
       this.layer.append(this.page4.Flash3);
       this.layer.append(this.page4.Flash4);
       this.page4.group.append(this.page4.Eye);
-      // this.page4.append(girl);
-      // this.page4.append(boss);
-      // this.page4.append(newsman);
       this.layer.append(
         this.page4.group.attr({
           zIndex: 2
@@ -1426,6 +1436,10 @@ export default {
           easing: "ease-in"
         }
       ).finished;
+      this.page4.Flower.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
       this.animatPage4Once();
       this.persistAnimatePage4();
       setTimeout(() => {
@@ -1511,10 +1525,6 @@ export default {
     },
     animatPage4Once() {
       let flag = 0;
-      this.page4.Flower.animate([{ opacity: 0 }, { opacity: 1 }], {
-        duration: 1000,
-        fill: "forwards"
-      });
       this.interval = setInterval(() => {
         this.page4.group.append(this.page4.Girl[this.page4.GirlIndex]);
         this.nextFrame(
@@ -1545,15 +1555,32 @@ export default {
       }, 100);
     },
     autoAnimatPage4() {
-      this.page4.Flower.animate([{ scale: 1 }, { scale: 1.3 }, { scale: 1 }], {
-        duration: 1500,
-        iterations: Infinity,
-        fill: "forwards"
-      });
-      this.page4.Flower.on("touchstart", () => {
-        this.nextPage();
-        this.page4.Flower.off("touchstart");
-      });
+      // this.page4.Flower.on("touchstart", () => {
+      //   this.nextPage();
+      //   this.page4.Flower.off("touchstart");
+      // });
+      this.page4.ClickFlash = new Sprite(
+        "https://cdn.zoocer.com/page4%2F%E9%97%AA%E5%85%89%E7%81%AF.png"
+      )
+        .attr({
+          anchor: 0.5,
+          pos: [300, 1000],
+          zIndex: 3
+        })
+        .on("touchstart", () => {
+          this.nextPage();
+          this.page4.ClickFlash.off("touchstart");
+        });
+      this.page4.group.append(this.page4.ClickFlash);
+      setInterval(() => {
+        this.createWave({
+          size: [40, 40],
+          color: "#FFEEAF",
+          pos: [300, 1000],
+          zIndex: 2,
+          page: "page4"
+        });
+      }, 500);
       clearInterval(this.interval);
       this.interval = setInterval(() => {
         this.page4.group.append(
@@ -1745,32 +1772,36 @@ export default {
         zIndex: 4,
         pos: [500 + 209 / 2, 100 + 225 / 2],
         opacity: 0,
-        anchor: 0.5
+        anchor: 0.5,
+        scale: 0.5
       });
       this.page5.group.append(this.page5.Moon);
       this.page5.group.append(this.page5.Loop[0]);
       this.page5.group.append(this.page5.Loop[0]);
       this.autoAnimatPage5();
     },
-    autoAnimatPage5() {
-      this.page5.Moon.animate([{ opacity: 0 }, { opacity: 1 }], {
-        duration: 500,
-        fill: "forwards"
-      });
-      this.page5.Moon.animate([{ scale: 1 }, { scale: 0.9 }, { scale: 1 }], {
-        delay: 500,
-        duration: 2000,
-        fill: "forwards",
-        iterations: Infinity
-      });
-      this.page5.Moon.on("touchstart", () => {
-        this.page5.Moon.off("touchstart");
-        this.nextPage();
-      });
+    async autoAnimatPage5() {
       this.interval = setInterval(() => {
         this.page5.group.append(this.page5.Loop[this.page5.LoopIndex]);
         this.nextFrame("Loop", "LoopIndex", this.page5.Loop.length, 0, "page5");
       }, 125);
+      await this.page5.Moon.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 500,
+        fill: "forwards"
+      }).finished;
+      setInterval(() => {
+        this.createWave({
+          size: [40, 40],
+          color: "#FFEEAF",
+          pos: [500 + 209 / 2, 100 + 225 / 2],
+          zIndex: 3,
+          page: "page5"
+        });
+      }, 500);
+      this.page5.Moon.on("touchstart", () => {
+        this.page5.Moon.off("touchstart");
+        this.nextPage();
+      });
     },
     async Page5TransToPage6() {
       for (let index = 113; index <= 261; index++) {
