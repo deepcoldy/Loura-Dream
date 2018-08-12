@@ -159,6 +159,20 @@ export default {
       anchor: 0.5,
       color: "#FFFFFF"
     });
+    const background = new Sprite(
+      "https://cdn.zoocer.com/page7%2Fa%E8%83%8C%E6%99%AF.jpg"
+    );
+    const loading = new Sprite("https://cdn.zoocer.com/loading.png").attr({
+      anchor: 0.5,
+      pos: [750 / 2, 1331 / 2],
+      scale: 0.5
+    });
+    this.layer.append(background);
+    this.layer.append(loading);
+    loading.animate([{ rotate: 0 }, { rotate: 360 }], {
+      duration: 3000,
+      iterations: Infinity
+    });
     this.scene.on("preload", evt => {
       label.text = `${Math.floor(
         (evt.loaded.length / evt.resources.length) * 100
