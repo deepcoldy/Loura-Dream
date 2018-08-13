@@ -13,5 +13,6 @@ module.exports = {
   },
   globals: {
     __mixdataMn__: true,
+    _hmt: true
   }
 };

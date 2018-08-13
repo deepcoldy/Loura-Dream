@@ -22,6 +22,7 @@ export default {
   },
   mounted() {
     __mixdataMn__("trans", 7);
+    _hmt.push(["_trackEvent", "字幕页面", "浏览"]);
     this.ratio =
       document.documentElement.clientWidth /
       document.documentElement.clientHeight;
@@ -104,6 +105,7 @@ export default {
       })
       .on("touchstart", () => {
         this.nextPage();
+        _hmt.push(["_trackEvent", "字幕页面", "点击", "箭头"]);
       });
     this.group.append(this.Arrow);
     this.text.map((item, index) => {

@@ -31,6 +31,7 @@ export default {
     };
   },
   mounted() {
+    _hmt.push(["_trackEvent", "mv页面", "浏览"]);
     __mixdataMn__("trans", 9);
     document.addEventListener(
       "WeixinJSBridgeReady",
@@ -160,6 +161,7 @@ export default {
           pos: [750 / 2, 1200]
         })
         .on("click", () => {
+          _hmt.push(["_trackEvent", "mv页面", "点击", "跳转QQ音乐"]);
           __mixdataMn__("trans", "qq_music_click");
           setTimeout(() => {
             location.href = "https://y.qq.com/n/yqq/album/001TxHfD0pkRc1.html";
@@ -174,6 +176,13 @@ export default {
       if (!this.shadow) {
         this.time = new Date().getTime();
       } else {
+        _hmt.push([
+          "_trackEvent",
+          "mv页面",
+          "观看",
+          `mv${this.mv}`,
+          (new Date().getTime() - this.time) / 1000
+        ]);
         __mixdataMn__(
           `video${this.mv}_watch_time`,
           (new Date().getTime() - this.time) / 1000

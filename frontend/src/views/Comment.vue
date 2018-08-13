@@ -37,6 +37,7 @@ export default {
     };
   },
   mounted() {
+    _hmt.push(["_trackEvent", "留言页面", "浏览"]);
     __mixdataMn__("trans", 8);
     this.ratio =
       document.documentElement.clientWidth /
@@ -108,11 +109,13 @@ export default {
         });
         return;
       }
+      _hmt.push(["_trackEvent", "留言页面", "点击", "提交按钮"]);
       Indicator.open();
       axios.post("/api/", this.data).then(
         () => {
           Indicator.close();
           __mixdataMn__("reg", 1);
+          _hmt.push(["_trackEvent", "留言页面", "留言", "提交成功"]);
           Toast({
             iconClass: "mintui mintui-success",
             message: "提交成功",
@@ -149,6 +152,7 @@ export default {
       })
       .on("click", () => {
         this.nextPage();
+        _hmt.push(["_trackEvent", "留言页面", "点击", "跳过"]);
       });
     this.group.append(this.arrow);
     this.arrow.animate(

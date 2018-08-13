@@ -402,8 +402,10 @@ export default {
     async nextPage() {
       if (this.step === 0) {
         this.prePageTransToPage1();
+        _hmt.push(["_trackEvent", "幕布页面", "点击", "按钮"]);
         __mixdataMn__("trans", 1);
       } else if (this.step === 1) {
+        _hmt.push(["_trackEvent", "考试页面", "点击", "相机"]);
         __mixdataMn__("trans", 2);
         clearInterval(this.interval);
         this.loadAssetsPage1(false);
@@ -423,18 +425,23 @@ export default {
           });
         }, 150);
       } else if (this.step === 2) {
+        _hmt.push(["_trackEvent", "聚会页面", "点击", "话筒"]);
         __mixdataMn__("trans", 3);
         this.Page2TransToPage3();
       } else if (this.step === 3) {
+        _hmt.push(["_trackEvent", "歌王页面", "点击", "花朵"]);
         __mixdataMn__("trans", 4);
         this.Page3TransToPage4();
       } else if (this.step === 4) {
+        _hmt.push(["_trackEvent", "发布会页面", "点击", "闪光灯"]);
         __mixdataMn__("trans", 5);
         this.Page4TransToPage5();
       } else if (this.step === 5) {
+        _hmt.push(["_trackEvent", "话剧页面", "点击", "月亮"]);
         __mixdataMn__("trans", 6);
         this.Page5TransToPage6();
       } else {
+        _hmt.push(["_trackEvent", "专辑页面", "点击", "箭头"]);
         this.toNextPage();
       }
       this.step++;
