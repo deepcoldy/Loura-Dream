@@ -185,7 +185,7 @@ export default {
       scale: 0.5
     });
     this.layer.append(background);
-    setTimeout(() => {
+    const reloadTimeout = setTimeout(() => {
       this.layer.append(reloadButton);
     }, 5000);
     this.layer.append(loading);
@@ -203,6 +203,7 @@ export default {
 
     await this.scene.preload(...this.preload);
     this.layer.removeChild(reloadButton);
+    clearTimeout(reloadTimeout);
     this.Init("#canvas", "layer");
     this.loadPrePage();
   },
