@@ -37,7 +37,6 @@ export default {
     }
   },
   mounted() {
-    this.setWechatShare();
     this.audioAutoPlay();
     this.judgeOrientation();
     window.addEventListener(
@@ -107,6 +106,7 @@ export default {
         "WeixinJSBridgeReady",
         () => {
           this.musicPlay(true);
+          this.setWechatShare();
         },
         false
       );
