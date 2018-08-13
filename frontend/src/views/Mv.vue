@@ -26,7 +26,8 @@ export default {
       button2Active: null,
       shadow: null,
       mv: 2, // 使用最新的
-      qqmusic: null
+      qqmusic: null,
+      time: 0
     };
   },
   mounted() {
@@ -159,16 +160,26 @@ export default {
           pos: [750 / 2, 1200]
         })
         .on("click", () => {
-          location.href = "https://y.qq.com/n/yqq/album/001TxHfD0pkRc1.html";
+          __mixdataMn__("trans", "qq_music_click");
+          setTimeout(() => {
+            location.href = "https://y.qq.com/n/yqq/album/001TxHfD0pkRc1.html";
+          }, 100);
         });
       this.group.append(this.qqmusic);
     },
     nextPage() {
       this.$router.replace("/comment");
     },
-    toggleShadow(force = false) {
-      console.log(this);
-      if (!this.shadow && !force) {
+    toggleShadow() {
+      if (!this.shadow) {
+        this.time = new Date().getTime();
+      } else {
+        __mixdataMn__(
+          `video${this.mv}_watch_time`,
+          (new Date().getTime() - this.time) / 1000
+        );
+      }
+      if (!this.shadow) {
         this.$parent.musicPlay(false);
         this.shadow = new Sprite({
           bgcolor: "rgba(0, 0, 0, 0.9)",
