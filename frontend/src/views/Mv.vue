@@ -24,7 +24,7 @@ export default {
       button2: null,
       button2Active: null,
       shadow: null,
-      mv: 1,
+      mv: 2, // 使用最新的
       qqmusic: null
     };
   },
