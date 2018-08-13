@@ -1868,7 +1868,7 @@ export default {
       });
 
       this.page6.Star.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: this.page5.ToPage6.length * 50 + 100,
+        delay: this.page5.ToPage6.length * 50,
         duration: 500,
         fill: "forwards"
       });
@@ -1888,7 +1888,7 @@ export default {
       this.page5.group.append(background);
       setTimeout(() => {
         this.autoAnimatPage6();
-      }, this.page5.ToPage6.length * 50 + 100);
+      }, this.page5.ToPage6.length * 50);
     },
     autoAnimatPage6() {
       this.page6.CD = new Sprite(
