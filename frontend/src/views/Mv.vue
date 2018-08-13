@@ -10,6 +10,7 @@
 
 <script>
 import { Scene, Sprite, Group, Path } from "spritejs";
+import { MessageBox } from "mint-ui";
 export default {
   data() {
     return {
@@ -58,18 +59,7 @@ export default {
       "https://cdn.zoocer.com/page9/%E7%94%B5%E8%A7%86-min.png"
     ).attr({ zIndex: 2 });
     this.group.append(this.tv);
-    this.cover = new Sprite(
-      "https://cdn.zoocer.com/page9/%E9%9D%9E%E7%B1%BB-min.png"
-    ).attr({
-      pos: [110, 190]
-    });
-    this.cover2 = new Sprite(
-      "https://cdn.zoocer.com/page9%2F%E5%A5%BD%E6%83%B3%E4%BB%96.jpg"
-    ).attr({
-      pos: [110, 190]
-    });
-    this.group.append(this.cover);
-    this.group.append(this.cover2);
+
     this.playButton = new Path().attr({
       path: {
         d:
@@ -87,52 +77,92 @@ export default {
         console.log(this.shadow);
       })
     );
-    this.button1Active = new Sprite(
-      "https://cdn.zoocer.com/page9/button1-active.png"
-    ).attr({
-      pos: [240, 650]
-    });
-    this.group.append(this.button1Active);
-    this.button1 = new Sprite("https://cdn.zoocer.com/page9/button1.png").attr({
-      pos: [240, 650]
-    });
-    this.group.append(this.button1);
+    this.addMV1();
+    this.addMV2();
 
-    this.button2 = new Sprite("https://cdn.zoocer.com/page9/button2.png").attr({
-      pos: [230, 710]
+    this.addQQmusic();
+    const unClickButton = new Sprite({
+      size: [400, 210],
+      pos: [170, 880]
     });
-    this.group.append(this.button2);
-    this.button2Active = new Sprite(
-      "https://cdn.zoocer.com/page9/button2-active.png"
-    ).attr({
-      pos: [230, 710]
-    });
-    this.group.append(this.button2Active);
-    this.button1.on("click", () => {
-      this.group.append(this.button1Active);
-      this.group.append(this.button2);
-      this.mv = 1;
-      this.group.append(this.cover);
-    });
-    this.button2.on("click", () => {
-      this.group.append(this.button2Active);
-      this.group.append(this.button1);
-      this.mv = 2;
-      this.group.append(this.cover2);
-    });
-    this.qqmusic = new Sprite(
-      "https://cdn.zoocer.com/page9%2FQQ%E9%9F%B3%E4%B9%90-min.png"
-    )
-      .attr({
-        anchor: 0.5,
-        pos: [750 / 2, 1200]
-      })
-      .on("click", () => {
-        location.href = "https://y.qq.com/n/yqq/album/001TxHfD0pkRc1.html";
+    this.layer.append(unClickButton);
+    unClickButton.on("click", () => {
+      MessageBox({
+        title: "开放时间",
+        message:
+          "「海市蜃楼」 8月13日</br>「缱绻」8月20日</br>「Naughty Ball」8月27日",
+        showCancelButton: false,
+        confirmButtonText: "关闭"
       });
-    this.group.append(this.qqmusic);
+    });
   },
   methods: {
+    addMV1() {
+      this.cover = new Sprite(
+        "https://cdn.zoocer.com/page9/%E9%9D%9E%E7%B1%BB-min.png"
+      ).attr({
+        pos: [110, 190]
+      });
+      this.button1Active = new Sprite(
+        "https://cdn.zoocer.com/page9/button1-active.png"
+      ).attr({
+        pos: [240, 650]
+      });
+      this.group.append(this.button1Active);
+      this.button1 = new Sprite(
+        "https://cdn.zoocer.com/page9/button1.png"
+      ).attr({
+        pos: [240, 650]
+      });
+      this.group.append(this.button1);
+      this.group.append(this.cover);
+      this.button1.on("click", () => {
+        this.group.append(this.button1Active);
+        this.group.append(this.button2);
+        this.mv = 1;
+        this.group.append(this.cover);
+      });
+    },
+    addMV2() {
+      this.cover2 = new Sprite(
+        "https://cdn.zoocer.com/page9%2F%E5%A5%BD%E6%83%B3%E4%BB%96.jpg"
+      ).attr({
+        pos: [110, 190]
+      });
+      this.group.append(this.cover2);
+      this.button2 = new Sprite(
+        "https://cdn.zoocer.com/page9/button2.png"
+      ).attr({
+        pos: [230, 710]
+      });
+      this.group.append(this.button2);
+      this.button2Active = new Sprite(
+        "https://cdn.zoocer.com/page9/button2-active.png"
+      ).attr({
+        pos: [230, 710]
+      });
+      this.group.append(this.button2Active);
+
+      this.button2.on("click", () => {
+        this.group.append(this.button2Active);
+        this.group.append(this.button1);
+        this.mv = 2;
+        this.group.append(this.cover2);
+      });
+    },
+    addQQmusic() {
+      this.qqmusic = new Sprite(
+        "https://cdn.zoocer.com/page9%2FQQ%E9%9F%B3%E4%B9%90-min.png"
+      )
+        .attr({
+          anchor: 0.5,
+          pos: [750 / 2, 1200]
+        })
+        .on("click", () => {
+          location.href = "https://y.qq.com/n/yqq/album/001TxHfD0pkRc1.html";
+        });
+      this.group.append(this.qqmusic);
+    },
     nextPage() {
       this.$router.replace("/comment");
     },

@@ -1013,7 +1013,7 @@ export default {
           easing: "ease-in"
         }
       );
-      setInterval(() => {
+      const page2Wave = setInterval(() => {
         this.createWave({
           size: [40, 40],
           color: "#FFE8CC",
@@ -1024,7 +1024,7 @@ export default {
       }, 500);
       setTimeout(() => {
         this.page2.Girl5.on("touchstart", () => {
-          this.page2.Microphone.off("touchstart");
+          clearInterval(page2Wave);
           this.page2.Girl5.off("touchstart");
           this.nextPage();
         });
@@ -1185,12 +1185,22 @@ export default {
       this.layer.append(this.page3.group);
       this.page3.group;
 
+      const page3Wave = setInterval(() => {
+        this.createWave({
+          size: [40, 40],
+          color: "#F0CE5B",
+          pos: [515 + 139 / 2, 1060 + 138 / 2],
+          zIndex: 5,
+          page: "page3"
+        });
+      }, 500);
       this.page3.Flower.attr({
         pos: [515, 1060],
         width: 139,
         height: 138
       }).on("touchstart", () => {
         this.nextPage();
+        clearInterval(page3Wave);
         this.page3.Flower.off("touchstart");
       });
       this.page3.group.append(this.page3.Flower);
@@ -1212,15 +1222,6 @@ export default {
       this.autoAnimatPage3();
     },
     autoAnimatPage3() {
-      setInterval(() => {
-        this.createWave({
-          size: [40, 40],
-          color: "#F0CE5B",
-          pos: [515 + 139 / 2, 1060 + 138 / 2],
-          zIndex: 5,
-          page: "page3"
-        });
-      }, 500);
       this.interval = setInterval(() => {
         this.page3.group.append(this.page3.Girl[this.page3.GirlIndex]);
 
@@ -1569,10 +1570,15 @@ export default {
       }, 100);
     },
     autoAnimatPage4() {
-      // this.page4.Flower.on("touchstart", () => {
-      //   this.nextPage();
-      //   this.page4.Flower.off("touchstart");
-      // });
+      const page4Wave = setInterval(() => {
+        this.createWave({
+          size: [40, 40],
+          color: "#FFEEAF",
+          pos: [440, 1100],
+          zIndex: 2,
+          page: "page4"
+        });
+      }, 500);
       this.page4.ClickFlash = new Sprite(
         "https://cdn.zoocer.com/page4%2F%E9%97%AA%E5%85%89%E7%81%AF.png"
       )
@@ -1583,18 +1589,11 @@ export default {
         })
         .on("touchstart", () => {
           this.nextPage();
+          clearInterval(page4Wave);
           this.page4.ClickFlash.off("touchstart");
         });
       this.page4.group.append(this.page4.ClickFlash);
-      setInterval(() => {
-        this.createWave({
-          size: [40, 40],
-          color: "#FFEEAF",
-          pos: [440, 1100],
-          zIndex: 2,
-          page: "page4"
-        });
-      }, 500);
+
       clearInterval(this.interval);
       this.interval = setInterval(() => {
         this.page4.group.append(
@@ -1803,7 +1802,7 @@ export default {
         duration: 500,
         fill: "forwards"
       }).finished;
-      setInterval(() => {
+      const page5Wave = setInterval(() => {
         this.createWave({
           size: [40, 40],
           color: "#FFEEAF",
@@ -1813,6 +1812,7 @@ export default {
         });
       }, 500);
       this.page5.Moon.on("touchstart", () => {
+        clearInterval(page5Wave);
         this.page5.Moon.off("touchstart");
         this.nextPage();
       });
