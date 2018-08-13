@@ -53,37 +53,28 @@ export default {
   },
   methods: {
     setWechatShare() {
-      axios.get("/api/wechat/").then(resp => {
-        console.log(resp.data);
-        wx.config(resp.data);
-        wx.ready(() => {
-          console.log(2);
-          wx.onMenuShareAppMessage({
-            title: "娄艺潇的圆梦之旅", // 分享标题
-            desc: "娄艺潇的圆梦之旅", // 分享描述
-            link: "https://loura.beats-digital.com", // 分享链接，该链接域名必须与当前企业的可信域名一致
-            imgUrl: "https://cdn.zoocer.com/share.jpg", // 分享图标
-            success: function() {
-              // 用户确认分享后执行的回调函数
-              alert("success");
-            },
-            cancel: function() {
-              // 用户取消分享后执行的回调函数
-            }
-          });
-          wx.onMenuShareTimeline({
-            title: "娄艺潇的圆梦之旅", // 分享标题
-            link: "https://loura.beats-digital.com",
-            imgUrl: "https://cdn.zoocer.com/share.jpg", // 分享图标
-            success: function() {
-              // 用户确认分享后执行的回调函数
-            },
-            cancel: function() {
-              // 用户取消分享后执行的回调函数
-            }
+      axios
+        .post("/api/wechat/", {
+          params: {
+            url: location.href
+          }
+        })
+        .then(resp => {
+          wx.config(resp.data);
+          wx.ready(() => {
+            wx.onMenuShareAppMessage({
+              title: "娄艺潇的圆梦之旅", // 分享标题
+              desc: "娄艺潇的圆梦之旅", // 分享描述
+              link: "https://loura.beats-digital.com", // 分享链接，该链接域名必须与当前企业的可信域名一致
+              imgUrl: "https://cdn.zoocer.com/share.jpg" // 分享图标
+            });
+            wx.onMenuShareTimeline({
+              title: "娄艺潇的圆梦之旅", // 分享标题
+              link: "https://loura.beats-digital.com",
+              imgUrl: "https://cdn.zoocer.com/share.jpg" // 分享图标
+            });
           });
         });
-      });
     },
     judgeOrientation() {
       window.orientation;
