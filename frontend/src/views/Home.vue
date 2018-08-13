@@ -153,6 +153,22 @@ export default {
     });
     this.layer = this.scene.layer();
 
+    const reloadButton = new Label("网速慢？点这里刷新一下")
+      .attr({
+        pos: [750 / 2, 1331 / 2 + 300],
+        font: "bold 30px Arial",
+        anchor: 0.5,
+        color: "#FFFFFF",
+        border: [1, "white"],
+        borderRadius: 6,
+        width: 400,
+        textAlign: "center",
+        lineHeight: 50
+      })
+      .on("touchstart", () => {
+        location.reload();
+      });
+
     const label = new Label("加载中...").attr({
       pos: [750 / 2, 1331 / 2 + 500],
       font: "bold 34px Arial",
@@ -168,6 +184,9 @@ export default {
       scale: 0.5
     });
     this.layer.append(background);
+    setTimeout(() => {
+      this.layer.append(reloadButton);
+    }, 5000);
     this.layer.append(loading);
     loading.animate([{ rotate: 0 }, { rotate: 360 }], {
       duration: 3000,
