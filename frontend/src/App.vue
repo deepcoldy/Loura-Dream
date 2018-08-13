@@ -55,10 +55,10 @@ export default {
   methods: {
     setWechatShare() {
       axios.get("/api/wechat/").then(resp => {
-        console.log(resp);
+        console.log(resp.data);
         wx.ready(() => {
-          console.log(2, resp);
-          wx.config(resp);
+          console.log(2, resp.data);
+          wx.config(resp.data);
           wx.onMenuShareAppMessage({
             title: "娄艺潇的圆梦之旅", // 分享标题
             desc: "娄艺潇的圆梦之旅", // 分享描述
