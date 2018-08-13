@@ -44,7 +44,6 @@ export default {
 
     const array = Array.from({ length: 6 });
     array.map((item, index) => {
-      console.log(item);
       this.text.push(
         new Sprite(`https://cdn.zoocer.com/page7/a${index + 1}.png`).attr({
           anchor: 0.5

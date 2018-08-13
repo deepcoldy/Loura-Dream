@@ -378,7 +378,7 @@ export default {
       }
 
       for (let index = 113; index <= 261; index++) {
-        const ToPage6 = `https://cdn.zoocer.com/page5%2Ftopage6%2Fabc_00${index}.jpg`;
+        const ToPage6 = `https://cdn.zoocer.com/page5%2Ftopage6_new%2FGDA_00${index}.jpg`;
         this.preload.push(ToPage6);
       }
 
@@ -1827,7 +1827,7 @@ export default {
     async Page5TransToPage6() {
       for (let index = 113; index <= 261; index++) {
         const ToPage6 = new Sprite(
-          `https://cdn.zoocer.com/page5%2Ftopage6%2Fabc_00${index}.jpg`
+          `https://cdn.zoocer.com/page5%2Ftopage6_new%2FGDA_00${index}.jpg`
         );
         this.page5.ToPage6.push(
           ToPage6.attr({
