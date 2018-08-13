@@ -55,7 +55,9 @@ export default {
   methods: {
     setWechatShare() {
       axios.get("/api/wechat/").then(resp => {
+        console.log(resp);
         wx.ready(() => {
+          console.log(2, resp);
           wx.config(resp);
           wx.onMenuShareAppMessage({
             title: "娄艺潇的圆梦之旅", // 分享标题
@@ -64,6 +66,7 @@ export default {
             imgUrl: "https://cdn.zoocer.com/share.jpg", // 分享图标
             success: function() {
               // 用户确认分享后执行的回调函数
+              alert("success");
             },
             cancel: function() {
               // 用户取消分享后执行的回调函数
