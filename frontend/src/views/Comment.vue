@@ -180,7 +180,8 @@ export default {
           </div>
 `,
           showCancelButton: false,
-          confirmButtonText: "关闭"
+          confirmButtonText: "关闭",
+          closeOnClickModal: false
         });
       })
     );

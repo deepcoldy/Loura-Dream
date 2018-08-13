@@ -122,32 +122,6 @@ export default {
     margin-bottom: 50px;
   }
 }
-a:link {
-  /* Essentially means a[href], or that the link actually goes somewhere */
-  color: transparent;
-}
-a:visited {
-  color: transparent;
-}
-a:hover {
-  color: transparent;
-}
-a:active {
-  color: transparent;
-}
-div:link {
-  /* Essentially means a[href], or that the link actually goes somewhere */
-  color: transparent;
-}
-div:visited {
-  color: transparent;
-}
-div:hover {
-  color: transparent;
-}
-div:active {
-  color: transparent;
-}
 
 body {
   background: #121927;
