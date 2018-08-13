@@ -166,6 +166,7 @@ export default {
         lineHeight: 50
       })
       .on("touchstart", () => {
+        reloadButton.off("touchstart");
         location.reload();
       });
 
