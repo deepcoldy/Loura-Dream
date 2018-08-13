@@ -1871,13 +1871,15 @@ export default {
         rotate: -10
       });
 
-      this.page5.group.append(this.page6.Star);
       this.page6.Star.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: this.page5.ToPage6.length * 50,
+        delay: this.page5.ToPage6.length * 50 + 100,
         duration: 500,
         fill: "forwards"
       });
       clearInterval(this.interval);
+      this.page5.group.clear();
+      this.page5.group.append(this.page6.Star);
+      this.page5.group.append(this.page5.ToPage6[0]);
       this.interval = setInterval(() => {
         this.page5.group.append(this.page5.ToPage6[this.page5.ToPage6Index]);
         this.nextFrame(
@@ -1891,7 +1893,7 @@ export default {
       }, 50);
       setTimeout(() => {
         this.autoAnimatPage6();
-      }, this.page5.ToPage6.length * 50);
+      }, this.page5.ToPage6.length * 50 + 100);
     },
     autoAnimatPage6() {
       this.page6.CD = new Sprite(
