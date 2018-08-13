@@ -1195,7 +1195,7 @@ export default {
       const page3Wave = setInterval(() => {
         this.createWave({
           size: [40, 40],
-          color: "#F0CE5B",
+          color: "#9C7C10",
           pos: [515 + 139 / 2, 1060 + 138 / 2],
           zIndex: 5,
           page: "page3"
@@ -1580,7 +1580,7 @@ export default {
       const page4Wave = setInterval(() => {
         this.createWave({
           size: [40, 40],
-          color: "#FFEEAF",
+          color: "#FFFFFF",
           pos: [440, 1100],
           zIndex: 2,
           page: "page4"
