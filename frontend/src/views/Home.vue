@@ -1848,16 +1848,18 @@ export default {
     },
     async Page5TransToPage6() {
       for (let index = 113; index <= 261; index++) {
-        const ToPage6 = new Sprite(
-          `https://cdn.zoocer.com/page5%2Ftopage6_new%2FGDA_00${index}.jpg`
-        );
-        this.page5.ToPage6.push(
-          ToPage6.attr({
-            zIndex: 3
-          })
-        );
+        // const ToPage6 = new Sprite(
+        //   `https://cdn.zoocer.com/page5%2Ftopage6_new%2FGDA_00${index}.jpg`
+        // );
+        // this.page5.ToPage6.push(
+        //   ToPage6.attr({
+        //     zIndex: 3
+        //   })
+        // );
+        const ToPage6 = `https://cdn.zoocer.com/page5%2Ftopage6_new%2FGDA_00${index}.jpg`;
+        this.page5.ToPage6.push(ToPage6);
       }
-      this.page5.group.append(this.page5.ToPage6[0]);
+      // this.page5.group.append(this.page5.ToPage6[0]);
       await this.page5.Moon.animate([{ opacity: 1 }, { opacity: 0 }], {
         duration: 500,
         fill: "forwards"
@@ -1879,18 +1881,29 @@ export default {
       clearInterval(this.interval);
       this.page5.group.clear();
       this.page5.group.append(this.page6.Star);
-      this.page5.group.append(this.page5.ToPage6[0]);
-      this.interval = setInterval(() => {
-        this.page5.group.append(this.page5.ToPage6[this.page5.ToPage6Index]);
-        this.nextFrame(
-          "ToPage6",
-          "ToPage6Index",
-          this.page5.ToPage6.length,
-          0,
-          "page5",
-          "once"
-        );
-      }, 50);
+      // this.page5.group.append(this.page5.ToPage6[0]);
+      // this.interval = setInterval(() => {
+      //   this.page5.group.append(this.page5.ToPage6[this.page5.ToPage6Index]);
+      //   this.nextFrame(
+      //     "ToPage6",
+      //     "ToPage6Index",
+      //     this.page5.ToPage6.length,
+      //     0,
+      //     "page5",
+      //     "once"
+      //   );
+      // }, 50);
+      const back = new Sprite().attr({
+        zIndex: 3
+      });
+      back.animate(
+        this.page5.ToPage6.map(item => ({ textures: { src: item } })),
+        {
+          duration: this.page5.ToPage6.length * 50,
+          fill: "forwards"
+        }
+      );
+      this.page5.group.append(back);
       setTimeout(() => {
         this.autoAnimatPage6();
       }, this.page5.ToPage6.length * 50 + 100);
