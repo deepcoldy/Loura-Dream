@@ -201,6 +201,7 @@ export default {
     this.layer.append(label);
 
     await this.scene.preload(...this.preload);
+    this.layer.removeChild(reloadButton);
     this.Init("#canvas", "layer");
     this.loadPrePage();
   },
