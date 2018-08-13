@@ -100,7 +100,7 @@ export default {
         });
         return;
       }
-      if (this.data.phone.length !== 11) {
+      if (this.data.phone.length !== 11 || Number(this.data.phone[0]) !== 1) {
         MessageBox({
           title: "提示",
           message: "手机号填写有误",
