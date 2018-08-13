@@ -1797,16 +1797,12 @@ export default {
     },
     loadAssetsPage5() {
       for (let index = 25; index <= 37; index++) {
-        const Loop = new Sprite(`
+        const Loop = `
           https://cdn.zoocer.com/page5/loop/%E9%9F%B3%E4%B9%90%E5%89%A7_000${
             index.toString().length === 1 ? `0${index}` : index
           }.jpg
-        `);
-        this.page5.Loop.push(
-          Loop.attr({
-            zIndex: 2
-          })
-        );
+        `;
+        this.page5.Loop.push(Loop);
       }
       this.page5.Moon = new Sprite(
         `https://cdn.zoocer.com/page5/%E6%9C%88%E4%BA%AE-min.png`
@@ -1818,15 +1814,21 @@ export default {
         scale: 0.5
       });
       this.page5.group.append(this.page5.Moon);
-      this.page5.group.append(this.page5.Loop[0]);
-      this.page5.group.append(this.page5.Loop[0]);
       this.autoAnimatPage5();
     },
     async autoAnimatPage5() {
-      this.interval = setInterval(() => {
-        this.page5.group.append(this.page5.Loop[this.page5.LoopIndex]);
-        this.nextFrame("Loop", "LoopIndex", this.page5.Loop.length, 0, "page5");
-      }, 125);
+      const background = new Sprite().attr({
+        zIndex: 2
+      });
+      const Loop = background.animate(
+        this.page5.Loop.map(item => ({ textures: { src: item } })),
+        {
+          duration: this.page5.Loop.length * 125,
+          iterations: Infinity,
+          fill: "forwards"
+        }
+      );
+      this.page5.group.append(background);
       await this.page5.Moon.animate([{ opacity: 0 }, { opacity: 1 }], {
         duration: 500,
         fill: "forwards"
@@ -1842,24 +1844,16 @@ export default {
       }, 500);
       this.page5.Moon.on("touchstart", () => {
         clearInterval(page5Wave);
+        Loop.pause();
         this.page5.Moon.off("touchstart");
         this.nextPage();
       });
     },
     async Page5TransToPage6() {
       for (let index = 113; index <= 261; index++) {
-        // const ToPage6 = new Sprite(
-        //   `https://cdn.zoocer.com/page5%2Ftopage6_new%2FGDA_00${index}.jpg`
-        // );
-        // this.page5.ToPage6.push(
-        //   ToPage6.attr({
-        //     zIndex: 3
-        //   })
-        // );
         const ToPage6 = `https://cdn.zoocer.com/page5%2Ftopage6_new%2FGDA_00${index}.jpg`;
         this.page5.ToPage6.push(ToPage6);
       }
-      // this.page5.group.append(this.page5.ToPage6[0]);
       await this.page5.Moon.animate([{ opacity: 1 }, { opacity: 0 }], {
         duration: 500,
         fill: "forwards"
@@ -1881,29 +1875,17 @@ export default {
       clearInterval(this.interval);
       this.page5.group.clear();
       this.page5.group.append(this.page6.Star);
-      // this.page5.group.append(this.page5.ToPage6[0]);
-      // this.interval = setInterval(() => {
-      //   this.page5.group.append(this.page5.ToPage6[this.page5.ToPage6Index]);
-      //   this.nextFrame(
-      //     "ToPage6",
-      //     "ToPage6Index",
-      //     this.page5.ToPage6.length,
-      //     0,
-      //     "page5",
-      //     "once"
-      //   );
-      // }, 50);
-      const back = new Sprite().attr({
+      const background = new Sprite().attr({
         zIndex: 3
       });
-      back.animate(
+      background.animate(
         this.page5.ToPage6.map(item => ({ textures: { src: item } })),
         {
           duration: this.page5.ToPage6.length * 50,
           fill: "forwards"
         }
       );
-      this.page5.group.append(back);
+      this.page5.group.append(background);
       setTimeout(() => {
         this.autoAnimatPage6();
       }, this.page5.ToPage6.length * 50 + 100);
