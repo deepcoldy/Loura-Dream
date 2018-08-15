@@ -83,7 +83,7 @@ export default {
       }
     },
     audioAutoPlay() {
-      this.musicPlay(true);
+      // this.musicPlay(true);
       const musicInBrowserHandler = () => {
         this.musicPlay(true);
         document.body.removeEventListener("touchstart", musicInBrowserHandler);
