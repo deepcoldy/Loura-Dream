@@ -138,6 +138,7 @@ export default {
   },
 
   async mounted() {
+    alert(location.href);
     __mixdataMn__("target", 1);
     this.preloadimg();
     console.log(this.preload);
