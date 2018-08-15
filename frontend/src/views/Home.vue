@@ -1362,22 +1362,20 @@ export default {
       });
       for (let index = 0; index <= 27; index++) {
         if ([2, 5, 8, 12, 15, 18, 23, 26].indexOf(index) === -1) {
-          const Girl = new Sprite(`
+          const Girl = `
             https://cdn.zoocer.com/page4/girl/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
               index.toString().length === 1 ? `0${index}` : index
             }-min.png
-          `);
-          Girl.attr({ zIndex: 7, pos: [460, 450] });
+          `;
           this.page4.Girl.push(Girl);
         }
       }
       for (let index = 28; index <= 44; index++) {
-        const GirlLoop = new Sprite(`
+        const GirlLoop = `
           https://cdn.zoocer.com/page4/girlloop/%E7%AD%BE%E7%BA%A6%E4%BB%AA%E5%BC%8F-%E5%8A%A8%E7%94%BB%E5%87%86%E5%A4%87_000${
             index.toString().length === 1 ? `0${index}` : index
           }-min.png
-        `);
-        GirlLoop.attr({ zIndex: 7, pos: [460, 450] });
+        `;
         this.page4.GirlLoop.push(GirlLoop);
       }
       for (let index = 10; index <= 24; index++) {
@@ -1439,7 +1437,7 @@ export default {
       });
       this.page4.group.append(this.page4.Flower);
       this.page4.group.append(this.page4.background);
-      this.page4.group.append(this.page4.Girl[0]);
+      // this.page4.group.append(this.page4.Girl[0]);
       this.page4.group.append(this.page4.Signature[0]);
       this.layer.append(this.page4.Flash1);
       this.layer.append(this.page4.Flash2);
@@ -1468,6 +1466,12 @@ export default {
           easing: "ease-in"
         }
       );
+      const GirlFirst = new Sprite(this.page4.Girl[0]).attr({
+        zIndex: 7,
+        pos: [460, 450]
+      });
+      this.page4.group.append(GirlFirst);
+
       await this.page4.group.animate(
         [{ translate: [0, 1331 + 400] }, { translate: [0, 0] }],
         {
@@ -1481,10 +1485,28 @@ export default {
         fill: "forwards"
       });
       this.animatPage4Once();
+      const Girl = new Sprite().attr({ zIndex: 7, pos: [460, 450] });
+      Girl.animate(this.page4.Girl.map(item => ({ textures: { src: item } })), {
+        duration: this.page4.Girl.length * 100,
+        fill: "forwards"
+      });
+      this.page4.group.append(Girl);
+      this.page4.group.removeChild(GirlFirst);
       this.persistAnimatePage4();
       setTimeout(() => {
         clearInterval(this.interval);
         this.autoAnimatPage4();
+        const GirlLoop = new Sprite().attr({ zIndex: 7, pos: [460, 450] });
+        GirlLoop.animate(
+          this.page4.GirlLoop.map(item => ({ textures: { src: item } })),
+          {
+            duration: this.page4.GirlLoop.length * 100,
+            fill: "forwards",
+            iterations: Infinity
+          }
+        );
+        this.page4.group.append(GirlLoop);
+        this.page4.group.removeChild(Girl);
       }, this.page4.Girl.length * 100);
       this.page3.group.clear();
     },
@@ -1566,15 +1588,6 @@ export default {
     animatPage4Once() {
       let flag = 0;
       this.interval = setInterval(() => {
-        this.page4.group.append(this.page4.Girl[this.page4.GirlIndex]);
-        this.nextFrame(
-          "Girl",
-          "GirlIndex",
-          this.page4.Girl.length,
-          0,
-          "page4",
-          "once"
-        );
         if (flag >= 3 && flag <= 16) {
           this.page4.group.append(
             this.page4.Signature[this.page4.SignatureIndex]
@@ -1619,21 +1632,12 @@ export default {
         });
       this.page4.group.append(this.page4.ClickFlash);
 
-      clearInterval(this.interval);
-      this.interval = setInterval(() => {
-        this.page4.group.append(
-          this.page4.Signature[this.page4.Signature.length - 1]
-        );
-
-        this.page4.group.append(this.page4.GirlLoop[this.page4.GirlLoopIndex]);
-        this.nextFrame(
-          "GirlLoop",
-          "GirlLoopIndex",
-          this.page4.GirlLoop.length,
-          0,
-          "page4"
-        );
-      }, 100);
+      // clearInterval(this.interval);
+      // this.interval = setInterval(() => {
+      //   this.page4.group.append(
+      //     this.page4.Signature[this.page4.Signature.length - 1]
+      //   );
+      // }, 100);
     },
     Page4TransToPage5() {
       this.controlFlash(200);
