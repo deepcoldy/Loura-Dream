@@ -83,21 +83,46 @@ export default {
       }
     },
     audioAutoPlay() {
-      // this.musicPlay(true);
+      const audio = document.getElementById("music");
+      audio.play();
+      document.addEventListener(
+        "WeixinJSBridgeReady",
+        () => {
+          audio.play();
+        },
+        false
+      );
+
       const musicInBrowserHandler = () => {
         this.musicPlay(true);
         document.body.removeEventListener("touchstart", musicInBrowserHandler);
       };
       document.body.addEventListener("touchstart", musicInBrowserHandler);
-      document.addEventListener(
-        "WeixinJSBridgeReady",
-        () => {
-          console.log(2);
-          this.setWechatShare();
-          this.musicPlay(true);
-        },
-        false
-      );
+
+      //奇特
+      const musicInWeixinHandler = () => {
+        this.musicPlay(true);
+        document.addEventListener(
+          "WeixinJSBridgeReady",
+          () => {
+            this.setWechatShare();
+            this.musicPlay(true);
+          },
+          false
+        );
+        document.removeEventListener("DOMContentLoaded", musicInWeixinHandler);
+      };
+      document.addEventListener("DOMContentLoaded", musicInWeixinHandler);
+
+      // document.addEventListener(
+      //   "WeixinJSBridgeReady",
+      //   () => {
+      //     console.log(2);
+      //     this.setWechatShare();
+      //     this.musicPlay(true);
+      //   },
+      //   false
+      // );
     },
     musicPlay(isPlay) {
       var media = document.querySelector("#music");
