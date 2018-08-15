@@ -100,14 +100,18 @@ export default {
     },
     musicPlay(isPlay) {
       var media = document.querySelector("#music");
-      if (isPlay && media.paused) {
-        setTimeout(() => media.play(), 0);
-        this.music = true;
-      }
-      console.log(isPlay, media.paused);
-      if (!isPlay && !media.paused) {
-        setTimeout(() => media.pause(), 0);
-        this.music = false;
+      try {
+        if (isPlay && media.paused) {
+          setTimeout(() => media.play(), 0);
+          this.music = true;
+        }
+        console.log(isPlay, media.paused);
+        if (!isPlay && !media.paused) {
+          setTimeout(() => media.pause(), 0);
+          this.music = false;
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
   }
