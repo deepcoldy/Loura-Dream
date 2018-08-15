@@ -33,7 +33,35 @@
       <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
-    <script type="text/javascript" src="https://mn.mixdata.com.cn/js/mixdata_mn.js"></script>
+    <script>
+      function __getMixdataParam(mixdata_param_name) {
+          var mixdata_reg = new RegExp("(^|&)" + mixdata_param_name + "=([^&]*)(&|$)");
+          var mixdata_r = window.location.search.substr(1).match(mixdata_reg);
+          var mixdata_param_value = "";
+          if (mixdata_r != null) {
+            mixdata_param_value = unescape(mixdata_r[2]);
+          }
+          return mixdata_param_value;
+        }
+
+        var globeMiddata_ad = "3"
+        var globeMiddata_dsp = "3"
+        var globeMiddata_act = "1"
+        var globeMiddataBaseUrl = "https://mn.mixdata.com.cn/target/e.gif?ad=" + globeMiddata_ad + "&dsp=" + globeMiddata_dsp + "&act=" + globeMiddata_act;
+
+        function __mixdataMn__(type, typeext) {
+          var mixdata_userid = __getMixdataParam("userid");
+          var mixdata_imei = __getMixdataParam("imei");
+          var mixdata_idfa = __getMixdataParam("idfa");
+          var mixdata_extid = __getMixdataParam("extid");
+
+          var mixdata_url = globeMiddataBaseUrl + "&type=" + type + "&typeext=" + typeext + "&extid=" + mixdata_extid + "&userid=" + mixdata_userid + "&imei=" + mixdata_imei + "&idfa=" + mixdata_idfa
+          var mixdata_script = document.createElement('script');
+          mixdata_script.src = mixdata_url
+          document.body.insertBefore(mixdata_script, document.body.firstChild);
+        }
+      
+    </script>
 
     <!-- built files will be auto injected -->
   </body>

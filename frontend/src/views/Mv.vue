@@ -5,6 +5,7 @@
     </div>
     <iframe v-if="shadow && mv === 1" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=o00279bx3os&tiny=0" allowfullscreen="auto"></iframe>
     <iframe v-if="shadow && mv === 2" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=y0027v6mg9l&tiny=0" allowfullscreen="auto"></iframe>
+    <iframe v-if="shadow && mv === 3" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=y0027v6mg9l&tiny=0" allowfullscreen="auto"></iframe>
   </div>
 </template>
 
@@ -24,6 +25,8 @@ export default {
       button1Active: null,
       button2: null,
       button2Active: null,
+      button3: null,
+      button3Active: null,
       shadow: null,
       mv: 2, // 使用最新的
       qqmusic: null,
@@ -81,18 +84,19 @@ export default {
     );
     this.addMV1();
     this.addMV2();
+    this.addMV3();
 
     this.addQQmusic();
     const unClickButton = new Sprite({
-      size: [400, 210],
-      pos: [170, 880]
+      size: [300, 100],
+      pos: [260, 980]
+      // border: [2, "#f77"]
     });
     this.layer.append(unClickButton);
     unClickButton.on("click", () => {
       MessageBox({
         title: "开放时间",
-        message:
-          "「海市蜃楼」 8月13日</br>「缱绻」8月20日</br>「Naughty Ball」8月27日",
+        message: "「缱绻」8月20日</br>「Naughty Ball」8月27日",
         showCancelButton: false,
         confirmButtonText: "关闭"
       });
@@ -110,17 +114,18 @@ export default {
       ).attr({
         pos: [240, 650]
       });
-      this.group.append(this.button1Active);
       this.button1 = new Sprite(
         "https://cdn.zoocer.com/page9/button1.png"
       ).attr({
         pos: [240, 650]
       });
+      this.group.append(this.button1Active);
       this.group.append(this.button1);
       this.group.append(this.cover);
       this.button1.on("click", () => {
         this.group.append(this.button1Active);
         this.group.append(this.button2);
+        this.group.append(this.button3);
         this.mv = 1;
         this.group.append(this.cover);
       });
@@ -137,19 +142,49 @@ export default {
       ).attr({
         pos: [230, 710]
       });
-      this.group.append(this.button2);
       this.button2Active = new Sprite(
         "https://cdn.zoocer.com/page9/button2-active.png"
       ).attr({
         pos: [230, 710]
       });
       this.group.append(this.button2Active);
+      this.group.append(this.button2);
 
       this.button2.on("click", () => {
         this.group.append(this.button2Active);
         this.group.append(this.button1);
+        this.group.append(this.button3);
         this.mv = 2;
         this.group.append(this.cover2);
+      });
+    },
+    addMV3() {
+      this.cover3 = new Sprite(
+        "https://cdn.zoocer.com/page9%2F%E6%B5%B7%E5%B8%82%E8%9C%83%E6%A5%BC%E5%B0%81%E9%9D%A2.jpg"
+      ).attr({
+        pos: [110, 190]
+      });
+      this.button3Active = new Sprite(
+        "https://cdn.zoocer.com/page9/button3.jpg"
+      ).attr({
+        pos: [395, 948],
+        anchor: 0.5
+      });
+      this.button3 = new Sprite(
+        "https://cdn.zoocer.com/page9/button3-active.jpg"
+      ).attr({
+        pos: [395, 948],
+        anchor: 0.5
+      });
+      this.group.append(this.cover3);
+      this.group.append(this.button3);
+      this.group.append(this.button3Active);
+      this.button3.on("click", () => {
+        this.group.append(this.button3Active);
+        this.group.append(this.button1);
+        this.group.append(this.button2);
+        this.mv = 3;
+        this.group.append(this.cover3);
       });
     },
     addQQmusic() {
