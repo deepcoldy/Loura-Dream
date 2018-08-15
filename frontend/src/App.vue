@@ -94,8 +94,8 @@ export default {
       document.addEventListener(
         "WeixinJSBridgeReady",
         () => {
-          this.musicPlay(true);
           this.setWechatShare();
+          this.musicPlay(true);
         },
         false
       );
@@ -108,7 +108,6 @@ export default {
       }
       console.log(isPlay, media.paused);
       if (!isPlay && !media.paused) {
-        console.log("in");
         this.music = false;
         media.pause();
       }
