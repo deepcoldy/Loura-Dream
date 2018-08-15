@@ -83,16 +83,6 @@ export default {
       }
     },
     audioAutoPlay() {
-      const audio = document.getElementById("music");
-      audio.play();
-      document.addEventListener(
-        "WeixinJSBridgeReady",
-        () => {
-          audio.play();
-        },
-        false
-      );
-
       const musicInBrowserHandler = () => {
         this.musicPlay(true);
         document.body.removeEventListener("touchstart", musicInBrowserHandler);
@@ -114,15 +104,15 @@ export default {
       };
       document.addEventListener("DOMContentLoaded", musicInWeixinHandler);
 
-      // document.addEventListener(
-      //   "WeixinJSBridgeReady",
-      //   () => {
-      //     console.log(2);
-      //     this.setWechatShare();
-      //     this.musicPlay(true);
-      //   },
-      //   false
-      // );
+      const audio = document.getElementById("music");
+      audio.play();
+      document.addEventListener(
+        "WeixinJSBridgeReady",
+        () => {
+          audio.play();
+        },
+        false
+      );
     },
     musicPlay(isPlay) {
       var media = document.querySelector("#music");
