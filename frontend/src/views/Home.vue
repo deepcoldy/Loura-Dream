@@ -140,7 +140,6 @@ export default {
   async mounted() {
     __mixdataMn__("target", 1);
     this.preloadimg();
-    console.log(this.preload);
     let stickMode = "height";
     if (this.ratio > 750 / 1331) stickMode = "width";
     this.scene = new Scene("#canvas", {
@@ -197,7 +196,6 @@ export default {
       label.text = `${Math.floor(
         (evt.loaded.length / evt.resources.length) * 100
       )}%`;
-      console.log(label.text);
     });
     this.layer.append(label);
 
@@ -412,7 +410,6 @@ export default {
     Init(canvasid, name) {
       let stickMode = "height";
       if (this.ratio > 750 / 1331) stickMode = "width";
-      console.log(stickMode);
       this.scene = new Scene(canvasid, {
         viewport: ["auto", "auto"],
         resolution: [750, 1331],
@@ -829,7 +826,6 @@ export default {
     async loadAssetsPage2() {
       let stickMode = "height";
       if (this.ratio > 750 / 1331) stickMode = "width";
-      console.log(stickMode);
       const scene = new Scene("#canvas", {
         // 为了提高page1所需的分辨率
         viewport: ["auto", "auto"],
@@ -1778,7 +1774,6 @@ export default {
           this.page5.group.append(
             this.page5.Translation[this.page5.TranslationIndex]
           );
-          console.log(this.page5.TranslationIndex);
           this.nextFrame(
             "Translation",
             "TranslationIndex",
