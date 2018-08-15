@@ -1,9 +1,9 @@
 module.exports = {
   productionSourceMap: false,
-  baseUrl:
-    process.env.NODE_ENV === "production"
-      ? "https://cdn.zoocer.com/dist/"
-      : "/",
+  // baseUrl:
+  //   process.env.NODE_ENV === "production"
+  //     ? "https://cdn.zoocer.com/dist/"
+  //     : "/",
   devServer: {
     proxy: {
       "/api": {

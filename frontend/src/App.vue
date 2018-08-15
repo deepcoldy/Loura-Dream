@@ -92,6 +92,7 @@ export default {
       document.addEventListener(
         "WeixinJSBridgeReady",
         () => {
+          console.log(2);
           this.setWechatShare();
           this.musicPlay(true);
         },

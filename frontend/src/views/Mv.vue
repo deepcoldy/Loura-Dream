@@ -35,13 +35,6 @@ export default {
   mounted() {
     _hmt.push(["_trackEvent", "mv页面", "浏览"]);
     __mixdataMn__("trans", 9);
-    document.addEventListener(
-      "WeixinJSBridgeReady",
-      function() {
-        document.getElementById("test").play();
-      },
-      false
-    );
     this.ratio =
       document.documentElement.clientWidth /
       document.documentElement.clientHeight;
