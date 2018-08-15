@@ -116,19 +116,29 @@ export default {
     },
     musicPlay(isPlay) {
       var media = document.querySelector("#music");
-      try {
-        if (isPlay && media.paused) {
-          setTimeout(() => media.play(), 0);
-          this.music = true;
-        }
-        console.log(isPlay, media.paused);
-        if (!isPlay && !media.paused) {
-          setTimeout(() => media.pause(), 0);
-          this.music = false;
-        }
-      } catch (error) {
-        console.log(error);
+      if (isPlay && media.paused) {
+        media.play();
+        this.music = true;
       }
+      if (!isPlay && !media.paused) {
+        media.pause();
+        this.music = false;
+      }
+
+      // var media = document.querySelector("#music");
+      // try {
+      //   if (isPlay && media.paused) {
+      //     setTimeout(() => media.play(), 0);
+      //     this.music = true;
+      //   }
+      //   console.log(isPlay, media.paused);
+      //   if (!isPlay && !media.paused) {
+      //     setTimeout(() => media.pause(), 0);
+      //     this.music = false;
+      //   }
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
   }
 };
