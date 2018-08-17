@@ -505,7 +505,7 @@ export default {
         this[page][indexName] = this[page][indexName] + 1;
       }
     },
-    loadPrePage() {
+    async loadPrePage() {
       this.prePage.group = new Group();
       this.prePage.curtainLeft = new Sprite(
         "https://cdn.zoocer.com/prepage/curtainLeft.png"
@@ -525,11 +525,7 @@ export default {
       this.prePage.Text3 = new Sprite("https://cdn.zoocer.com/prepage/3.png");
       this.prePage.Slate = new Sprite(
         "https://cdn.zoocer.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png"
-      ).on("touchstart", async () => {
-        SlateAnimate.finish();
-        this.nextPage();
-        this.prePage.Slate.off("touchstart");
-      });
+      );
 
       this.prePage.group.append(this.prePage.curtainLeft);
       this.prePage.group.append(this.prePage.curtainRight);
@@ -571,32 +567,43 @@ export default {
           zIndex: 2
         })
       );
-      this.prePage.Text1.animate([{ opacity: 0 }, { opacity: 1 }], {
-        duration: 1000,
+      await this.prePage.Text1.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 500,
         fill: "forwards"
-      });
-      this.prePage.Text2.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: 1500,
-        duration: 1000,
+      }).finished;
+      await this.prePage.Text2.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay: 500,
+        duration: 500,
         fill: "forwards"
-      });
-      this.prePage.Text3.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: 3000,
-        duration: 1000,
+      }).finished;
+      await this.prePage.Text3.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay: 500,
+        duration: 500,
         fill: "forwards"
-      });
+      }).finished;
       const SlateAnimate = this.prePage.Slate.animate(
         [{ opacity: 0 }, { opacity: 1 }],
         {
-          delay: 4500,
           duration: 1000,
           fill: "forwards"
         }
       );
+      this.prePage.curtainLeft.on("touchstart", async () => {
+        SlateAnimate.finish();
+        this.nextPage();
+        this.prePage.curtainLeft.off("touchstart");
+        this.prePage.curtainRight.off("touchstart");
+      });
+      this.prePage.curtainRight.on("touchstart", async () => {
+        SlateAnimate.finish();
+        this.nextPage();
+        this.prePage.curtainLeft.off("touchstart");
+        this.prePage.curtainRight.off("touchstart");
+      });
       this.prePage.Slate.animate(
         [{ scale: 0.9 }, { scale: 1 }, { scale: 0.9 }],
         {
-          delay: 4500,
+          delay: 1500,
           duration: 2000,
           fill: "forwards",
           iterations: Infinity
