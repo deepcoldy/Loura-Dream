@@ -88,7 +88,7 @@ export default {
     unClickButton.on("click", () => {
       MessageBox({
         title: "开放时间",
-        message: "「缱绻」8月20日</br>「Naughty Ball」8月27日",
+        message: "「缱绻」期待上映</br>「Naughty Ball」期待上映",
         showCancelButton: false,
         confirmButtonText: "关闭"
       });
