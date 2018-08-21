@@ -532,13 +532,13 @@ export default {
       this.prePage.Text2 = new Sprite("https://cdn.zoocer.com/prepage/2.png");
       this.prePage.Text3 = new Sprite("https://cdn.zoocer.com/prepage/3.png");
       this.prePage.Button1 = new Sprite(
-        "https://cdn.zoocer.com/prepage/button1.png"
-      );
-      this.prePage.Button2 = new Sprite(
         "https://cdn.zoocer.com/prepage/button2.png"
       );
-      this.prePage.Button3 = new Sprite(
+      this.prePage.Button2 = new Sprite(
         "https://cdn.zoocer.com/prepage/button4.png"
+      );
+      this.prePage.Button3 = new Sprite(
+        "https://cdn.zoocer.com/prepage/button1.png"
       );
 
       this.prePage.group.append(this.prePage.curtainLeft);
@@ -555,7 +555,7 @@ export default {
       );
       this.prePage.group.append(
         this.prePage.Button2.attr({
-          pos: [750 / 2, 1200 - index],
+          pos: [750 / 2, 1050 - index],
           anchor: 0.5,
           opacity: 0,
           zIndex: 9
@@ -563,21 +563,21 @@ export default {
       );
       this.prePage.group.append(
         this.prePage.Button3.attr({
-          pos: [750 / 2, 1050 - index],
+          pos: [750 / 2, 1200 - index],
           anchor: 0.5,
           opacity: 0,
           zIndex: 9
         })
       );
       this.prePage.Button2.on("click", () => {
-        this.$router.replace("/comment");
-        __mixdataMn__("trans", "help_dream");
-        _hmt.push(["_trackEvent", "幕布页面", "点击", "圆梦"]);
-      });
-      this.prePage.Button3.on("click", () => {
         this.$router.replace("/mv");
         __mixdataMn__("trans", "music_mv");
         _hmt.push(["_trackEvent", "幕布页面", "点击", "欣赏歌曲"]);
+      });
+      this.prePage.Button1.on("click", () => {
+        this.$router.replace("/comment");
+        __mixdataMn__("trans", "help_dream");
+        _hmt.push(["_trackEvent", "幕布页面", "点击", "圆梦"]);
       });
       this.prePage.group.append(
         this.prePage.Text1.attr({
@@ -861,7 +861,7 @@ export default {
         this.nextFrame("Woman", "WomanIndex", this.page1.Woman.length, 4);
       }, 100);
       await this.page1.Camera.animate([{ opacity: 0 }, { opacity: 1 }], {
-        delay: 3000,
+        delay: 2500,
         fill: "forwards",
         duration: 1000
       }).finished;
