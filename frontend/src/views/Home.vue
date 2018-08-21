@@ -32,7 +32,10 @@ export default {
         Text1: null,
         Text2: null,
         Text3: null,
-        Slate: null
+        // Slate: null,
+        Button1: null,
+        Button2: null,
+        Button3: null
       },
       page1: {
         group: null,
@@ -219,7 +222,12 @@ export default {
         "https://cdn.zoocer.com/prepage/1.png",
         "https://cdn.zoocer.com/prepage/2.png",
         "https://cdn.zoocer.com/prepage/3.png",
-        "https://cdn.zoocer.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png",
+        "https://cdn.zoocer.com/prepage/button1.png",
+        "https://cdn.zoocer.com/prepage/button2.png",
+        "https://cdn.zoocer.com/prepage/button4.png",
+        "https://cdn.zoocer.com/prepage/menu.png",
+
+        // "https://cdn.zoocer.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png",
         "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
         "https://cdn.zoocer.com/page1/%E8%83%8C%E6%99%AF.jpg",
         "https://cdn.zoocer.com/page1/%E9%BA%A6%E5%85%8B%E9%A3%8E.png",
@@ -523,24 +531,57 @@ export default {
       this.prePage.Text1 = new Sprite("https://cdn.zoocer.com/prepage/1.png");
       this.prePage.Text2 = new Sprite("https://cdn.zoocer.com/prepage/2.png");
       this.prePage.Text3 = new Sprite("https://cdn.zoocer.com/prepage/3.png");
-      this.prePage.Slate = new Sprite(
-        "https://cdn.zoocer.com/prepage/%E5%9C%BA%E8%AE%B0%E6%9D%BF-min.png"
+      this.prePage.Button1 = new Sprite(
+        "https://cdn.zoocer.com/prepage/button1.png"
+      );
+      this.prePage.Button2 = new Sprite(
+        "https://cdn.zoocer.com/prepage/button2.png"
+      );
+      this.prePage.Button3 = new Sprite(
+        "https://cdn.zoocer.com/prepage/button4.png"
       );
 
       this.prePage.group.append(this.prePage.curtainLeft);
       this.prePage.group.append(this.prePage.curtainRight);
       this.prePage.group.append(this.prePage.Light);
+      const index = 150;
       this.prePage.group.append(
-        this.prePage.Slate.attr({
-          pos: [750 / 2, 900],
+        this.prePage.Button1.attr({
+          pos: [750 / 2, 900 - index],
           anchor: 0.5,
           opacity: 0,
           zIndex: 9
         })
       );
       this.prePage.group.append(
+        this.prePage.Button2.attr({
+          pos: [750 / 2, 1200 - index],
+          anchor: 0.5,
+          opacity: 0,
+          zIndex: 9
+        })
+      );
+      this.prePage.group.append(
+        this.prePage.Button3.attr({
+          pos: [750 / 2, 1050 - index],
+          anchor: 0.5,
+          opacity: 0,
+          zIndex: 9
+        })
+      );
+      this.prePage.Button2.on("click", () => {
+        this.$router.replace("/comment");
+        __mixdataMn__("trans", "help_dream");
+        _hmt.push(["_trackEvent", "幕布页面", "点击", "圆梦"]);
+      });
+      this.prePage.Button3.on("click", () => {
+        this.$router.replace("/mv");
+        __mixdataMn__("trans", "music_mv");
+        _hmt.push(["_trackEvent", "幕布页面", "点击", "欣赏歌曲"]);
+      });
+      this.prePage.group.append(
         this.prePage.Text1.attr({
-          pos: [750 / 2, 500],
+          pos: [750 / 2, 500 - index],
           anchor: 0.5,
           opacity: 0,
           zIndex: 9
@@ -548,7 +589,7 @@ export default {
       );
       this.prePage.group.append(
         this.prePage.Text2.attr({
-          pos: [750 / 2, 500 + 67 + 20],
+          pos: [750 / 2, 500 + 67 + 20 - index],
           anchor: 0.5,
           opacity: 0,
           zIndex: 9
@@ -556,7 +597,7 @@ export default {
       );
       this.prePage.group.append(
         this.prePage.Text3.attr({
-          pos: [750 / 2, 500 + 67 + 20 + 68 + 20],
+          pos: [750 / 2, 500 + 67 + 20 + 68 + 20 - index],
           anchor: 0.5,
           opacity: 0,
           zIndex: 9
@@ -581,7 +622,21 @@ export default {
         duration: 500,
         fill: "forwards"
       }).finished;
-      const SlateAnimate = this.prePage.Slate.animate(
+      const Button1 = this.prePage.Button1.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        {
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      const Button2 = this.prePage.Button2.animate(
+        [{ opacity: 0 }, { opacity: 1 }],
+        {
+          duration: 1000,
+          fill: "forwards"
+        }
+      );
+      const Button3 = this.prePage.Button3.animate(
         [{ opacity: 0 }, { opacity: 1 }],
         {
           duration: 1000,
@@ -589,26 +644,30 @@ export default {
         }
       );
       this.prePage.curtainLeft.on("touchstart", async () => {
-        SlateAnimate.finish();
+        Button1.finish();
+        Button2.finish();
+        Button3.finish();
         this.nextPage();
         this.prePage.curtainLeft.off("touchstart");
         this.prePage.curtainRight.off("touchstart");
       });
       this.prePage.curtainRight.on("touchstart", async () => {
-        SlateAnimate.finish();
+        Button1.finish();
+        Button2.finish();
+        Button3.finish();
         this.nextPage();
         this.prePage.curtainLeft.off("touchstart");
         this.prePage.curtainRight.off("touchstart");
       });
-      this.prePage.Slate.animate(
-        [{ scale: 0.9 }, { scale: 1 }, { scale: 0.9 }],
-        {
-          delay: 1500,
-          duration: 2000,
-          fill: "forwards",
-          iterations: Infinity
-        }
-      );
+      // this.prePage.Slate.animate(
+      //   [{ scale: 0.9 }, { scale: 1 }, { scale: 0.9 }],
+      //   {
+      //     delay: 1500,
+      //     duration: 2000,
+      //     fill: "forwards",
+      //     iterations: Infinity
+      //   }
+      // );
     },
     async prePageTransToPage1() {
       this.loadAssetsPage1();
@@ -624,7 +683,15 @@ export default {
         duration: 1000,
         fill: "forwards"
       });
-      await this.prePage.Slate.animate([{ opacity: 1 }, { opacity: 0 }], {
+      this.prePage.Button1.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
+      this.prePage.Button2.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 1000,
+        fill: "forwards"
+      });
+      await this.prePage.Button3.animate([{ opacity: 1 }, { opacity: 0 }], {
         duration: 1000,
         fill: "forwards"
       }).finished;

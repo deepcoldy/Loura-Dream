@@ -7,6 +7,7 @@
     <input class="step" maxlength="128"  v-model="data.step" type="text">
     <input class="name" maxlength="11"  v-model="data.name" type="text">
     <input class="phone" maxlength="11" v-model="data.phone" type="text">
+    <img class="back" @click="toMainPage()" src="https://cdn.zoocer.com/prepage/menu.png" alt="">
   </div>
 </template>
 
@@ -315,6 +316,9 @@ export default {
         this.agree = true;
       });
     },
+    toMainPage() {
+      this.$router.replace("/");
+    },
     addStar() {
       this.Flash1 = new Sprite("https://cdn.zoocer.com/page4/flash1.png").attr({
         pos: [100, 645],
@@ -472,5 +476,13 @@ input.phone {
   left: 230px;
   height: 30px;
   width: 38%;
+}
+</style>
+<style>
+.back {
+  position: fixed;
+  bottom: 2%;
+  left: 4%;
+  width: 120px;
 }
 </style>

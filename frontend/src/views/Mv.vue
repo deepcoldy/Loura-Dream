@@ -6,6 +6,7 @@
     <iframe v-if="shadow && mv === 1" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=o00279bx3os&tiny=0" allowfullscreen="auto"></iframe>
     <iframe v-if="shadow && mv === 2" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=y0027v6mg9l&tiny=0" allowfullscreen="auto"></iframe>
     <iframe v-if="shadow && mv === 3" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=d0027090gk5&tiny=0" allowfullscreen="auto"></iframe>
+    <img class="back" @click="toMainPage()" src="https://cdn.zoocer.com/prepage/menu.png" alt="">
   </div>
 </template>
 <script>
@@ -230,6 +231,9 @@ export default {
         this.group.removeChild(this.shadow);
         this.shadow = null;
       }
+    },
+    toMainPage() {
+      this.$router.replace("/");
     }
   }
 };
