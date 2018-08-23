@@ -6,6 +6,7 @@
     <iframe v-if="shadow && mv === 1" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=o00279bx3os&tiny=0" allowfullscreen="auto"></iframe>
     <iframe v-if="shadow && mv === 2" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=y0027v6mg9l&tiny=0" allowfullscreen="auto"></iframe>
     <iframe v-if="shadow && mv === 3" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=d0027090gk5&tiny=0" allowfullscreen="auto"></iframe>
+    <iframe v-if="shadow && mv === 4" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=f00273n67an&tiny=0" allowfullscreen="auto"></iframe>
     <img class="back" @click="toMainPage()" src="https://cdn.zoocer.com/prepage/menu.png" alt="">
   </div>
 </template>
@@ -27,8 +28,10 @@ export default {
       button2Active: null,
       button3: null,
       button3Active: null,
+      button4: null,
+      button4Active: null,
       shadow: null,
-      mv: 3, // 使用最新的
+      mv: 4, // 使用最新的
       qqmusic: null,
       time: 0
     };
@@ -78,18 +81,19 @@ export default {
     this.addMV1();
     this.addMV2();
     this.addMV3();
+    this.addMV4();
 
     this.addQQmusic();
     const unClickButton = new Sprite({
-      size: [300, 100],
-      pos: [260, 980]
+      size: [300, 50],
+      pos: [260, 1030]
       // border: [2, "#f77"]
     });
     this.layer.append(unClickButton);
     unClickButton.on("click", () => {
       MessageBox({
         title: "开放时间",
-        message: "「缱绻」期待上映</br>「Naughty Ball」期待上映",
+        message: "「Naughty Ball」期待上映",
         showCancelButton: false,
         confirmButtonText: "关闭"
       });
@@ -119,6 +123,7 @@ export default {
         this.group.append(this.button1Active);
         this.group.append(this.button2);
         this.group.append(this.button3);
+        this.group.append(this.button4);
         this.mv = 1;
         this.group.append(this.cover);
       });
@@ -144,9 +149,10 @@ export default {
       this.group.append(this.button2);
 
       this.button2.on("click", () => {
-        this.group.append(this.button2Active);
         this.group.append(this.button1);
+        this.group.append(this.button2Active);
         this.group.append(this.button3);
+        this.group.append(this.button4);
         this.mv = 2;
         this.group.append(this.cover2);
       });
@@ -170,14 +176,45 @@ export default {
         anchor: 0.5
       });
       this.group.append(this.cover3);
-      this.group.append(this.button3);
       this.group.append(this.button3Active);
+      this.group.append(this.button3);
       this.button3.on("click", () => {
-        this.group.append(this.button3Active);
         this.group.append(this.button1);
         this.group.append(this.button2);
+        this.group.append(this.button3Active);
+        this.group.append(this.button4);
         this.mv = 3;
         this.group.append(this.cover3);
+      });
+    },
+    addMV4() {
+      this.cover4 = new Sprite(
+        "https://cdn.zoocer.com/page9/%E7%BC%B1%E7%BB%BB%E5%B0%81%E9%9D%A2.jpg"
+      ).attr({
+        pos: [110, 190]
+      });
+      this.button4Active = new Sprite(
+        "https://cdn.zoocer.com/page9/button4-active.jpg"
+      ).attr({
+        pos: [395, 1000],
+        anchor: 0.5
+      });
+      this.button4 = new Sprite(
+        "https://cdn.zoocer.com/page9/button4.jpg"
+      ).attr({
+        pos: [395, 1000],
+        anchor: 0.5
+      });
+      this.group.append(this.cover4);
+      this.group.append(this.button4);
+      this.group.append(this.button4Active);
+      this.button4.on("click", () => {
+        this.group.append(this.button1);
+        this.group.append(this.button2);
+        this.group.append(this.button3);
+        this.group.append(this.button4Active);
+        this.mv = 4;
+        this.group.append(this.cover4);
       });
     },
     addQQmusic() {
