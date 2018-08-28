@@ -7,12 +7,13 @@
     <iframe v-if="shadow && mv === 2" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=y0027v6mg9l&tiny=0" allowfullscreen="auto"></iframe>
     <iframe v-if="shadow && mv === 3" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=d0027090gk5&tiny=0" allowfullscreen="auto"></iframe>
     <iframe v-if="shadow && mv === 4" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=f00273n67an&tiny=0" allowfullscreen="auto"></iframe>
+    <iframe v-if="shadow && mv === 5" class="iframe" frameborder="0" src="https://v.qq.com/iframe/player.html?vid=f0027vc0e86&tiny=0" allowfullscreen="auto"></iframe>
     <img class="back" @click="toMainPage()" src="https://cdn.zoocer.com/prepage/menu.png" alt="">
   </div>
 </template>
 <script>
 import { Scene, Sprite, Group, Path } from "spritejs";
-import { MessageBox } from "mint-ui";
+// import { MessageBox } from "mint-ui";
 export default {
   data() {
     return {
@@ -30,8 +31,10 @@ export default {
       button3Active: null,
       button4: null,
       button4Active: null,
+      button5: null,
+      button5Active: null,
       shadow: null,
-      mv: 4, // 使用最新的
+      mv: 5, // 使用最新的
       qqmusic: null,
       time: 0
     };
@@ -82,22 +85,23 @@ export default {
     this.addMV2();
     this.addMV3();
     this.addMV4();
+    this.addMV5();
 
     this.addQQmusic();
-    const unClickButton = new Sprite({
-      size: [300, 50],
-      pos: [260, 1030]
-      // border: [2, "#f77"]
-    });
-    this.layer.append(unClickButton);
-    unClickButton.on("click", () => {
-      MessageBox({
-        title: "开放时间",
-        message: "「Naughty Ball」期待上映",
-        showCancelButton: false,
-        confirmButtonText: "关闭"
-      });
-    });
+    // const unClickButton = new Sprite({
+    //   size: [300, 50],
+    //   pos: [260, 1030]
+    //   // border: [2, "#f77"]
+    // });
+    // this.layer.append(unClickButton);
+    // unClickButton.on("click", () => {
+    //   MessageBox({
+    //     title: "开放时间",
+    //     message: "「Naughty Ball」期待上映",
+    //     showCancelButton: false,
+    //     confirmButtonText: "关闭"
+    //   });
+    // });
   },
   methods: {
     addMV1() {
@@ -124,6 +128,7 @@ export default {
         this.group.append(this.button2);
         this.group.append(this.button3);
         this.group.append(this.button4);
+        this.group.append(this.button5);
         this.mv = 1;
         this.group.append(this.cover);
       });
@@ -153,6 +158,7 @@ export default {
         this.group.append(this.button2Active);
         this.group.append(this.button3);
         this.group.append(this.button4);
+        this.group.append(this.button5);
         this.mv = 2;
         this.group.append(this.cover2);
       });
@@ -183,6 +189,7 @@ export default {
         this.group.append(this.button2);
         this.group.append(this.button3Active);
         this.group.append(this.button4);
+        this.group.append(this.button5);
         this.mv = 3;
         this.group.append(this.cover3);
       });
@@ -206,15 +213,47 @@ export default {
         anchor: 0.5
       });
       this.group.append(this.cover4);
-      this.group.append(this.button4);
       this.group.append(this.button4Active);
+      this.group.append(this.button4);
       this.button4.on("click", () => {
         this.group.append(this.button1);
         this.group.append(this.button2);
         this.group.append(this.button3);
         this.group.append(this.button4Active);
+        this.group.append(this.button5);
         this.mv = 4;
         this.group.append(this.cover4);
+      });
+    },
+    addMV5() {
+      this.cover5 = new Sprite(
+        "https://cdn.zoocer.com/page9/Naughty%20Ball-background.jpg"
+      ).attr({
+        pos: [110, 190]
+      });
+      this.button5Active = new Sprite(
+        "https://cdn.zoocer.com/page9/naughty%20ball-active.jpg"
+      ).attr({
+        pos: [397, 1052],
+        anchor: 0.5
+      });
+      this.button5 = new Sprite(
+        "https://cdn.zoocer.com/page9/naughty%20ball-button.jpg"
+      ).attr({
+        pos: [397, 1052],
+        anchor: 0.5
+      });
+      this.group.append(this.cover5);
+      this.group.append(this.button5);
+      this.group.append(this.button5Active);
+      this.button5.on("click", () => {
+        this.group.append(this.button1);
+        this.group.append(this.button2);
+        this.group.append(this.button3);
+        this.group.append(this.button4);
+        this.group.append(this.button5Active);
+        this.mv = 5;
+        this.group.append(this.cover5);
       });
     },
     addQQmusic() {
