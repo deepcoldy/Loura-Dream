@@ -1,27 +1,30 @@
 {
-  "name": "",
-  "version": "1.0.0",
+  "name": "frontend",
+  "version": "0.1.0",
   "private": true,
-  "description": "",
-  "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "autoprefixer": "^8.5.1",
-    "body-parser": "^1.18.3",
-    "compression": "^1.7.3",
-    "connect-timeout": "^1.9.0",
-    "cors": "^2.8.4",
-    "express": "4.12.3",
-    "mysql": "^2.16.0",
-    "node-sass": "^4.9.2",
-    "node-sass-middleware": "^0.11.0",
-    "postcss-middleware": "^1.1.4",
-    "swig": "^1.4.2"
+    "axios": "^0.18.0",
+    "lottie-web": "^5.2.0",
+    "mint-ui": "^2.2.13",
+    "postcss-pxtorem": "^4.0.1",
+    "spritejs": "^2.7.1",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
-  "devDependencies": {},
-  "engines": {
-    "node": "10.x"
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-rc.5",
+    "@vue/cli-plugin-eslint": "^3.0.0-rc.5",
+    "@vue/cli-service": "^3.0.0-rc.5",
+    "@vue/eslint-config-prettier": "^3.0.0-rc.5",
+    "babel-plugin-component": "^1.1.1",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "vue-template-compiler": "^2.5.17"
   }
 }
